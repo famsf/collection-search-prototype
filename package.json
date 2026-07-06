@@ -10,7 +10,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check",
+    "format": "biome format --write .",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "prepare": "lefthook install"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.0",
@@ -19,5 +24,11 @@
   },
   "overrides": {
     "vite": "7.3.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@biomejs/biome": "^2.5.2",
+    "lefthook": "^2.1.9",
+    "typescript": "^6.0.3"
   }
 }

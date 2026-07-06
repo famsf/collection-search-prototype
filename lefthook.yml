@@ -1,0 +1,12 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: biome
+      glob: "*.{js,ts,mjs,json}"
+      exclude:
+        - "*.astro"
+      run: npx biome check --write {staged_files}
+      stage_fixed: true
+    - name: astro-check
+      glob: "*.astro"
+      run: npx astro check
