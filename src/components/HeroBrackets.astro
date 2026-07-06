@@ -1,0 +1,326 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+/**
+ * Hero v2 — the FAMSF mark leans backward, so the query sits inside a pair of
+ * backslashes: `\ query \`. The left bracket is fixed; the word types out
+ * beside it and the right bracket glides to follow the word's width on a lush
+ * spring ease. Brand teal→purple wash introduces museum colour; the caret is
+ * brand yellow. Any interaction hands the field to the visitor.
+ *
+ * Colleague brief: "make more of the image, more colour from the brand guide,
+ * two backslashes that expand with the text, lush elegant motion."
+ */
+---
+
+<header class="hero relative isolate overflow-hidden bg-band text-white">
+  <!-- Ruscha backdrop, kept brighter than v1; brand-hue wash layered over. -->
+  <div class="absolute inset-0 -z-10">
+    <img
+      src={`${base}/standard.jpg`}
+      alt=""
+      class="h-full w-full scale-105 object-cover object-center opacity-[0.55]"
+    />
+    <!-- Slow-drifting teal→purple brand wash -->
+    <div class="hero__wash absolute inset-0 mix-blend-multiply"></div>
+    <!-- Left-anchored scrim keeps the text column at AA contrast -->
+    <div class="absolute inset-0 bg-gradient-to-r from-band/85 via-band/45 to-transparent"></div>
+  </div>
+
+  <div class="mx-auto max-w-[1360px] px-6 md:px-10">
+    <div class="flex min-h-[82vh] flex-col justify-center py-20 md:py-28">
+      <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-white/80">
+        Fine Arts Museums of San Francisco
+      </p>
+
+      <h1
+        class="font-grotesk text-[clamp(2.25rem,5vw,4.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-balance"
+      >
+        <span class="whitespace-nowrap">Search 150,000 works</span><br />
+        <span class="whitespace-nowrap">across 5,000 years.</span>
+      </h1>
+
+      <!-- Bracketed console -->
+      <form
+        id="console"
+        class="mt-12 w-full max-w-[860px] md:mt-16"
+        autocomplete="off"
+        role="search"
+        aria-label="Search the collection"
+      >
+        <label for="q" class="sr-only">Search the collection</label>
+
+        <div class="bracket-field">
+          <span aria-hidden="true" class="bracket bracket--left">\</span>
+
+          <!-- The measured text row. A hidden mirror sizes the visible input so
+               the right bracket can follow the exact word width. -->
+          <span class="bracket-field__slot">
+            <span id="mirror" aria-hidden="true" class="bracket-field__mirror"></span>
+            <input
+              id="q"
+              type="text"
+              name="q"
+              autocomplete="off"
+              class="bracket-field__input"
+            />
+          </span>
+
+          <span aria-hidden="true" class="bracket bracket--right">\</span>
+
+          <button type="submit" aria-label="Search the collection" class="bracket-field__go">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16.4375 16.4434L20.9938 20.9997" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Filter shortcuts (navigational → links) -->
+        <div class="mt-7 flex flex-wrap items-center gap-3 text-sm">
+          <span class="mr-1 font-mono text-xs uppercase tracking-[0.2em] text-white/75">Filter</span>
+          {
+            [
+              { label: "Open access", href: "?access=open" },
+              { label: "On view", href: "?on_view=1" },
+              { label: "Has image", href: "?has_image=1" },
+            ].map((f) => (
+              <a
+                href={f.href}
+                class="inline-flex min-h-8 items-center rounded-full border border-white/40 px-4 py-1.5 text-white no-underline transition hover:border-white/70 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {f.label}
+              </a>
+            ))
+          }
+        </div>
+      </form>
+    </div>
+  </div>
+</header>
+
+<style>
+  /* Brand-hue ambient wash: de Young teal → Legion purple, slowly drifting. */
+  .hero__wash {
+    background: linear-gradient(
+      115deg,
+      color-mix(in oklab, var(--color-deyoung) 90%, black) 0%,
+      var(--color-legion) 55%,
+      color-mix(in oklab, var(--color-amethyst) 80%, black) 100%
+    );
+    background-size: 220% 220%;
+    opacity: 0.5;
+    animation: wash-drift 26s ease-in-out infinite alternate;
+  }
+  @keyframes wash-drift {
+    from {
+      background-position: 0% 50%;
+    }
+    to {
+      background-position: 100% 50%;
+    }
+  }
+
+  .bracket-field {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+  }
+
+  /* The backslashes are the brand mark. Oversized grotesk, brand-tinted. */
+  .bracket {
+    font-family: var(--font-grotesk);
+    font-weight: 500;
+    font-size: clamp(3rem, 8vw, 6rem);
+    line-height: 0.8;
+    user-select: none;
+    color: color-mix(in oklab, var(--color-cerulean) 55%, white);
+    text-shadow: 0 0 24px color-mix(in oklab, var(--color-cerulean) 40%, transparent);
+    transition: color 400ms ease;
+  }
+  .bracket--right {
+    color: color-mix(in oklab, var(--color-amethyst) 60%, white);
+    text-shadow: 0 0 24px color-mix(in oklab, var(--color-amethyst) 40%, transparent);
+  }
+
+  /* Slot holds the input + an invisible mirror that dictates its width, so the
+     right bracket sits exactly at the end of the word and glides as it grows. */
+  .bracket-field__slot {
+    position: relative;
+    display: inline-block;
+    min-width: 1ch;
+    /* Snappy ease on width so fast typing never outruns it and clips the start
+       of the word; still smooth enough to feel like a glide. */
+    transition: width 170ms cubic-bezier(0.22, 1, 0.36, 1);
+    width: var(--slot-w, 1ch);
+  }
+  .bracket-field__mirror,
+  .bracket-field__input {
+    font-family: var(--font-mono);
+    font-size: clamp(1.35rem, 3.4vw, 2.25rem);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    white-space: pre;
+  }
+  /* Absolute but content-sized (no inset) so its box hugs the text; the JS
+     reads this width to size the slot. */
+  .bracket-field__mirror {
+    visibility: hidden;
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    white-space: pre;
+  }
+  .bracket-field__input {
+    width: 100%;
+    background: transparent;
+    border: 0;
+    outline: none;
+    color: #fff;
+    caret-color: var(--color-yellow);
+  }
+  .bracket-field__input::placeholder {
+    color: rgb(255 255 255 / 0.55);
+  }
+
+  .bracket-field__go {
+    margin-left: clamp(0.75rem, 2vw, 1.5rem);
+    display: inline-flex;
+    height: 3.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding-inline: 1.5rem;
+    color: #fff;
+    background: color-mix(in oklab, var(--color-legion) 70%, black);
+    transition:
+      background 240ms ease,
+      transform 240ms ease;
+  }
+  .bracket-field__go:hover {
+    background: var(--color-legion);
+  }
+  .bracket-field__go:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__wash {
+      animation: none;
+    }
+    .bracket-field__slot {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const input = document.getElementById("q") as HTMLInputElement;
+  const mirror = document.getElementById("mirror")!;
+  const slot = mirror.parentElement as HTMLElement;
+  const form = document.getElementById("console") as HTMLFormElement;
+
+  // Real collection entry points (from the extract), no leading slash.
+  const TERMS = [
+    "art", "prints", "drawings", "photographs", "sculpture", "paintings",
+    "textiles", "costume", "ruscha", "picasso", "diebenkorn", "doré",
+    "lewitt", "rowlandson", "egyptian", "greek", "maya", "asante",
+    "ancient-art", "decorative-arts",
+  ];
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const TYPE_MS = 95;
+  const DELETE_MS = 45;
+  const HOLD_MS = 1200;
+  const GAP_MS = 420;
+
+  let stopped = false;
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  // Size the slot to the current text so the right bracket follows the word.
+  function resize() {
+    mirror.textContent = input.value || " ";
+    // +2px buffer so the caret + last glyph always have room while the width
+    // eases; the input never scrolls its start out of view.
+    const w = mirror.getBoundingClientRect().width + 2;
+    slot.style.setProperty("--slot-w", `${Math.max(w, 8)}px`);
+  }
+
+  function set(v: string) {
+    if (stopped) return;
+    input.value = v;
+    resize();
+  }
+
+  function shuffled(arr: string[]) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  async function typeWord(word: string) {
+    for (let i = 1; i <= word.length; i++) {
+      if (stopped) return;
+      set(word.slice(0, i));
+      await sleep(TYPE_MS);
+    }
+  }
+  async function deleteWord() {
+    let s = input.value;
+    while (s.length) {
+      if (stopped) return;
+      s = s.slice(0, -1);
+      set(s);
+      await sleep(DELETE_MS);
+    }
+  }
+  async function run() {
+    let queue = shuffled(TERMS);
+    let i = 0;
+    while (!stopped) {
+      if (i >= queue.length) {
+        queue = shuffled(TERMS);
+        i = 0;
+      }
+      await typeWord(queue[i]);
+      if (stopped) return;
+      await sleep(HOLD_MS);
+      await deleteWord();
+      if (stopped) return;
+      await sleep(GAP_MS);
+      i++;
+    }
+  }
+
+  function takeOver() {
+    if (stopped) return;
+    stopped = true;
+    input.value = "";
+    input.placeholder = "type to search…";
+    resize();
+    input.focus();
+  }
+  input.addEventListener("pointerdown", takeOver);
+  input.addEventListener("keydown", takeOver);
+  input.addEventListener("input", resize);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    stopped = true;
+    const q = input.value.replace(/[\\/]+/g, "").trim();
+    input.value = q;
+    resize();
+    console.log("Would search:", q);
+  });
+
+  resize();
+  if (reduce) {
+    set("art");
+  } else {
+    run();
+  }
+</script>

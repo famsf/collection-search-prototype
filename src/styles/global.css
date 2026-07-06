@@ -20,6 +20,14 @@
   --color-band: #141414;   /* dark search band / hero backdrop */
   --color-ink: #141414;    /* body ink on white */
 
+  /* FAMSF brand palette (from famsf_laravel frontend.config.json).
+     Two museum hues: cerulean = de Young, amethyst/purple = Legion of Honor. */
+  --color-deyoung: #006973;   /* de Young teal (cerulean-40) */
+  --color-cerulean: #009cab;  /* cerulean-60, brighter teal */
+  --color-legion: #453380;    /* Legion of Honor purple (amethyst-40) */
+  --color-amethyst: #6653a6;  /* amethyst-50, brighter purple */
+  --color-yellow: #f0cb09;    /* brand yellow accent */
+
   --font-grotesk: "akzidenz-grotesk-next-pro", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Signifier", Georgia, "Times New Roman", serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;

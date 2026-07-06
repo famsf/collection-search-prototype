@@ -1,0 +1,519 @@
+---
+import Layout from "../layouts/Layout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Layout title="FAMSF Collection — place of creation map">
+  <main class="min-h-screen bg-band text-white">
+    <div class="mx-auto max-w-[1360px] px-6 py-16 md:px-10 md:py-24">
+      <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-white/70">
+        Fine Arts Museums of San Francisco
+      </p>
+      <h1
+        class="mb-3 font-grotesk text-[clamp(2rem,4.5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-balance"
+      >
+        Every place of creation, at once.
+      </h1>
+      <p class="mb-10 max-w-[65ch] text-white/70">
+        One dot per place in the collection, sized by how many works come from
+        there. No pre-filtering — this is the full dataset, dense spots and all.
+      </p>
+
+      <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
+        <!-- Map panel -->
+        <div class="relative">
+          <div
+            id="map-panel"
+            class="relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]"
+            style="aspect-ratio: 2 / 1;"
+          >
+            <svg
+              id="map-svg"
+              viewBox="0 0 1000 500"
+              class="absolute inset-0 h-full w-full cursor-grab touch-pan-y"
+              role="img"
+              aria-label="World map with a dot for every place of creation in the collection, sized by number of works. Scroll to zoom, drag to pan."
+            >
+              <!-- graticule + dots injected at runtime -->
+            </svg>
+
+            <!-- Tooltip, positioned absolutely over the panel -->
+            <div
+              id="tooltip"
+              role="status"
+              class="pointer-events-none absolute z-10 hidden -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-md bg-white px-2.5 py-1.5 font-mono text-xs text-band shadow-lg"
+            >
+            </div>
+
+            <!-- Zoom controls -->
+            <div class="absolute bottom-3 right-3 z-10 flex flex-col gap-1.5">
+              <button
+                type="button"
+                id="zoom-in"
+                aria-label="Zoom in"
+                class="flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#0a0a0a]/80 font-mono text-base leading-none text-white/80 backdrop-blur transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean"
+                >+</button
+              >
+              <button
+                type="button"
+                id="zoom-out"
+                aria-label="Zoom out"
+                class="flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#0a0a0a]/80 font-mono text-base leading-none text-white/80 backdrop-blur transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean"
+                >&minus;</button
+              >
+              <button
+                type="button"
+                id="zoom-reset"
+                aria-label="Reset view"
+                class="flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#0a0a0a]/80 font-mono text-[10px] uppercase leading-none tracking-wide text-white/80 backdrop-blur transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean"
+                >Reset</button
+              >
+            </div>
+          </div>
+
+          <p id="caption" class="mt-4 max-w-[70ch] text-sm leading-relaxed text-white/70" aria-live="polite">
+            Loading…
+          </p>
+        </div>
+
+        <!-- Legend / top places list -->
+        <aside aria-labelledby="legend-h">
+          <h2 id="legend-h" class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">
+            Top 15 places
+          </h2>
+          <ol id="legend-list" class="m-0 flex list-none flex-col gap-1 p-0">
+            <!-- rows injected at runtime -->
+          </ol>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <script define:vars={{ base }}>
+    /**
+     * World map of every place of creation. Equirectangular projection,
+     * hand-drawn graticule (no tile server / external map lib — GH Pages
+     * static-only constraint), dot radius ~ sqrt(n), colour blends toward
+     * yellow as n grows. Legend rows and dots share hover/focus highlight.
+     */
+    const svg = document.getElementById("map-svg");
+    const tooltip = document.getElementById("tooltip");
+    const panel = document.getElementById("map-panel");
+    const legendList = document.getElementById("legend-list");
+    const captionEl = document.getElementById("caption");
+
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const WIDTH = 1000;
+    const HEIGHT = 500;
+    const MIN_R = 2;
+    const MAX_R = 40;
+
+    // --- Zoom / pan state ---------------------------------------------
+    // viewBox is [x, y, w, h] in world units (0..1000 / 0..500).
+    // w shrinks as we zoom in; min w = full extent, max zoom ~20x -> w ~= 50.
+    const FULL_VB = { x: 0, y: 0, w: WIDTH, h: HEIGHT };
+    const MIN_VB_W = WIDTH / 20; // ~50, max zoom
+    const MAX_VB_W = WIDTH; // full extent, min zoom
+    let vb = { ...FULL_VB };
+    let baseDotsGroup = null; // populated once dots are drawn, for rescaling
+
+    function applyViewBox() {
+      svg.setAttribute("viewBox", `${vb.x} ${vb.y} ${vb.w} ${vb.h}`);
+      rescaleDots();
+    }
+
+    function clampViewBox(next) {
+      let { x, y, w, h } = next;
+      w = Math.min(MAX_VB_W, Math.max(MIN_VB_W, w));
+      h = (w * HEIGHT) / WIDTH;
+      x = Math.min(WIDTH - w, Math.max(0, x));
+      y = Math.min(HEIGHT - h, Math.max(0, y));
+      return { x, y, w, h };
+    }
+
+    // Convert a pointer's client coords to world (viewBox) coords.
+    function clientToWorld(clientX, clientY) {
+      const rect = svg.getBoundingClientRect();
+      const px = (clientX - rect.left) / rect.width;
+      const py = (clientY - rect.top) / rect.height;
+      return { x: vb.x + px * vb.w, y: vb.y + py * vb.h };
+    }
+
+    function zoomAt(clientX, clientY, factor) {
+      const before = clientToWorld(clientX, clientY);
+      const newW = vb.w * factor;
+      const clampedW = Math.min(MAX_VB_W, Math.max(MIN_VB_W, newW));
+      const scale = clampedW / vb.w;
+      // Keep the world point under the cursor stationary.
+      const newX = before.x - (before.x - vb.x) * scale;
+      const newY = before.y - (before.y - vb.y) * scale;
+      vb = clampViewBox({ x: newX, y: newY, w: clampedW, h: (clampedW * HEIGHT) / WIDTH });
+      applyViewBox();
+    }
+
+    function zoomAtCenter(factor) {
+      const rect = svg.getBoundingClientRect();
+      zoomAt(rect.left + rect.width / 2, rect.top + rect.height / 2, factor);
+    }
+
+    function resetView() {
+      vb = { ...FULL_VB };
+      applyViewBox();
+    }
+
+    function panBy(dxClient, dyClient) {
+      const rect = svg.getBoundingClientRect();
+      const dxWorld = (dxClient / rect.width) * vb.w;
+      const dyWorld = (dyClient / rect.height) * vb.h;
+      vb = clampViewBox({ x: vb.x - dxWorld, y: vb.y - dyWorld, w: vb.w, h: vb.h });
+      applyViewBox();
+    }
+
+    // Counter-scale dot radius/stroke so markers keep ~constant screen size.
+    function rescaleDots() {
+      if (!baseDotsGroup) return;
+      const zoomFactor = WIDTH / vb.w; // 1 at full extent, up to 20 at max zoom
+      for (const circle of baseDotsGroup.children) {
+        const baseR = Number(circle.getAttribute("data-base-r"));
+        if (!baseR) continue;
+        const isHighlighted = circle.getAttribute("data-highlighted") === "1";
+        const boost = Number(circle.getAttribute("data-highlight-boost")) || 1;
+        const effectiveR = (baseR / zoomFactor) * boost;
+        circle.setAttribute("r", String(effectiveR));
+        if (isHighlighted) {
+          circle.setAttribute("stroke", "#fff");
+          circle.setAttribute("stroke-width", String(2 / zoomFactor));
+        }
+      }
+    }
+
+    function project(lat, lng) {
+      const x = ((lng + 180) / 360) * WIDTH;
+      const y = ((90 - lat) / 180) * HEIGHT;
+      return { x, y };
+    }
+
+    function drawGraticule() {
+      const g = document.createElementNS(SVG_NS, "g");
+      g.setAttribute("stroke", "rgba(255,255,255,0.08)");
+      g.setAttribute("stroke-width", "1");
+
+      // Background panel
+      const bg = document.createElementNS(SVG_NS, "rect");
+      bg.setAttribute("x", "0");
+      bg.setAttribute("y", "0");
+      bg.setAttribute("width", String(WIDTH));
+      bg.setAttribute("height", String(HEIGHT));
+      bg.setAttribute("fill", "#0a0a0a");
+      bg.setAttribute("stroke", "none");
+      svg.appendChild(bg);
+
+      // Equator + prime meridian slightly brighter
+      for (let lng = -180; lng <= 180; lng += 30) {
+        const { x } = project(0, lng);
+        const line = document.createElementNS(SVG_NS, "line");
+        line.setAttribute("x1", String(x));
+        line.setAttribute("y1", "0");
+        line.setAttribute("x2", String(x));
+        line.setAttribute("y2", String(HEIGHT));
+        if (lng === 0) line.setAttribute("stroke", "rgba(255,255,255,0.16)");
+        g.appendChild(line);
+      }
+      for (let lat = -90; lat <= 90; lat += 30) {
+        const { y } = project(lat, 0);
+        const line = document.createElementNS(SVG_NS, "line");
+        line.setAttribute("x1", "0");
+        line.setAttribute("y1", String(y));
+        line.setAttribute("x2", String(WIDTH));
+        line.setAttribute("y2", String(y));
+        if (lat === 0) line.setAttribute("stroke", "rgba(255,255,255,0.16)");
+        g.appendChild(line);
+      }
+      svg.appendChild(g);
+    }
+
+    // Brand hues to interpolate through as n grows: teal -> purple -> yellow
+    const STOPS = [
+      { n: 0, rgb: [0, 105, 115] }, // deyoung
+      { n: 0.5, rgb: [102, 83, 166] }, // amethyst
+      { n: 1, rgb: [240, 203, 9] }, // yellow
+    ];
+
+    function colorFor(t) {
+      // t in [0,1]; pick the surrounding pair of stops and lerp
+      let lo = STOPS[0];
+      let hi = STOPS[STOPS.length - 1];
+      for (let i = 0; i < STOPS.length - 1; i++) {
+        if (t >= STOPS[i].n && t <= STOPS[i + 1].n) {
+          lo = STOPS[i];
+          hi = STOPS[i + 1];
+          break;
+        }
+      }
+      const span = hi.n - lo.n || 1;
+      const localT = (t - lo.n) / span;
+      const rgb = lo.rgb.map((c, i) => Math.round(c + (hi.rgb[i] - c) * localT));
+      return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+    }
+
+    function showTooltip(x, y, text) {
+      tooltip.textContent = text;
+      tooltip.style.left = `${x}px`;
+      tooltip.style.top = `${y - 10}px`;
+      tooltip.classList.remove("hidden");
+    }
+    function hideTooltip() {
+      tooltip.classList.add("hidden");
+    }
+
+    async function init() {
+      const res = await fetch(`${base}/data/places.ndjson`);
+      const text = await res.text();
+      const lines = text.split("\n").filter((l) => l.trim().length > 0);
+
+      const places = lines.map((l) => JSON.parse(l));
+      const mapped = places.filter((p) => p.lat != null && p.lng != null);
+      const unmapped = places.length - mapped.length;
+
+      const totalObjects = places.reduce((sum, p) => sum + p.n, 0);
+      const mappedObjects = mapped.reduce((sum, p) => sum + p.n, 0);
+
+      // Continent-level read from path[1] (path[0] is always "World")
+      const byContinent = new Map();
+      for (const p of mapped) {
+        const continent = Array.isArray(p.path) && p.path.length > 1 ? p.path[1] : "Unknown";
+        byContinent.set(continent, (byContinent.get(continent) || 0) + p.n);
+      }
+      const topContinents = Array.from(byContinent.entries()).sort((a, b) => b[1] - a[1]);
+      const [topName, topN] = topContinents[0];
+      const topPct = Math.round((topN / mappedObjects) * 100);
+      const [secondName, secondN] = topContinents[1] || ["", 0];
+      const secondPct = Math.round((secondN / mappedObjects) * 100);
+
+      drawGraticule();
+
+      const maxN = Math.max(...mapped.map((p) => p.n));
+      const minN = Math.min(...mapped.map((p) => p.n));
+      const sqrtMax = Math.sqrt(maxN);
+      const sqrtMin = Math.sqrt(minN);
+
+      function radiusFor(n) {
+        const t = (Math.sqrt(n) - sqrtMin) / (sqrtMax - sqrtMin || 1);
+        return MIN_R + t * (MAX_R - MIN_R);
+      }
+
+      const dotsGroup = document.createElementNS(SVG_NS, "g");
+      const circleById = new Map();
+
+      mapped.forEach((p, i) => {
+        const { x, y } = project(p.lat, p.lng);
+        const r = radiusFor(p.n);
+        const t = Math.sqrt(p.n) / sqrtMax;
+        const circle = document.createElementNS(SVG_NS, "circle");
+        circle.setAttribute("cx", String(x));
+        circle.setAttribute("cy", String(y));
+        circle.setAttribute("r", String(r));
+        circle.setAttribute("data-base-r", String(r));
+        circle.setAttribute("fill", colorFor(t));
+        circle.setAttribute("fill-opacity", "0.55");
+        circle.setAttribute("stroke", "none");
+        circle.setAttribute("tabindex", "0");
+        circle.setAttribute("role", "button");
+        circle.setAttribute("data-id", String(i));
+        circle.setAttribute(
+          "aria-label",
+          `${p.place}: ${p.n.toLocaleString()} object${p.n === 1 ? "" : "s"}`,
+        );
+        circle.classList.add("map-dot");
+
+        const label = `${p.place} — ${p.n.toLocaleString()} object${p.n === 1 ? "" : "s"}`;
+
+        function onEnter() {
+          const panelRect = panel.getBoundingClientRect();
+          const svgRect = svg.getBoundingClientRect();
+          // Map world coords -> current on-screen position via the live viewBox,
+          // then express relative to the panel (tooltip is positioned over panel).
+          const px = ((x - vb.x) / vb.w) * svgRect.width + (svgRect.left - panelRect.left);
+          const py = ((y - vb.y) / vb.h) * svgRect.height + (svgRect.top - panelRect.top);
+          showTooltip(px, py, label);
+          const zoomFactor = WIDTH / vb.w;
+          circle.setAttribute("stroke", "#fff");
+          circle.setAttribute("stroke-width", String(1.5 / zoomFactor));
+          circle.setAttribute("fill-opacity", "0.9");
+          circle.setAttribute("data-highlighted", "1");
+        }
+        function onLeave() {
+          hideTooltip();
+          circle.setAttribute("stroke", "none");
+          circle.setAttribute("fill-opacity", "0.55");
+          circle.removeAttribute("data-highlighted");
+        }
+
+        circle.addEventListener("mouseenter", onEnter);
+        circle.addEventListener("mouseleave", onLeave);
+        circle.addEventListener("focus", onEnter);
+        circle.addEventListener("blur", onLeave);
+
+        dotsGroup.appendChild(circle);
+        circleById.set(i, circle);
+      });
+      svg.appendChild(dotsGroup);
+      baseDotsGroup = dotsGroup;
+
+      // Legend: top 15 by n, cross-highlights the matching dot
+      const top15 = mapped
+        .map((p, i) => ({ ...p, index: i }))
+        .sort((a, b) => b.n - a.n)
+        .slice(0, 15);
+
+      top15.forEach((p) => {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className =
+          "flex w-full items-center justify-between gap-3 rounded-md px-2.5 py-1.5 text-left font-mono text-[13px] text-white/80 transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean motion-reduce:transition-none";
+        btn.innerHTML = `<span class="truncate">${p.place}</span><span class="shrink-0 tabular-nums text-white/50">${p.n.toLocaleString()}</span>`;
+
+        const circle = circleById.get(p.index);
+
+        function highlight() {
+          if (!circle) return;
+          circle.setAttribute("fill-opacity", "1");
+          circle.setAttribute("data-highlighted", "1");
+          circle.setAttribute("data-highlight-boost", "1.3");
+          rescaleDots();
+        }
+        function unhighlight() {
+          if (!circle) return;
+          circle.setAttribute("stroke", "none");
+          circle.setAttribute("fill-opacity", "0.55");
+          circle.removeAttribute("data-highlighted");
+          circle.removeAttribute("data-highlight-boost");
+          rescaleDots();
+        }
+
+        btn.addEventListener("mouseenter", highlight);
+        btn.addEventListener("mouseleave", unhighlight);
+        btn.addEventListener("focus", highlight);
+        btn.addEventListener("blur", unhighlight);
+
+        li.appendChild(btn);
+        legendList.appendChild(li);
+      });
+
+      const pctPlaces = ((mapped.length / places.length) * 100).toFixed(1);
+      const pctObjects = ((mappedObjects / totalObjects) * 100).toFixed(1);
+
+      captionEl.textContent =
+        `${mapped.length.toLocaleString()} of ${places.length.toLocaleString()} places mapped ` +
+        `(${pctPlaces}% of places, ${pctObjects}% of ${totalObjects.toLocaleString()} objects). ` +
+        `${topName} and ${secondName} alone account for ${topPct + secondPct}% of mapped objects` +
+        ` (${topName} ${topPct}%, ${secondName} ${secondPct}%) — the collection reads as heavily ` +
+        `Euro/American, with everywhere else thinner and more scattered. ` +
+        `${unmapped.toLocaleString()} place${unmapped === 1 ? "" : "s"} had no resolvable coordinates and are omitted from the map.`;
+    }
+
+    // --- Wheel zoom, drag pan, buttons, touch --------------------------
+    function setupZoomPan() {
+      const ZOOM_STEP = 1.3;
+
+      svg.addEventListener(
+        "wheel",
+        (e) => {
+          e.preventDefault();
+          const factor = e.deltaY > 0 ? ZOOM_STEP : 1 / ZOOM_STEP;
+          zoomAt(e.clientX, e.clientY, factor);
+        },
+        { passive: false },
+      );
+
+      document.getElementById("zoom-in").addEventListener("click", () => zoomAtCenter(1 / ZOOM_STEP));
+      document.getElementById("zoom-out").addEventListener("click", () => zoomAtCenter(ZOOM_STEP));
+      document.getElementById("zoom-reset").addEventListener("click", resetView);
+
+      // Pointer-based drag pan (works for mouse + single-finger touch).
+      let dragging = false;
+      let lastX = 0;
+      let lastY = 0;
+
+      svg.addEventListener("pointerdown", (e) => {
+        // Ignore multi-touch (leave room for pinch-to-zoom / avoid pan fighting it).
+        if (e.pointerType === "touch" && e.isPrimary === false) return;
+        dragging = true;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        svg.setPointerCapture(e.pointerId);
+        svg.classList.remove("cursor-grab");
+        svg.classList.add("cursor-grabbing");
+      });
+      svg.addEventListener("pointermove", (e) => {
+        if (!dragging) return;
+        const dx = e.clientX - lastX;
+        const dy = e.clientY - lastY;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        panBy(dx, dy);
+      });
+      function endDrag(e) {
+        if (!dragging) return;
+        dragging = false;
+        svg.classList.remove("cursor-grabbing");
+        svg.classList.add("cursor-grab");
+        try {
+          svg.releasePointerCapture(e.pointerId);
+        } catch {
+          /* no-op: pointer capture may already be released */
+        }
+      }
+      svg.addEventListener("pointerup", endDrag);
+      svg.addEventListener("pointercancel", endDrag);
+
+      // Basic pinch-to-zoom: track two touch points, zoom by distance ratio.
+      let pinchStartDist = null;
+      let pinchStartVbW = null;
+      svg.addEventListener(
+        "touchmove",
+        (e) => {
+          if (e.touches.length !== 2) {
+            pinchStartDist = null;
+            return;
+          }
+          e.preventDefault();
+          const [t1, t2] = e.touches;
+          const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+          const midX = (t1.clientX + t2.clientX) / 2;
+          const midY = (t1.clientY + t2.clientY) / 2;
+          if (pinchStartDist == null) {
+            pinchStartDist = dist;
+            pinchStartVbW = vb.w;
+            return;
+          }
+          const targetW = clampViewBox({ ...vb, w: pinchStartVbW * (pinchStartDist / dist) }).w;
+          zoomAt(midX, midY, targetW / vb.w);
+        },
+        { passive: false },
+      );
+      svg.addEventListener("touchend", (e) => {
+        if (e.touches.length < 2) pinchStartDist = null;
+      });
+    }
+
+    setupZoomPan();
+    init();
+  </script>
+
+  <style>
+    @media (prefers-reduced-motion: no-preference) {
+      .map-dot {
+        transition:
+          r 0.15s ease-out,
+          fill-opacity 0.15s ease-out;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .map-dot {
+        transition: none;
+      }
+    }
+  </style>
+</Layout>

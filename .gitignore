@@ -2,3 +2,6 @@ node_modules/
 dist/
 .astro/
 
+
+# generated intermediate (regenerate via scripts/geocode_places.py inputs)
+scripts/places_raw.json

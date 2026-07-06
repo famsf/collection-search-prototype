@@ -1,0 +1,355 @@
+---
+import Layout from "../layouts/Layout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Layout title="FAMSF Collection — 5,000 years timeline">
+  <main class="min-h-screen bg-band text-white">
+    <div class="mx-auto max-w-[1360px] px-6 py-16 md:px-10 md:py-24">
+      <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-white/70">
+        Fine Arts Museums of San Francisco
+      </p>
+      <h1
+        class="mb-3 font-grotesk text-[clamp(2rem,4.5vw,3.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-balance"
+      >
+        150,000 works across 5,000 years.
+      </h1>
+      <p class="mb-14 max-w-[60ch] text-white/70">
+        Drag the marker, or use the arrow keys, to move through the collection by era.
+      </p>
+
+      <!-- Readout: era + count update live as the scrubber moves -->
+      <div class="mb-10 flex flex-col gap-1" aria-live="polite">
+        <span
+          id="era-label"
+          class="font-mono text-sm uppercase tracking-[0.2em] text-cerulean"
+        ></span>
+        <span
+          id="count-label"
+          class="font-grotesk text-[clamp(2.5rem,7vw,5.5rem)] font-medium leading-none tracking-[-0.02em]"
+        ></span>
+        <span class="mt-1 font-mono text-sm text-white/60">works catalogued in this 50-year span</span>
+      </div>
+
+      <!-- Histogram + scrubber -->
+      <div class="relative select-none">
+        <div
+          id="chart"
+          class="relative flex h-56 items-end gap-[1px] md:h-72"
+          aria-hidden="true"
+        >
+          <!-- bars injected at runtime -->
+        </div>
+
+        <!-- Draggable track sits over the chart; the handle is positioned by JS -->
+        <div id="track" class="relative mt-3 h-8 cursor-pointer">
+          <div class="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-white/20"></div>
+          <button
+            id="handle"
+            type="button"
+            role="slider"
+            aria-label="Select a 50-year era"
+            aria-valuemin="0"
+            aria-valuemax="83"
+            aria-valuenow="0"
+            class="absolute top-1/2 h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-band bg-cerulean shadow-[0_0_0_4px_rgba(0,156,171,0.25)] transition-shadow focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          ></button>
+        </div>
+
+        <!-- Era tick labels -->
+        <div
+          id="ticks"
+          class="relative mt-2 h-4 font-mono text-[11px] uppercase tracking-wide text-white/50"
+        >
+          <!-- tick labels injected at runtime -->
+        </div>
+      </div>
+
+      <!-- Sample works for the selected era -->
+      <div class="mt-16">
+        <div class="mb-4 flex flex-wrap items-baseline justify-between gap-2">
+          <h2 class="font-grotesk text-lg font-medium text-white">Sample works from this era</h2>
+          <p class="font-mono text-xs uppercase tracking-[0.2em] text-white/50">
+            Sample works &middot; imagery placeholder
+          </p>
+        </div>
+        <div
+          id="works-grid"
+          class="grid grid-cols-2 gap-4 transition-opacity duration-200 sm:grid-cols-3 lg:grid-cols-4"
+        >
+          <!-- work cards injected at runtime -->
+        </div>
+        <p id="works-empty" class="hidden text-sm text-white/50">
+          No sample works catalogued for this era yet.
+        </p>
+        <p id="works-live" class="sr-only" aria-live="polite"></p>
+      </div>
+    </div>
+  </main>
+
+  <script define:vars={{ base }}>
+    /**
+     * Timeline scrubber: fetches 50-year bucket counts, renders a sqrt-scaled
+     * histogram, and drives a keyboard + pointer draggable slider over it.
+     * Bars up to and including the selected bucket are highlighted.
+     */
+    const chartEl = document.getElementById("chart");
+    const trackEl = document.getElementById("track");
+    const handleEl = document.getElementById("handle");
+    const eraLabelEl = document.getElementById("era-label");
+    const countLabelEl = document.getElementById("count-label");
+    const ticksEl = document.getElementById("ticks");
+    const worksGridEl = document.getElementById("works-grid");
+    const worksEmptyEl = document.getElementById("works-empty");
+    const worksLiveEl = document.getElementById("works-live");
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    // Faked imagery: alternate brand hues, stable per work via a title hash.
+    const TILE_GRADIENTS = [
+      "linear-gradient(155deg, #009cab, #006973)", // cerulean -> de young
+      "linear-gradient(155deg, #6653a6, #453380)", // amethyst -> legion
+      "linear-gradient(155deg, #3a3a3a, #141414)", // neutral grey -> band
+      "linear-gradient(155deg, #f0cb09, #006973)", // yellow -> de young
+      "linear-gradient(155deg, #453380, #009cab)", // legion -> cerulean
+    ];
+    function hashString(str) {
+      let hash = 0;
+      for (let i = 0; i < str.length; i++) {
+        hash = (hash << 5) - hash + str.charCodeAt(i);
+        hash |= 0;
+      }
+      return Math.abs(hash);
+    }
+    function tileGradient(work) {
+      const key = `${work.title}${work.artist}`;
+      return TILE_GRADIENTS[hashString(key) % TILE_GRADIENTS.length];
+    }
+    function truncate(str, max) {
+      return str.length > max ? `${str.slice(0, max - 1).trimEnd()}…` : str;
+    }
+
+    function renderWorks(worksByBucket, bucket) {
+      const entry = worksByBucket.get(bucket);
+      const works = entry ? entry.works : [];
+
+      const frag = document.createDocumentFragment();
+      works.slice(0, 8).forEach((work) => {
+        const card = document.createElement("figure");
+        card.className = "group m-0";
+
+        const tile = document.createElement("div");
+        tile.className =
+          "relative flex aspect-[4/5] items-end overflow-hidden rounded-sm";
+        tile.style.background = tileGradient(work);
+
+        if (work.thumb) {
+          const img = document.createElement("img");
+          img.src = work.thumb;
+          img.alt = "";
+          img.loading = "lazy";
+          img.className = "absolute inset-0 h-full w-full object-cover";
+          tile.appendChild(img);
+        }
+
+        const classTag = document.createElement("span");
+        classTag.className =
+          "relative m-2 inline-block rounded-full bg-black/40 px-2 py-0.5 font-mono text-[10px] uppercase tracking-wide text-white/90 backdrop-blur-sm";
+        classTag.textContent = work.class || "Work";
+        tile.appendChild(classTag);
+
+        const caption = document.createElement("figcaption");
+        caption.className = "mt-2";
+
+        const title = document.createElement("p");
+        title.className = "font-grotesk text-sm font-medium leading-snug text-white";
+        title.textContent = truncate(work.title || "Untitled", 60);
+        caption.appendChild(title);
+
+        const meta = document.createElement("p");
+        meta.className = "mt-0.5 font-mono text-xs text-white/60";
+        meta.textContent = [work.artist, work.date].filter(Boolean).join(" · ");
+        caption.appendChild(meta);
+
+        card.appendChild(tile);
+        card.appendChild(caption);
+        frag.appendChild(card);
+      });
+
+      function swap() {
+        worksGridEl.replaceChildren(frag);
+        worksGridEl.classList.toggle("hidden", works.length === 0);
+        worksEmptyEl.classList.toggle("hidden", works.length > 0);
+      }
+
+      if (prefersReducedMotion) {
+        swap();
+      } else {
+        worksGridEl.classList.add("opacity-0");
+        window.setTimeout(() => {
+          swap();
+          worksGridEl.classList.remove("opacity-0");
+        }, 150);
+      }
+
+      worksLiveEl.textContent = works.length
+        ? `Showing ${works.length} sample work${works.length === 1 ? "" : "s"} from this era.`
+        : "No sample works catalogued for this era.";
+    }
+
+    function formatYear(year, isEnd) {
+      // isEnd: the exclusive end of a 50-year span (bucket + 50)
+      if (year <= 0) {
+        const bce = Math.abs(year);
+        return bce === 0 ? "1 BCE" : `${bce.toLocaleString()} BCE`;
+      }
+      return isEnd ? `${year} CE` : `${year}`;
+    }
+
+    function eraLabel(bucket) {
+      const start = bucket;
+      const end = bucket + 50;
+      // Span crossing the BCE/CE boundary reads oddly with raw arithmetic;
+      // label each side explicitly.
+      const startLabel = formatYear(start, false);
+      const endLabel = formatYear(end, true);
+      return `${startLabel} – ${endLabel}`;
+    }
+
+    async function init() {
+      const [res, worksRes] = await Promise.all([
+        fetch(`${base}/data/timeline_buckets.json`),
+        fetch(`${base}/data/timeline_works.json`),
+      ]);
+      const data = await res.json();
+      const worksData = await worksRes.json();
+      const worksByBucket = new Map(worksData.map((entry) => [entry.bucket, entry]));
+
+      const maxN = Math.max(...data.map((d) => d.n));
+      // sqrt scale keeps n=1 antiquity bars visible next to the n=29k peak
+      const scale = (n) => Math.sqrt(n) / Math.sqrt(maxN);
+
+      // Build bars
+      const frag = document.createDocumentFragment();
+      data.forEach((d, i) => {
+        const bar = document.createElement("div");
+        bar.dataset.index = String(i);
+        const heightPct = Math.max(scale(d.n) * 100, 2); // floor so n=1 stays visible
+        bar.style.height = `${heightPct}%`;
+        bar.className =
+          "flex-1 rounded-t-[1px] bg-white/15 transition-colors duration-150";
+        frag.appendChild(bar);
+      });
+      chartEl.appendChild(frag);
+      const bars = Array.from(chartEl.children);
+
+      // Era ticks at a handful of meaningful years
+      const tickYears = [-3000, 0, 1500, 1800, 1900, 2000];
+      tickYears.forEach((year) => {
+        // nearest bucket index for this year, clamped to range
+        let closest = 0;
+        let closestDist = Infinity;
+        data.forEach((d, i) => {
+          const dist = Math.abs(d.bucket - year);
+          if (dist < closestDist) {
+            closestDist = dist;
+            closest = i;
+          }
+        });
+        const pct = (closest / (data.length - 1)) * 100;
+        const tick = document.createElement("span");
+        tick.className = "absolute -translate-x-1/2";
+        tick.style.left = `${pct}%`;
+        tick.textContent = year <= 0 ? `${Math.abs(year).toLocaleString()} BC` : year === 0 ? "0" : year === 1500 || year === 1800 || year === 1900 || year === 2000 ? String(year) : formatYear(year, false);
+        ticksEl.appendChild(tick);
+      });
+
+      let index = data.length - 1; // start on the peak era (present-day end)
+
+      function render() {
+        const bucket = data[index];
+        const pct = (index / (data.length - 1)) * 100;
+        handleEl.style.left = `${pct}%`;
+        handleEl.setAttribute("aria-valuenow", String(index));
+        handleEl.setAttribute(
+          "aria-valuetext",
+          `${eraLabel(bucket.bucket)}, approximately ${bucket.n.toLocaleString()} works`,
+        );
+        eraLabelEl.textContent = eraLabel(bucket.bucket);
+        countLabelEl.textContent = `≈ ${bucket.n.toLocaleString()} works`;
+
+        bars.forEach((bar, i) => {
+          if (i <= index) {
+            bar.classList.remove("bg-white/15");
+            bar.classList.add("bg-cerulean");
+          } else {
+            bar.classList.remove("bg-cerulean");
+            bar.classList.add("bg-white/15");
+          }
+        });
+
+        renderWorks(worksByBucket, bucket.bucket);
+      }
+
+      function setIndex(next) {
+        index = Math.min(Math.max(next, 0), data.length - 1);
+        render();
+      }
+
+      function indexFromClientX(clientX) {
+        const rect = trackEl.getBoundingClientRect();
+        const ratio = (clientX - rect.left) / rect.width;
+        return Math.round(ratio * (data.length - 1));
+      }
+
+      // Pointer drag: click/drag anywhere on the track moves the handle
+      let dragging = false;
+      function onPointerMove(e) {
+        if (!dragging) return;
+        setIndex(indexFromClientX(e.clientX));
+      }
+      function stopDrag() {
+        dragging = false;
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", stopDrag);
+      }
+      trackEl.addEventListener("pointerdown", (e) => {
+        dragging = true;
+        setIndex(indexFromClientX(e.clientX));
+        handleEl.focus();
+        window.addEventListener("pointermove", onPointerMove);
+        window.addEventListener("pointerup", stopDrag);
+      });
+
+      // Keyboard: arrows step one bucket, Home/End jump to extremes
+      handleEl.addEventListener("keydown", (e) => {
+        switch (e.key) {
+          case "ArrowRight":
+          case "ArrowUp":
+            e.preventDefault();
+            setIndex(index + 1);
+            break;
+          case "ArrowLeft":
+          case "ArrowDown":
+            e.preventDefault();
+            setIndex(index - 1);
+            break;
+          case "Home":
+            e.preventDefault();
+            setIndex(0);
+            break;
+          case "End":
+            e.preventDefault();
+            setIndex(data.length - 1);
+            break;
+        }
+      });
+
+      render();
+    }
+
+    init();
+  </script>
+</Layout>
