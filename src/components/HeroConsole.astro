@@ -150,6 +150,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     "decorative-arts",
   ];
 
+  // Fisher–Yates shuffle so the order differs on every load and every cycle.
+  function shuffled(arr: string[]) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const TYPE_MS = 90; // per char typing
   const DELETE_MS = 45; // per char deleting (faster)
@@ -182,9 +192,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     }
   }
   async function run() {
+    // Walk a shuffled copy; reshuffle each time the list is exhausted so the
+    // sequence never repeats in the same order.
+    let queue = shuffled(TERMS);
     let i = 0;
     while (!stopped) {
-      await typeWord(TERMS[i % TERMS.length]);
+      if (i >= queue.length) {
+        queue = shuffled(TERMS);
+        i = 0;
+      }
+      await typeWord(queue[i]);
       if (stopped) return;
       await sleep(HOLD_MS);
       await deleteWord();
