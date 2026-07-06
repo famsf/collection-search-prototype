@@ -66,7 +66,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
               name="q"
               autocomplete="off"
               class="h-14 min-w-0 flex-1 border-0 bg-transparent font-mono text-[clamp(1.25rem,3vw,1.75rem)] leading-none tracking-tight text-white caret-white outline-none placeholder:text-white/60"
-              placeholder="type to search…"
             />
           </div>
 
@@ -211,12 +210,14 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     }
   }
 
-  // First real interaction hands control to the visitor: stop the demo and
-  // clear whatever half-typed demo word was showing.
+  // First real interaction hands control to the visitor: stop the demo, clear
+  // any half-typed demo word, and only now reveal the placeholder (it must not
+  // flash during the demo's delete phase).
   function takeOver() {
     if (stopped) return;
     stopped = true;
     input.value = "";
+    input.placeholder = "type to search…";
     input.focus();
   }
   input.addEventListener("pointerdown", takeOver);
