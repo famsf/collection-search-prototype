@@ -1,0 +1,221 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+/**
+ * FAMSF collection hero — the brand forward-slash becomes a search console.
+ * The field self-types a collection term, deletes it a character at a time,
+ * and cycles to the next (art → sculpture → rodin → …). Any interaction hands
+ * control to the visitor and stops the demo for good.
+ *
+ * Figma reference: node 82:1028 (collection-landing hero + search band).
+ */
+---
+
+<header class="relative isolate overflow-hidden bg-band text-white">
+  <!-- Ruscha "Standard Station" as an atmospheric backdrop -->
+  <div class="absolute inset-0 -z-10">
+    <img
+      src={`${base}/standard.jpg`}
+      alt=""
+      class="h-full w-full scale-105 object-cover object-center opacity-[0.6]"
+    />
+    <!-- Light overall wash keeps the image bright... -->
+    <div class="absolute inset-0 bg-gradient-to-b from-band/30 via-band/20 to-band/60"></div>
+    <!-- ...while a left-anchored scrim darkens only behind the text column so
+         small copy clears WCAG AA contrast without dimming the whole image. -->
+    <div class="absolute inset-0 bg-gradient-to-r from-band/85 via-band/45 to-transparent"></div>
+  </div>
+
+  <div class="mx-auto max-w-[1360px] px-6 md:px-10">
+    <div class="flex min-h-[74vh] flex-col justify-center py-20 md:py-28">
+      <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-white/80">
+        Fine Arts Museums of San Francisco
+      </p>
+
+      <h1
+        class="font-grotesk text-[clamp(2.25rem,5vw,4.5rem)] font-medium leading-[1.05] tracking-[-0.015em] text-balance"
+      >
+        <span class="whitespace-nowrap">Search 150,000 works</span><br />
+        <span class="whitespace-nowrap">across 5,000 years.</span>
+      </h1>
+
+      <!-- Console -->
+      <form
+        id="console"
+        class="group mt-10 max-w-[880px] md:mt-14"
+        autocomplete="off"
+        role="search"
+        aria-label="Search the collection"
+      >
+        <label for="q" class="sr-only">Search the collection</label>
+
+        <!-- Pill bar + circular icon submit, proportioned after the famsf.org
+             desktop search overlay. The oversized brand slash is the FAMSF
+             twist and doubles as the search prompt. -->
+        <div
+          class="relative flex items-center gap-3 rounded-full border border-white/30 bg-white/[0.08] py-3 pl-8 pr-3 backdrop-blur-sm transition-colors focus-within:border-white/70 focus-within:bg-white/[0.12] md:pl-10"
+        >
+          <div class="flex min-w-0 flex-1 items-center">
+            <span
+              aria-hidden="true"
+              class="mr-3 select-none font-grotesk text-[clamp(2.5rem,5vw,3.75rem)] font-medium leading-none text-white md:mr-4"
+              >/</span
+            >
+            <input
+              id="q"
+              type="text"
+              name="q"
+              autocomplete="off"
+              class="h-14 min-w-0 flex-1 border-0 bg-transparent font-mono text-[clamp(1.25rem,3vw,1.75rem)] leading-none tracking-tight text-white caret-white outline-none placeholder:text-white/60"
+              placeholder="type to search…"
+            />
+          </div>
+
+          <!-- Submit: matches the famsf.org search overlay button — a dark
+               stadium pill (min-h 48, px-20, rounded-full), white glyph,
+               snug to the right edge. Dark-on-light there; here it's the
+               near-black brand tone lifted just enough to read on the bar. -->
+          <button
+            type="submit"
+            aria-label="Search the collection"
+            class="inline-flex h-14 shrink-0 items-center justify-center rounded-full bg-band px-7 text-white transition hover:bg-neutral-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <!-- Exact FAMSF search glyph (from famsf.org search overlay) -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16.4375 16.4434L20.9938 20.9997" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Filter shortcuts. These are navigational (each pre-applies a
+             filter to the results), so they are links, not toggle buttons. -->
+        <div class="mt-5 flex flex-wrap items-center gap-3 text-sm">
+          <span class="mr-1 font-mono text-xs uppercase tracking-[0.2em] text-white/75">Filter</span>
+          {
+            [
+              { label: "Open access", href: "?access=open" },
+              { label: "On view", href: "?on_view=1" },
+              { label: "Has image", href: "?has_image=1" },
+            ].map((f) => (
+              <a
+                href={f.href}
+                class="inline-flex min-h-8 items-center rounded-full border border-white/40 px-4 py-1.5 text-white no-underline transition hover:border-white/70 hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >
+                {f.label}
+              </a>
+            ))
+          }
+        </div>
+      </form>
+
+      <!-- Quick jump-offs. py padding lifts each link to the 24px min target. -->
+      <div class="mt-7 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-sm text-white">
+        <span class="text-white/70">Try:</span>
+        <a href="#" class="inline-flex min-h-6 items-center py-0.5 underline decoration-white/40 underline-offset-4 transition hover:decoration-white">/paintings</a>
+        <a href="#" class="inline-flex min-h-6 items-center py-0.5 underline decoration-white/40 underline-offset-4 transition hover:decoration-white">/rodin</a>
+        <a href="#" class="inline-flex min-h-6 items-center py-0.5 underline decoration-white/40 underline-offset-4 transition hover:decoration-white">/textiles</a>
+        <a href="#" class="inline-flex min-h-6 items-center py-0.5 underline decoration-white/40 underline-offset-4 transition hover:decoration-white">/ancient-greece</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  const input = document.getElementById("q") as HTMLInputElement;
+  const form = document.getElementById("console") as HTMLFormElement;
+
+  // 20 real entry points drawn from the collection extract (classifications,
+  // cultures/periods, headline artists, departments). Words flow out of the
+  // brand slash, so they carry no slash of their own.
+  const TERMS = [
+    "art",
+    "prints",
+    "drawings",
+    "photographs",
+    "sculpture",
+    "paintings",
+    "textiles",
+    "costume",
+    "ruscha",
+    "picasso",
+    "diebenkorn",
+    "doré",
+    "lewitt",
+    "rowlandson",
+    "egyptian",
+    "greek",
+    "maya",
+    "asante",
+    "ancient-art",
+    "decorative-arts",
+  ];
+
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const TYPE_MS = 90; // per char typing
+  const DELETE_MS = 45; // per char deleting (faster)
+  const HOLD_MS = 1100; // pause on a completed word
+  const GAP_MS = 350; // pause after clearing, before next word
+
+  let stopped = false;
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  // The demo writes straight into the real input's value.
+  function set(v: string) {
+    if (stopped) return;
+    input.value = v;
+  }
+
+  async function typeWord(word: string) {
+    for (let i = 1; i <= word.length; i++) {
+      if (stopped) return;
+      set(word.slice(0, i));
+      await sleep(TYPE_MS);
+    }
+  }
+  async function deleteWord() {
+    let s = input.value;
+    while (s.length) {
+      if (stopped) return;
+      s = s.slice(0, -1);
+      set(s);
+      await sleep(DELETE_MS);
+    }
+  }
+  async function run() {
+    let i = 0;
+    while (!stopped) {
+      await typeWord(TERMS[i % TERMS.length]);
+      if (stopped) return;
+      await sleep(HOLD_MS);
+      await deleteWord();
+      if (stopped) return;
+      await sleep(GAP_MS);
+      i++;
+    }
+  }
+
+  // First real interaction hands control to the visitor: stop the demo and
+  // clear whatever half-typed demo word was showing.
+  function takeOver() {
+    if (stopped) return;
+    stopped = true;
+    input.value = "";
+    input.focus();
+  }
+  input.addEventListener("pointerdown", takeOver);
+  input.addEventListener("keydown", takeOver);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    stopped = true;
+    const q = input.value.replace(/^\/+/, "").trim();
+    input.value = q;
+    console.log("Would search:", q); // prototype: no backend
+  });
+
+  if (reduce) {
+    input.value = "art"; // static prompt, no animation
+  } else {
+    run();
+  }
+</script>

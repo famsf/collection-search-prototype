@@ -1,0 +1,60 @@
+---
+/**
+ * Prototype index — a directory of the demo surfaces in this build. Not a
+ * production page: a jumping-off point for design review. Modelled on the
+ * wyeth-frontend index.
+ */
+import Layout from "../layouts/Layout.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+
+const routes = [
+  {
+    href: `${base}/hero`,
+    title: "Collection console hero",
+    blurb:
+      "The FAMSF forward-slash as a live search console. The field self-types /art, deletes it, then /sculpture, /rodin… and hands over on first interaction. Figma node 82:1028.",
+    node: "82:1028",
+  },
+];
+---
+
+<Layout title="FAMSF Collection — prototype index">
+  <main class="mx-auto max-w-[1000px] px-6 py-20 md:px-10 md:py-24">
+    <header class="mb-16">
+      <p class="font-mono text-xs uppercase tracking-[0.28em] text-neutral-500">
+        Fine Arts Museums of San Francisco
+      </p>
+      <h1 class="mt-3 font-grotesk text-[clamp(2.5rem,6vw,4rem)] font-medium leading-[1.05] tracking-[-0.015em]">
+        Collection search prototype
+      </h1>
+      <p class="mt-4 max-w-[60ch] text-lg leading-relaxed text-neutral-600">
+        Higher-fidelity design surfaces for the collection website, built against
+        the real FAMSF design system (Akzidenz-Grotesk Next Pro + Signifier). Pick
+        a demo below.
+      </p>
+    </header>
+
+    <section aria-labelledby="pages-h">
+      <h2 id="pages-h" class="font-grotesk text-2xl font-medium">Pages &amp; demos</h2>
+      <ul class="mt-7 grid list-none grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-5 p-0">
+        {
+          routes.map((r) => (
+            <li>
+              <a
+                href={r.href}
+                class="flex h-full flex-col gap-2 rounded-xl border border-neutral-200 bg-white p-6 no-underline transition hover:-translate-y-0.5 hover:border-neutral-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+              >
+                <span class="font-grotesk text-xl font-medium text-ink">{r.title}</span>
+                <span class="flex-1 text-[15px] leading-relaxed text-neutral-600">{r.blurb}</span>
+                <span class="mt-1 font-mono text-xs tracking-[0.04em] text-neutral-400">
+                  {r.node}
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+</Layout>

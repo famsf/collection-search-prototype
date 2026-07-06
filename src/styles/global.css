@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   FAMSF real webfonts (from ~/git/famsf_laravel):
+   - Signifier (serif display): licensed woff2 copied to /public/fonts/signifier.
+   - Akzidenz-Grotesk Next Pro (grotesk): Adobe Typekit kit tpb7nan, loaded via
+     <link> in Layout.astro (same licence as the live site).
+   Console uses IBM Plex Mono (Google) — not a FAMSF face, just the mono voice.
+---------------------------------------------------------------------------- */
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-thin.woff2"); font-style: normal; font-weight: 100; font-display: swap; }
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-thin-italic.woff2"); font-style: italic; font-weight: 100; font-display: swap; }
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-extralight.woff2"); font-style: normal; font-weight: 200; font-display: swap; }
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-extralight-italic.woff2"); font-style: italic; font-weight: 200; font-display: swap; }
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-light.woff2"); font-style: normal; font-weight: 300; font-display: swap; }
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-light-italic.woff2"); font-style: italic; font-weight: 300; font-display: swap; }
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-bold.woff2"); font-style: normal; font-weight: 600; font-display: swap; }
+@font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-bold-italic.woff2"); font-style: italic; font-weight: 600; font-display: swap; }
+
+@theme {
+  --color-band: #141414;   /* dark search band / hero backdrop */
+  --color-ink: #141414;    /* body ink on white */
+
+  --font-grotesk: "akzidenz-grotesk-next-pro", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Signifier", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html {
+  background: #fff;
+  color: var(--color-ink);
+  font-family: var(--font-grotesk);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Blinking console caret. Disabled under reduced-motion. */
+.caret {
+  display: inline-block;
+  width: 3px;
+  height: 1em;
+  margin-left: 2px;
+  background: currentColor;
+  translate: 0 0.12em;
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+@keyframes caret-blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .caret { animation: none; }
+}
