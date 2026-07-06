@@ -86,8 +86,51 @@ def build_lookups():
     return gc, countries, cities, country_centroid
 
 
+# US states + major subnational regions: the gazetteer has no admin-1 units, so
+# a bare state name would otherwise fall through to the US centroid (or match a
+# tiny same-named town — e.g. "California" landing on the US east coast).
+US_STATES = {
+    "alabama": (32.8, -86.8), "alaska": (64.2, -152.0), "arizona": (34.3, -111.7),
+    "arkansas": (34.8, -92.4), "california": (37.2, -119.5), "colorado": (39.0, -105.5),
+    "connecticut": (41.6, -72.7), "delaware": (39.0, -75.5), "florida": (28.6, -82.4),
+    "georgia": (32.6, -83.4), "hawaii": (20.3, -156.4), "idaho": (44.2, -114.5),
+    "illinois": (40.0, -89.2), "indiana": (39.9, -86.3), "iowa": (42.0, -93.5),
+    "kansas": (38.5, -98.4), "kentucky": (37.5, -85.3), "louisiana": (31.0, -92.0),
+    "maine": (45.4, -69.2), "maryland": (39.0, -76.8), "massachusetts": (42.3, -71.8),
+    "michigan": (44.3, -85.4), "minnesota": (46.3, -94.3), "mississippi": (32.7, -89.7),
+    "missouri": (38.4, -92.5), "montana": (46.9, -110.0), "nebraska": (41.5, -99.8),
+    "nevada": (39.3, -116.6), "new hampshire": (43.7, -71.6), "new jersey": (40.1, -74.7),
+    "new mexico": (34.4, -106.1), "new york": (42.9, -75.5), "north carolina": (35.6, -79.4),
+    "north dakota": (47.5, -100.3), "ohio": (40.3, -82.8), "oklahoma": (35.6, -97.5),
+    "oregon": (44.0, -120.5), "pennsylvania": (40.9, -77.8), "rhode island": (41.7, -71.6),
+    "south carolina": (33.9, -80.9), "south dakota": (44.4, -100.2), "tennessee": (35.9, -86.4),
+    "texas": (31.5, -99.3), "utah": (39.3, -111.7), "vermont": (44.1, -72.7),
+    "virginia": (37.5, -78.9), "washington": (47.4, -120.5), "west virginia": (38.6, -80.6),
+    "wisconsin": (44.6, -89.9), "wyoming": (43.0, -107.5),
+    "washington dc": (38.9, -77.0), "district of columbia": (38.9, -77.0),
+    # US regions
+    "southwest": (34.0, -106.0), "pacific northwest": (46.0, -121.0),
+    "new england": (44.0, -71.5), "midwest": (41.5, -93.0),
+    "eastern united states": (39.0, -80.0), "southern united states": (33.0, -86.0),
+    "aleutian islands": (52.0, -176.0), "st. lawrence island": (63.4, -170.4),
+    "nunivak island": (60.0, -166.3),
+    # Canadian provinces that appear
+    "british columbia": (53.7, -125.0), "ontario": (50.0, -85.0), "quebec": (52.0, -72.0),
+}
+
+
 # Accented / historical / regional names the gazetteer misses, hand-mapped.
 ALIASES = {
+    **US_STATES,
+    # Big countries: use a geographic centroid, not the most-populous city, so
+    # the country dot doesn't jam against one coast (e.g. US → NYC).
+    "united states": (39.5, -98.35),
+    "united states of america": (39.5, -98.35),
+    "canada": (56.0, -96.0),
+    "russia": (61.5, 90.0),
+    "china": (35.9, 104.2),
+    "brazil": (-10.3, -53.2),
+    "australia": (-25.0, 134.0),
     "méxico": (19.43, -99.13),
     "west mexico": (20.67, -103.35),
     "roman empire": (41.9, 12.5),

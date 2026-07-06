@@ -157,8 +157,47 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     }
 
     function resetView() {
-      vb = { ...FULL_VB };
-      applyViewBox();
+      animateViewBox({ ...FULL_VB });
+    }
+
+    // Ease the viewBox from its current value to a target (used by legend
+    // click-to-zoom + reset). Skipped under reduced motion.
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+    let animRAF = 0;
+    function animateViewBox(target) {
+      const to = clampViewBox(target);
+      if (prefersReducedMotion) {
+        vb = to;
+        applyViewBox();
+        return;
+      }
+      cancelAnimationFrame(animRAF);
+      const from = { ...vb };
+      const t0 = performance.now();
+      const DUR = 520;
+      const ease = (p) => 1 - Math.pow(1 - p, 3); // easeOutCubic
+      function step(now) {
+        const p = Math.min(1, (now - t0) / DUR);
+        const k = ease(p);
+        vb = {
+          x: from.x + (to.x - from.x) * k,
+          y: from.y + (to.y - from.y) * k,
+          w: from.w + (to.w - from.w) * k,
+          h: from.h + (to.h - from.h) * k,
+        };
+        applyViewBox();
+        if (p < 1) animRAF = requestAnimationFrame(step);
+      }
+      animRAF = requestAnimationFrame(step);
+    }
+
+    // Zoom the map to centre on a world point (e.g. a legend place's dot).
+    function zoomToWorld(wx, wy, targetW = WIDTH / 8) {
+      const w = Math.min(MAX_VB_W, Math.max(MIN_VB_W, targetW));
+      const h = (w * HEIGHT) / WIDTH;
+      animateViewBox({ x: wx - w / 2, y: wy - h / 2, w, h });
     }
 
     function panBy(dxClient, dyClient) {
@@ -169,20 +208,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       applyViewBox();
     }
 
-    // Counter-scale dot radius/stroke so markers keep ~constant screen size.
+    // Partially counter-scale markers: fully constant screen size (÷zoom) makes
+    // them tiny when zoomed in, so let them grow with zoom^0.45 — bigger as you
+    // zoom in, but not so much they balloon back to overlapping blobs.
     function rescaleDots() {
       if (!baseDotsGroup) return;
       const zoomFactor = WIDTH / vb.w; // 1 at full extent, up to 20 at max zoom
+      const shrink = Math.pow(zoomFactor, 0.55); // < zoomFactor, so dots grow with zoom
       for (const circle of baseDotsGroup.children) {
         const baseR = Number(circle.getAttribute("data-base-r"));
         if (!baseR) continue;
         const isHighlighted = circle.getAttribute("data-highlighted") === "1";
         const boost = Number(circle.getAttribute("data-highlight-boost")) || 1;
-        const effectiveR = (baseR / zoomFactor) * boost;
+        const effectiveR = (baseR / shrink) * boost;
         circle.setAttribute("r", String(effectiveR));
         if (isHighlighted) {
           circle.setAttribute("stroke", "#fff");
-          circle.setAttribute("stroke-width", String(2 / zoomFactor));
+          circle.setAttribute("stroke-width", String(2 / shrink));
         }
       }
     }
@@ -230,6 +272,25 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         g.appendChild(line);
       }
       svg.appendChild(g);
+    }
+
+    // Land outlines (Natural Earth 110m, pre-projected to the 1000×500 space)
+    // so the dots read against actual continents, not an empty grid.
+    async function drawLand() {
+      try {
+        const res = await fetch(`${base}/data/land_paths.json`);
+        const land = await res.json();
+        const path = document.createElementNS(SVG_NS, "path");
+        path.setAttribute("d", land.d);
+        path.setAttribute("fill", "rgba(255,255,255,0.06)");
+        path.setAttribute("stroke", "rgba(255,255,255,0.22)");
+        path.setAttribute("stroke-width", "0.6");
+        path.setAttribute("vector-effect", "non-scaling-stroke");
+        path.setAttribute("pointer-events", "none");
+        svg.appendChild(path);
+      } catch {
+        // If the land file is missing the map still works as dots + grid.
+      }
     }
 
     // Brand hues to interpolate through as n grows: teal -> purple -> yellow
@@ -291,6 +352,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       const secondPct = Math.round((secondN / mappedObjects) * 100);
 
       drawGraticule();
+      await drawLand();
 
       const maxN = Math.max(...mapped.map((p) => p.n));
       const minN = Math.min(...mapped.map((p) => p.n));
@@ -396,6 +458,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         btn.addEventListener("mouseleave", unhighlight);
         btn.addEventListener("focus", highlight);
         btn.addEventListener("blur", unhighlight);
+
+        // Click a place → fly the map to its dot and hold it highlighted.
+        btn.setAttribute("aria-label", `Zoom to ${p.place}`);
+        btn.addEventListener("click", () => {
+          if (!circle) return;
+          const wx = Number(circle.getAttribute("cx"));
+          const wy = Number(circle.getAttribute("cy"));
+          zoomToWorld(wx, wy);
+          highlight();
+        });
 
         li.appendChild(btn);
         legendList.appendChild(li);

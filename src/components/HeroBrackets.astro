@@ -50,22 +50,26 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <label for="q" class="sr-only">Search the collection</label>
 
         <div class="bracket-field">
-          <span aria-hidden="true" class="bracket bracket--left">\</span>
+          <!-- The \ query \ cluster expands to the right; the submit button is
+               pinned to the far edge so it never shifts with the animation. -->
+          <span class="bracket-field__group">
+            <span aria-hidden="true" class="bracket bracket--left">\</span>
 
-          <!-- The measured text row. A hidden mirror sizes the visible input so
-               the right bracket can follow the exact word width. -->
-          <span class="bracket-field__slot">
-            <span id="mirror" aria-hidden="true" class="bracket-field__mirror"></span>
-            <input
-              id="q"
-              type="text"
-              name="q"
-              autocomplete="off"
-              class="bracket-field__input"
-            />
+            <!-- The measured text row. A hidden mirror sizes the visible input
+                 so the right bracket can follow the exact word width. -->
+            <span class="bracket-field__slot">
+              <span id="mirror" aria-hidden="true" class="bracket-field__mirror"></span>
+              <input
+                id="q"
+                type="text"
+                name="q"
+                autocomplete="off"
+                class="bracket-field__input"
+              />
+            </span>
+
+            <span aria-hidden="true" class="bracket bracket--right">\</span>
           </span>
-
-          <span aria-hidden="true" class="bracket bracket--right">\</span>
 
           <button type="submit" aria-label="Search the collection" class="bracket-field__go">
             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -124,6 +128,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     display: flex;
     align-items: center;
     gap: clamp(0.5rem, 1.5vw, 1.25rem);
+  }
+  /* The animating cluster; the submit button sits outside it and is pinned. */
+  .bracket-field__group {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    min-width: 0;
   }
 
   /* The backslashes are the brand mark. Oversized grotesk, brand-tinted. */
@@ -184,7 +195,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   }
 
   .bracket-field__go {
-    margin-left: clamp(0.75rem, 2vw, 1.5rem);
+    margin-left: auto; /* pinned to the right edge; never moves with the word */
     display: inline-flex;
     height: 3.25rem;
     align-items: center;
