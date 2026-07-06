@@ -118,10 +118,48 @@ US_STATES = {
     "british columbia": (53.7, -125.0), "ontario": (50.0, -85.0), "quebec": (52.0, -72.0),
 }
 
+# European (and other) sub-national / historical regions the gazetteer lacks;
+# without these they collapse onto the Europe centroid (~Belarus).
+EURO_REGIONS = {
+    "england": (52.5, -1.5), "scotland": (56.8, -4.2), "wales": (52.3, -3.8),
+    "great britain": (54.0, -2.5), "northern ireland": (54.6, -6.7),
+    "bavaria": (48.9, 11.5), "saxony": (51.0, 13.4), "prussia": (52.5, 13.4),
+    "flanders": (51.0, 3.7), "wallonia": (50.4, 4.9),
+    "bohemia": (49.9, 14.5), "moravia": (49.4, 16.8),
+    "tuscany": (43.4, 11.1), "sicily": (37.6, 14.0), "lombardy": (45.5, 9.7),
+    "venice": (45.4, 12.3), "veneto": (45.5, 11.9), "naples": (40.85, 14.27),
+    "catalonia": (41.8, 1.5), "andalusia": (37.5, -4.8), "castile": (40.5, -4.0),
+    "normandy": (49.0, 0.2), "brittany": (48.2, -3.0), "burgundy": (47.0, 4.8),
+    "provence": (43.9, 6.0), "alsace": (48.3, 7.4),
+    "rhineland": (50.5, 7.0), "westphalia": (51.8, 8.0), "swabia": (48.4, 9.8),
+    "silesia": (51.0, 17.0), "pomerania": (53.8, 15.5),
+    "holland": (52.3, 4.9), "netherlands": (52.2, 5.3),
+    "scandinavia": (63.0, 15.0), "iberia": (40.0, -4.0),
+    "anatolia": (39.0, 35.0), "levant": (33.9, 35.5), "persia": (32.4, 53.7),
+}
+
+# City/region names the gazetteer resolves to the WRONG same-named place
+# (usually a small US town winning over the intended European/Asian original).
+# Verified against each row's hierarchy path in the extract.
+COLLISIONS = {
+    "worcester": (52.19, -2.22),      # England, not Massachusetts
+    "chantilly": (49.19, 2.47),       # France, not Virginia
+    "corinth": (37.94, 22.93),        # Greece, not Texas
+    "geneva": (46.20, 6.14),          # Switzerland, not Illinois
+    "cambridge": (52.20, 0.12),       # England, not the US
+    "franconia": (49.8, 10.9),        # Germany (Franken), not Virginia
+    "new britain": (-5.5, 150.7),     # Papua New Guinea, not Connecticut
+    "palestine": (31.9, 35.2),        # Levant, not Texas
+    "caroline islands": (7.0, 150.0), # Micronesia, not Australia
+    "ifugao province": (16.83, 121.1),# Philippines, not central China
+    "victoria": (-37.0, 144.5),       # Australia (state), not Hong Kong
+}
+
 
 # Accented / historical / regional names the gazetteer misses, hand-mapped.
 ALIASES = {
     **US_STATES,
+    **EURO_REGIONS,
     # Big countries: use a geographic centroid, not the most-populous city, so
     # the country dot doesn't jam against one coast (e.g. US → NYC).
     "united states": (39.5, -98.35),
@@ -159,6 +197,10 @@ ALIASES = {
 def geocode_one(name, path, countries, cities, country_centroid):
     """Return (lat, lng, match_level) or (None, None, None)."""
     n = name.strip().lower()
+
+    if n in COLLISIONS:
+        lat, lng = COLLISIONS[n]
+        return lat, lng, "collision-fix"
 
     if n in ALIASES:
         lat, lng = ALIASES[n]

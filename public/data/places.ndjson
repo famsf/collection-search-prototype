@@ -2,7 +2,7 @@
 {"place": "United States", "n": 2590, "lat": 39.5, "lng": -98.35, "match": "alias", "path": ["World", "North and Central America", "United States"]}
 {"place": "Paris", "n": 1359, "lat": 48.853, "lng": 2.349, "match": "city", "path": ["World", "Europe", "France", "Île-de-France", "Département de Ville-de-Paris"]}
 {"place": "Europe", "n": 1077, "lat": 54.0, "lng": 15.0, "match": "region", "path": ["World", "Europe"]}
-{"place": "England", "n": 1074, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "England"]}
+{"place": "England", "n": 1074, "lat": 52.5, "lng": -1.5, "match": "alias", "path": ["World", "Europe", "Northern Europe", "England"]}
 {"place": "San Francisco", "n": 1050, "lat": 37.775, "lng": -122.419, "match": "city", "path": ["World", "North and Central America", "United States", "California", "San Francisco", "San Francisco"]}
 {"place": "Italy", "n": 781, "lat": 41.892, "lng": 12.511, "match": "country", "path": ["World", "Europe", "Italia"]}
 {"place": "Egypt", "n": 649, "lat": 30.063, "lng": 31.25, "match": "country", "path": ["World", "Africa", "Miṣr"]}
@@ -25,8 +25,8 @@
 {"place": "Belgium", "n": 193, "lat": 50.85, "lng": 4.349, "match": "country", "path": ["World", "Europe", "België"]}
 {"place": "Alaska", "n": 183, "lat": 64.2, "lng": -152.0, "match": "alias", "path": ["World", "North and Central America", "United States", "Alaska"]}
 {"place": "Philippines", "n": 172, "lat": 14.649, "lng": 121.051, "match": "country", "path": ["World", "Asia", "Pilipinas"]}
-{"place": "Venice", "n": 156, "lat": 45.437, "lng": 12.333, "match": "city", "path": ["World", "Europe", "Italia", "Veneto", "Venezia"]}
-{"place": "Netherlands", "n": 150, "lat": 29.974, "lng": -93.992, "match": "path-city", "path": ["World", "Europe", "Nederland"]}
+{"place": "Venice", "n": 156, "lat": 45.4, "lng": 12.3, "match": "alias", "path": ["World", "Europe", "Italia", "Veneto", "Venezia"]}
+{"place": "Netherlands", "n": 150, "lat": 52.2, "lng": 5.3, "match": "alias", "path": ["World", "Europe", "Nederland"]}
 {"place": "Ireland", "n": 146, "lat": 53.333, "lng": -6.249, "match": "country", "path": ["World", "Europe", "Ireland"]}
 {"place": "Brussels", "n": 141, "lat": 50.85, "lng": 4.349, "match": "city", "path": ["World", "Europe", "Luxembourg", "Brussels Hoofdstedelijk Gewest", "Bruxelles"]}
 {"place": "India", "n": 136, "lat": 19.073, "lng": 72.883, "match": "country", "path": ["World", "Asia", "Bhārat"]}
@@ -40,22 +40,22 @@
 {"place": "Russia", "n": 123, "lat": 61.5, "lng": 90.0, "match": "alias", "path": ["World", "Asia", "Rossija"]}
 {"place": "Ohio", "n": 122, "lat": 40.3, "lng": -82.8, "match": "alias", "path": ["World", "North and Central America", "United States", "Ohio"]}
 {"place": "Southwest", "n": 120, "lat": 34.0, "lng": -106.0, "match": "alias", "path": ["World", "North and Central America", "United States", "Southwest"]}
-{"place": "Caroline Islands", "n": 117, "lat": -22.0, "lng": 140.0, "match": "path-region", "path": ["World", "Oceania", "Caroline Islands"]}
-{"place": "Ifugao Province", "n": 116, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Pilipinas", "Northern Luzon Island", "Ifugao Province"]}
+{"place": "Caroline Islands", "n": 117, "lat": 7.0, "lng": 150.0, "match": "collision-fix", "path": ["World", "Oceania", "Caroline Islands"]}
+{"place": "Ifugao Province", "n": 116, "lat": 16.83, "lng": 121.1, "match": "collision-fix", "path": ["World", "Asia", "Pilipinas", "Northern Luzon Island", "Ifugao Province"]}
 {"place": "South Africa", "n": 110, "lat": -26.202, "lng": 28.044, "match": "country", "path": ["World", "Africa", "South Africa"]}
 {"place": "Kansas", "n": 107, "lat": 38.5, "lng": -98.4, "match": "alias", "path": ["World", "North and Central America", "United States", "Kansas"]}
-{"place": "Staffordshire", "n": 98, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Staffordshire"]}
+{"place": "Staffordshire", "n": 98, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Staffordshire"]}
 {"place": "Anatolia", "n": 97, "lat": 39.0, "lng": 35.0, "match": "alias", "path": ["World", "Asia", "Achaemenid Empire", "Asia Minor"]}
-{"place": "Worcester", "n": 96, "lat": 42.263, "lng": -71.802, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Worcestershire", "Worcester"]}
-{"place": "Flanders", "n": 95, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Flanders"]}
+{"place": "Worcester", "n": 96, "lat": 52.19, "lng": -2.22, "match": "collision-fix", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Worcestershire", "Worcester"]}
+{"place": "Flanders", "n": 95, "lat": 51.0, "lng": 3.7, "match": "alias", "path": ["World", "Europe", "Flanders"]}
 {"place": "Eastern United States", "n": 92, "lat": 39.0, "lng": -80.0, "match": "alias", "path": ["World", "North and Central America", "United States", "Eastern United States"]}
 {"place": "Uzbekistan", "n": 90, "lat": 41.265, "lng": 69.216, "match": "country", "path": ["World", "Asia", "O'zbekiston"]}
 {"place": "Ethiopia", "n": 89, "lat": 9.025, "lng": 38.747, "match": "country", "path": ["World", "Africa", "Ityop'iya"]}
 {"place": "Southern United States", "n": 84, "lat": 33.0, "lng": -86.0, "match": "alias", "path": ["World", "North and Central America", "United States", "Southern United States"]}
 {"place": "Turkey", "n": 81, "lat": 41.014, "lng": 28.95, "match": "country", "path": ["World", "Asia", "Türkiye"]}
-{"place": "Holland", "n": 81, "lat": 42.788, "lng": -86.109, "match": "city", "path": ["World", "Europe", "Nederland"]}
+{"place": "Holland", "n": 81, "lat": 52.3, "lng": 4.9, "match": "alias", "path": ["World", "Europe", "Nederland"]}
 {"place": "Mali", "n": 78, "lat": 12.609, "lng": -7.975, "match": "country", "path": ["World", "Africa", "Mali"]}
-{"place": "Bohemia", "n": 76, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Eastern Europe", "Čechy"]}
+{"place": "Bohemia", "n": 76, "lat": 49.9, "lng": 14.5, "match": "alias", "path": ["World", "Europe", "Eastern Europe", "Čechy"]}
 {"place": "St. Lawrence Island", "n": 72, "lat": 63.4, "lng": -170.4, "match": "alias", "path": ["World", "North and Central America", "United States", "Alaska", "Nome", "Saint Lawrence Island"]}
 {"place": "Sandwich", "n": 71, "lat": 41.7, "lng": -70.299, "match": "path-city", "path": ["World", "North and Central America", "United States", "Massachusetts", "Barnstable", "Sandwich"]}
 {"place": "Oakland", "n": 71, "lat": 37.804, "lng": -122.271, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Alameda", "Oakland"]}
@@ -85,12 +85,12 @@
 {"place": "Australia", "n": 52, "lat": -25.0, "lng": 134.0, "match": "alias", "path": ["World", "Oceania", "Australia"]}
 {"place": "Florence", "n": 52, "lat": 43.779, "lng": 11.246, "match": "city", "path": ["World", "Europe", "Italia", "Toscana", "Firenze"]}
 {"place": "Athens", "n": 51, "lat": 37.984, "lng": 23.728, "match": "city", "path": ["World", "Europe", "Ellás", "Attikí", "Athínai"]}
-{"place": "Great Britain", "n": 50, "lat": 51.509, "lng": -0.126, "match": "path-country", "path": ["World", "Europe", "United Kingdom"]}
+{"place": "Great Britain", "n": 50, "lat": 54.0, "lng": -2.5, "match": "alias", "path": ["World", "Europe", "United Kingdom"]}
 {"place": "Costa Rica", "n": 50, "lat": 9.934, "lng": -84.085, "match": "country", "path": ["World", "North and Central America", "Costa Rica"]}
 {"place": "Assyria", "n": 50, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Assyria"]}
 {"place": "Dresden", "n": 49, "lat": 51.051, "lng": 13.738, "match": "city", "path": ["World", "Europe", "Deutschland", "Sachsen", "Dresden"]}
 {"place": "New Guinea", "n": 48, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "New Guinea"]}
-{"place": "Silesia", "n": 48, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Schlesien"]}
+{"place": "Silesia", "n": 48, "lat": 51.0, "lng": 17.0, "match": "alias", "path": ["World", "Europe", "Schlesien"]}
 {"place": "Sèvres", "n": 46, "lat": 48.823, "lng": 2.218, "match": "city", "path": ["World", "Europe", "France", "Île-de-France", "Sèvres"]}
 {"place": "Java", "n": 46, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Java"]}
 {"place": "Saint Petersburg", "n": 46, "lat": 59.939, "lng": 30.314, "match": "city", "path": ["World", "Europe", "Rossiya", "Sankt-Peterburg"]}
@@ -117,13 +117,13 @@
 {"place": "Chancay", "n": 35, "lat": -11.571, "lng": -77.267, "match": "city", "path": ["World", "South America", "Perú", "Lima, Región de", "Chancay"]}
 {"place": "Berlin", "n": 34, "lat": 52.524, "lng": 13.411, "match": "city", "path": ["World", "Europe", "Deutschland", "Berlin", "Berlin"]}
 {"place": "Etruria", "n": 34, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Etruria"]}
-{"place": "Scotland", "n": 34, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Scotland"]}
+{"place": "Scotland", "n": 34, "lat": 56.8, "lng": -4.2, "match": "alias", "path": ["World", "Europe", "Northern Europe", "Scotland"]}
 {"place": "Stratford-upon-Avon", "n": 34, "lat": 52.192, "lng": -1.707, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Warwickshire", "Stratford-upon-Avon"]}
 {"place": "Vienna", "n": 33, "lat": 48.208, "lng": 16.372, "match": "city", "path": ["World", "Europe", "Österreich", "Wien"]}
 {"place": "Chile", "n": 33, "lat": -33.457, "lng": -70.648, "match": "country", "path": ["World", "South America", "Chile"]}
 {"place": "Santa Monica", "n": 33, "lat": 34.019, "lng": -118.491, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Los Angeles", "Santa Monica"]}
 {"place": "Queensland", "n": 33, "lat": -25.0, "lng": 134.0, "match": "path-alias", "path": ["World", "Oceania", "Australia", "Queensland"]}
-{"place": "Naples", "n": 33, "lat": 40.852, "lng": 14.268, "match": "city", "path": ["World", "Europe", "Italia", "Campania", "Napoli"]}
+{"place": "Naples", "n": 33, "lat": 40.85, "lng": 14.27, "match": "alias", "path": ["World", "Europe", "Italia", "Campania", "Napoli"]}
 {"place": "Nunivak Island", "n": 33, "lat": 60.0, "lng": -166.3, "match": "alias", "path": ["World", "North and Central America", "United States", "Alaska", "Bethel", "Nunivak Island"]}
 {"place": "Munich", "n": 32, "lat": 48.137, "lng": 11.575, "match": "city", "path": ["World", "Europe", "Deutschland", "Bayern", "München"]}
 {"place": "Republic of Fiji", "n": 32, "lat": -18.071, "lng": 178.513, "match": "path-country", "path": ["World", "Oceania", "Fiji"]}
@@ -165,7 +165,7 @@
 {"place": "El Salvador", "n": 22, "lat": 13.689, "lng": -89.187, "match": "country", "path": ["World", "North and Central America", "El Salvador"]}
 {"place": "Apulia", "n": 22, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Italia", "Puglia"]}
 {"place": "Sumatra", "n": 22, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Sumatera"]}
-{"place": "Saxony", "n": 21, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Deutschland", "Sachsen", "Sachsen"]}
+{"place": "Saxony", "n": 21, "lat": 51.0, "lng": 13.4, "match": "alias", "path": ["World", "Europe", "Deutschland", "Sachsen", "Sachsen"]}
 {"place": "Trobriand Islands", "n": 21, "lat": -8.6, "lng": 151.1, "match": "alias", "path": ["World", "Malay Archipelago", "Milne Bay", "Trobriand Islands"]}
 {"place": "Jaina Island", "n": 21, "lat": 19.841, "lng": -90.517, "match": "path-city", "path": ["World", "North and Central America", "Mexican Empire", "Campeche", "Jaina, Isla"]}
 {"place": "Mount Margaret", "n": 21, "lat": -25.0, "lng": 134.0, "match": "path-alias", "path": ["World", "Oceania", "Australia", "Western Australia", "Mount Margaret"]}
@@ -182,7 +182,7 @@
 {"place": "Sudan", "n": 20, "lat": 15.552, "lng": 32.532, "match": "country", "path": ["World", "Africa", "Sudan"]}
 {"place": "Portugal", "n": 20, "lat": 38.725, "lng": -9.15, "match": "country", "path": ["World", "Europe", "Portugal"]}
 {"place": "Paisley", "n": 19, "lat": 55.832, "lng": -4.433, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Glasgow", "Paisley"]}
-{"place": "Chantilly", "n": 19, "lat": 38.894, "lng": -77.431, "match": "city", "path": ["World", "Europe", "France", "Hauts-de-France", "Chantilly"]}
+{"place": "Chantilly", "n": 19, "lat": 49.19, "lng": 2.47, "match": "collision-fix", "path": ["World", "Europe", "France", "Hauts-de-France", "Chantilly"]}
 {"place": "Yugoslavia", "n": 19, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Yugoslavia"]}
 {"place": "Daly River", "n": 19, "lat": -25.0, "lng": 134.0, "match": "path-alias", "path": ["World", "Oceania", "Australia", "Northern Territory", "Arnhem's Land", "Daly River"]}
 {"place": "España", "n": 19, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "España"]}
@@ -206,8 +206,8 @@
 {"place": "South America", "n": 16, "lat": -15.0, "lng": -60.0, "match": "region", "path": ["World", "South America"]}
 {"place": "Calamarca", "n": 16, "lat": -16.5, "lng": -68.15, "match": "path-city", "path": ["World", "South America", "Bolivia", "La Paz", "Calamarca"]}
 {"place": "Guizhou", "n": 16, "lat": 35.0, "lng": 115.0, "match": "path-region", "path": ["World", "Asia", "East Asia", "Guizhou"]}
-{"place": "Shropshire", "n": 16, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Shropshire"]}
-{"place": "Corinth", "n": 16, "lat": 33.154, "lng": -97.065, "match": "city", "path": ["World", "Europe", "Ellás", "Pelopónnisos", "Kórinthos", "Kórinthos"]}
+{"place": "Shropshire", "n": 16, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Shropshire"]}
+{"place": "Corinth", "n": 16, "lat": 37.94, "lng": 22.93, "match": "collision-fix", "path": ["World", "Europe", "Ellás", "Pelopónnisos", "Kórinthos", "Kórinthos"]}
 {"place": "Baltimore", "n": 16, "lat": 39.29, "lng": -76.612, "match": "city", "path": ["World", "North and Central America", "United States", "Maryland", "Baltimore Independent City", "Baltimore"]}
 {"place": "Western Europe", "n": 16, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Western Europe"]}
 {"place": "Greenland", "n": 15, "lat": 64.183, "lng": -51.722, "match": "country", "path": ["World", "North and Central America", "Grønland"]}
@@ -217,12 +217,12 @@
 {"place": "Altiplano", "n": 15, "lat": -15.0, "lng": -60.0, "match": "path-region", "path": ["World", "South America", "Altiplano"]}
 {"place": "Chicago", "n": 15, "lat": 41.85, "lng": -87.65, "match": "city", "path": ["World", "North and Central America", "United States", "Illinois", "Cook", "Chicago"]}
 {"place": "Antwerp", "n": 15, "lat": 51.22, "lng": 4.4, "match": "path-city", "path": ["World", "Europe", "Luxembourg", "Vlaams Gewest", "Antwerpen", "Antwerpen"]}
-{"place": "Geneva", "n": 15, "lat": 41.888, "lng": -88.305, "match": "city", "path": ["World", "Europe", "Schweiz", "Genève"]}
-{"place": "Alsace", "n": 15, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Alsace"]}
+{"place": "Geneva", "n": 15, "lat": 46.2, "lng": 6.14, "match": "collision-fix", "path": ["World", "Europe", "Schweiz", "Genève"]}
+{"place": "Alsace", "n": 15, "lat": 48.3, "lng": 7.4, "match": "alias", "path": ["World", "Europe", "Alsace"]}
 {"place": "Trapiche Grande", "n": 14, "lat": 13.987, "lng": -89.681, "match": "path-city", "path": ["World", "North and Central America", "Mexican Empire", "Santa Ana", "Chalchuapa", "El Trapiche"]}
 {"place": "Boeotia", "n": 14, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Ellás", "Attikí", "Voíótía"]}
 {"place": "Kyoto", "n": 14, "lat": 35.021, "lng": 135.754, "match": "city", "path": ["World", "Asia", "East Asia", "Honshū", "Kyōto"]}
-{"place": "Bavaria", "n": 14, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Deutschland", "Bayern"]}
+{"place": "Bavaria", "n": 14, "lat": 48.9, "lng": 11.5, "match": "alias", "path": ["World", "Europe", "Deutschland", "Bayern"]}
 {"place": "Houaphan", "n": 14, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Indochina", "Houaphan"]}
 {"place": "Calca", "n": 14, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Cuzco", "Calca"]}
 {"place": "Northern Luzon Island", "n": 14, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Pilipinas", "Northern Luzon Island"]}
@@ -251,7 +251,7 @@
 {"place": "Victoria Island", "n": 12, "lat": 39.5, "lng": -98.35, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Victoria Island"]}
 {"place": "Luzon", "n": 12, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Luzon"]}
 {"place": "Yogyakarta", "n": 12, "lat": -7.801, "lng": 110.365, "match": "city", "path": ["World", "Asia", "Southeast Asia", "Java", "Yogyakarta"]}
-{"place": "Hanley", "n": 12, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Staffordshire", "Hanley"]}
+{"place": "Hanley", "n": 12, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Staffordshire", "Hanley"]}
 {"place": "Honduras", "n": 12, "lat": 14.082, "lng": -87.207, "match": "country", "path": ["World", "North and Central America", "Honduras"]}
 {"place": "Cincinnati", "n": 12, "lat": 39.127, "lng": -84.514, "match": "city", "path": ["World", "North and Central America", "United States", "Ohio", "Hamilton", "Cincinnati"]}
 {"place": "Chiapas", "n": 12, "lat": 19.43, "lng": -99.13, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Baja California", "Chiapas"]}
@@ -270,7 +270,7 @@
 {"place": "Madagascar", "n": 11, "lat": -18.914, "lng": 47.536, "match": "country", "path": ["World", "Africa", "Madagasikara"]}
 {"place": "Santa Cruz", "n": 11, "lat": 14.6, "lng": 120.983, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Santa Cruz", "Santa Cruz"]}
 {"place": "Nicoya peninsula", "n": 11, "lat": 19.43, "lng": -99.13, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Nicoya, Península de"]}
-{"place": "Cambridge", "n": 10, "lat": 52.2, "lng": 0.117, "match": "city", "path": ["World", "North and Central America", "United States", "Massachusetts", "Middlesex", "Newton"]}
+{"place": "Cambridge", "n": 10, "lat": 52.2, "lng": 0.12, "match": "collision-fix", "path": ["World", "North and Central America", "United States", "Massachusetts", "Middlesex", "Newton"]}
 {"place": "Chichicastenango", "n": 10, "lat": 14.943, "lng": -91.111, "match": "city", "path": ["World", "North and Central America", "Mexican Empire", "Quiché", "Chichicastenango"]}
 {"place": "Nevers", "n": 10, "lat": 46.99, "lng": 3.159, "match": "city", "path": ["World", "Europe", "France", "Bourgogne-Franche-Comté", "Nevers"]}
 {"place": "Winfield", "n": 10, "lat": 34.8, "lng": -92.4, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Arkansas", "Scott", "Waldron"]}
@@ -328,7 +328,7 @@
 {"place": "Luzon Province", "n": 8, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Luzon"]}
 {"place": "Palembang", "n": 8, "lat": -2.917, "lng": 104.746, "match": "city", "path": ["World", "Asia", "Southeast Asia", "Sumatera", "Palembang"]}
 {"place": "Deruta", "n": 8, "lat": 43.112, "lng": 12.389, "match": "path-city", "path": ["World", "Europe", "Italia", "Umbria", "Perugia", "Deruta"]}
-{"place": "Sicily", "n": 8, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Italia", "Sicilia"]}
+{"place": "Sicily", "n": 8, "lat": 37.6, "lng": 14.0, "match": "alias", "path": ["World", "Europe", "Italia", "Sicilia"]}
 {"place": "Brunswick-Lüneburg", "n": 8, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Deutschland", "Brunswick-Lüneburg"]}
 {"place": "Kermān", "n": 8, "lat": 22.0, "lng": 78.0, "match": "path-region", "path": ["World", "Asia", "South Asia", "Kermān"]}
 {"place": "Beauvais", "n": 8, "lat": 49.433, "lng": 2.083, "match": "city", "path": ["World", "Europe", "France", "Hauts-de-France", "Beauvais"]}
@@ -396,7 +396,7 @@
 {"place": "Sihuas", "n": 6, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Ancash", "Sihuas"]}
 {"place": "Western Highlands Province", "n": 6, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Western Highlands"]}
 {"place": "Coburg", "n": 6, "lat": 50.259, "lng": 10.964, "match": "city", "path": ["World", "Europe", "Deutschland", "Bayern", "Coburg"]}
-{"place": "New Britain", "n": 6, "lat": 41.661, "lng": -72.78, "match": "city", "path": ["World", "Malay Archipelago", "New Britain"]}
+{"place": "New Britain", "n": 6, "lat": -5.5, "lng": 150.7, "match": "collision-fix", "path": ["World", "Malay Archipelago", "New Britain"]}
 {"place": "Charazani", "n": 6, "lat": -16.5, "lng": -68.15, "match": "path-city", "path": ["World", "South America", "Bolivia", "La Paz", "Amarete"]}
 {"place": "Aguas Calientes", "n": 6, "lat": 16.9, "lng": -89.9, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Petén", "Aguas Calientes"]}
 {"place": "Dakar", "n": 6, "lat": 14.694, "lng": -17.444, "match": "city", "path": ["World", "Africa", "Sénégal", "Dakar"]}
@@ -415,7 +415,7 @@
 {"place": "Amarete", "n": 6, "lat": -16.5, "lng": -68.15, "match": "path-city", "path": ["World", "South America", "Bolivia", "La Paz", "Amarete"]}
 {"place": "Skópelos", "n": 6, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Ellás", "Stereá Elláda", "Évvoia", "Vóries Sporádhes, Nísoi", "Skópelos"]}
 {"place": "Campeche", "n": 6, "lat": 19.841, "lng": -90.517, "match": "city", "path": ["World", "North and Central America", "Mexican Empire", "Campeche"]}
-{"place": "Burano", "n": 6, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Italia", "Veneto", "Venezia", "Burano"]}
+{"place": "Burano", "n": 6, "lat": 45.5, "lng": 11.9, "match": "path-alias", "path": ["World", "Europe", "Italia", "Veneto", "Venezia", "Burano"]}
 {"place": "Tunisia", "n": 6, "lat": 36.819, "lng": 10.166, "match": "country", "path": ["World", "Africa", "Tūnis"]}
 {"place": "Tinta", "n": 6, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Cuzco", "Canchis, Provincia de", "Tinta"]}
 {"place": "Singaraja", "n": 6, "lat": -8.112, "lng": 115.088, "match": "city", "path": ["World", "Asia", "Southeast Asia", "Singaraja"]}
@@ -432,12 +432,12 @@
 {"place": "Western Elema region", "n": 5, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Gulf", "Papua, Gulf of", "Orokolo Bay", "Western Elema region"]}
 {"place": "Guangxi", "n": 5, "lat": 35.0, "lng": 115.0, "match": "path-region", "path": ["World", "Asia", "East Asia", "Guangxi"]}
 {"place": "Villa Oropeza", "n": 5, "lat": -16.5, "lng": -68.15, "match": "path-country", "path": ["World", "South America", "Bolivia", "Chuquisaca", "Villa Oropeza"]}
-{"place": "Tuscany", "n": 5, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Italia", "Toscana"]}
+{"place": "Tuscany", "n": 5, "lat": 43.4, "lng": 11.1, "match": "alias", "path": ["World", "Europe", "Italia", "Toscana"]}
 {"place": "Bolívar", "n": 5, "lat": -17.382, "lng": -66.16, "match": "path-city", "path": ["World", "South America", "Bolivia", "Cochabamba", "Bolívar"]}
 {"place": "Ulúa", "n": 5, "lat": 19.43, "lng": -99.13, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Ulúa, Río"]}
 {"place": "Pacajes", "n": 5, "lat": -16.5, "lng": -68.15, "match": "path-city", "path": ["World", "South America", "Bolivia", "La Paz", "Pacajes"]}
 {"place": "Llallagua", "n": 5, "lat": -18.425, "lng": -66.578, "match": "city", "path": ["World", "South America", "Bolivia", "Potosí", "Llallagua"]}
-{"place": "Persia", "n": 5, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Persia"]}
+{"place": "Persia", "n": 5, "lat": 32.4, "lng": 53.7, "match": "alias", "path": ["World", "Asia", "Persia"]}
 {"place": "Jerusalem", "n": 5, "lat": 31.769, "lng": 35.216, "match": "city", "path": ["World", "Middle East", "Ancient Jerusalem"]}
 {"place": "Lofa", "n": 5, "lat": 6.301, "lng": -10.797, "match": "path-country", "path": ["World", "Africa", "Liberia", "Lofa"]}
 {"place": "Bologna", "n": 5, "lat": 44.494, "lng": 11.339, "match": "city", "path": ["World", "Europe", "Italia", "Emilia-Romagna", "Bologna", "Bologna"]}
@@ -465,7 +465,7 @@
 {"place": "Tennessee", "n": 5, "lat": 35.9, "lng": -86.4, "match": "alias", "path": ["World", "North and Central America", "United States", "Tennessee"]}
 {"place": "Brazil", "n": 5, "lat": -10.3, "lng": -53.2, "match": "alias", "path": ["World", "South America", "Brasil"]}
 {"place": "Urubamba", "n": 5, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Ucayali", "Urubamba"]}
-{"place": "Devon", "n": 5, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Devon"]}
+{"place": "Devon", "n": 5, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Devon"]}
 {"place": "Quetzaltenango", "n": 5, "lat": 14.845, "lng": -91.523, "match": "city", "path": ["World", "North and Central America", "Mexican Empire", "Quetzaltenango"]}
 {"place": "Accra", "n": 5, "lat": 5.556, "lng": -0.197, "match": "city", "path": ["World", "Africa", "Ghana", "Greater Accra"]}
 {"place": "Hokkaido", "n": 5, "lat": 35.0, "lng": 115.0, "match": "path-region", "path": ["World", "Asia", "East Asia", "Hokkaidō"]}
@@ -485,7 +485,7 @@
 {"place": "El Mirador", "n": 4, "lat": 14.845, "lng": -91.523, "match": "path-city", "path": ["World", "North and Central America", "Mexican Empire", "Quetzaltenango", "El Mirador"]}
 {"place": "Hartford", "n": 4, "lat": 41.764, "lng": -72.685, "match": "city", "path": ["World", "North and Central America", "United States", "Connecticut", "Hartford", "Hartford"]}
 {"place": "East Sepik Province", "n": 4, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik"]}
-{"place": "Prussia", "n": 4, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Prussia"]}
+{"place": "Prussia", "n": 4, "lat": 52.5, "lng": 13.4, "match": "alias", "path": ["World", "Europe", "Prussia"]}
 {"place": "Springfield", "n": 4, "lat": 37.215, "lng": -93.298, "match": "city", "path": ["World", "North and Central America", "United States", "Massachusetts", "Hampden", "Springfield"]}
 {"place": "Checacupe", "n": 4, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Cuzco", "Checacupe"]}
 {"place": "Marseilles", "n": 4, "lat": 43.297, "lng": 5.381, "match": "path-city", "path": ["World", "Europe", "France", "Provence-Alpes-Côte d'Azur", "Marseille"]}
@@ -496,7 +496,7 @@
 {"place": "Ica", "n": 4, "lat": -14.075, "lng": -75.734, "match": "city", "path": ["World", "South America", "Perú", "Ica"]}
 {"place": "Leeds", "n": 4, "lat": 53.796, "lng": -1.548, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Yorkshire", "Leeds"]}
 {"place": "Lambeth", "n": 4, "lat": 51.509, "lng": -0.126, "match": "path-city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Greater London", "London", "Lambeth", "Lambeth"]}
-{"place": "Palestine", "n": 4, "lat": 31.762, "lng": -95.631, "match": "city", "path": ["World", "Asia", "Palestine"]}
+{"place": "Palestine", "n": 4, "lat": 31.9, "lng": 35.2, "match": "collision-fix", "path": ["World", "Asia", "Palestine"]}
 {"place": "Bursa", "n": 4, "lat": 40.196, "lng": 29.06, "match": "city", "path": ["World", "Asia", "Achaemenid Empire", "Aegean Region", "Bursa"]}
 {"place": "Flores", "n": 4, "lat": -7.868, "lng": -37.975, "match": "city", "path": ["World", "Asia", "Southeast Asia", "Flores"]}
 {"place": "Nusa Tenggara Timur", "n": 4, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Nusa Tenggara Timur"]}
@@ -505,9 +505,9 @@
 {"place": "Cuzco", "n": 4, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Cuzco"]}
 {"place": "South Papua Province", "n": 4, "lat": -6.215, "lng": 106.845, "match": "path-country", "path": ["World", "Asia", "Indonesia", "South Papua Province"]}
 {"place": "Michigan", "n": 4, "lat": 44.3, "lng": -85.4, "match": "alias", "path": ["World", "North and Central America", "United States", "Michigan"]}
-{"place": "Buckinghamshire", "n": 4, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Buckinghamshire"]}
+{"place": "Buckinghamshire", "n": 4, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Buckinghamshire"]}
 {"place": "Xochistlahuaca", "n": 4, "lat": 19.43, "lng": -99.13, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Guerrero", "Xochistlahuaca"]}
-{"place": "Swabia", "n": 4, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Deutschland", "Bayern", "Schwaben"]}
+{"place": "Swabia", "n": 4, "lat": 48.4, "lng": 9.8, "match": "alias", "path": ["World", "Europe", "Deutschland", "Bayern", "Schwaben"]}
 {"place": "Kuba", "n": 4, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Dagestan", "Kuba"]}
 {"place": "Varāmīn", "n": 4, "lat": 35.324, "lng": 51.646, "match": "city", "path": ["World", "Asia", "South Asia", "Tehrān", "Varāmīn"]}
 {"place": "Trenton", "n": 4, "lat": 40.217, "lng": -74.743, "match": "city", "path": ["World", "North and Central America", "United States", "New Jersey", "Mercer", "Trenton"]}
@@ -573,7 +573,7 @@
 {"place": "Chillón", "n": 4, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Lima, Región de", "Chillón"]}
 {"place": "San Antonio Aguas Calientes", "n": 4, "lat": 16.9, "lng": -89.9, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Petén", "Aguas Calientes"]}
 {"place": "Westport", "n": 4, "lat": 41.141, "lng": -73.358, "match": "city", "path": ["World", "North and Central America", "United States", "Connecticut", "Fairfield", "Westport"]}
-{"place": "Brittany", "n": 4, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Bretagne"]}
+{"place": "Brittany", "n": 4, "lat": 48.2, "lng": -3.0, "match": "alias", "path": ["World", "Europe", "France", "Bretagne"]}
 {"place": "Kachchh", "n": 3, "lat": 22.0, "lng": 78.0, "match": "path-region", "path": ["World", "Asia", "South Asia", "Gujarāt", "Kachchh"]}
 {"place": "Wagupmeri", "n": 3, "lat": -4.2, "lng": 143.3, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Middle Sepik River", "Upper Karawari River", "Wagupmeri"]}
 {"place": "Motagua, Río", "n": 3, "lat": null, "lng": null, "match": null, "path": ["World", "North and Central America", "Motagua, Río"]}
@@ -600,7 +600,7 @@
 {"place": "Tōhoku", "n": 3, "lat": 35.0, "lng": 115.0, "match": "path-region", "path": ["World", "Asia", "East Asia", "Tōhoku-chihō"]}
 {"place": "El Zotz", "n": 3, "lat": 16.9, "lng": -89.9, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Petén", "Zotz, El"]}
 {"place": "Huon Peninsula", "n": 3, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Morobe", "Huon Peninsula"]}
-{"place": "Catalonia", "n": 3, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "España", "Cataluña"]}
+{"place": "Catalonia", "n": 3, "lat": 41.8, "lng": 1.5, "match": "alias", "path": ["World", "Europe", "España", "Cataluña"]}
 {"place": "Solok", "n": 3, "lat": -0.801, "lng": 100.657, "match": "city", "path": ["World", "Asia", "Southeast Asia", "Sumatera", "Solok"]}
 {"place": "Kırşehir", "n": 3, "lat": 39.146, "lng": 34.164, "match": "city", "path": ["World", "Asia", "Achaemenid Empire", "Kırşehir"]}
 {"place": "Taras", "n": 3, "lat": 40.464, "lng": 17.247, "match": "path-city", "path": ["World", "Europe", "Italia", "Puglia", "Taranto", "Taranto"]}
@@ -637,7 +637,7 @@
 {"place": "Cirebon", "n": 3, "lat": -6.706, "lng": 108.557, "match": "city", "path": ["World", "Asia", "Southeast Asia", "Java", "Cirebon"]}
 {"place": "Jambi", "n": 3, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Sumatera", "Jambi"]}
 {"place": "Norton Sound", "n": 3, "lat": 64.2, "lng": -152.0, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Alaska", "Norton Sound"]}
-{"place": "Franconia", "n": 3, "lat": 38.782, "lng": -77.146, "match": "city", "path": ["World", "Europe", "Deutschland", "Franken"]}
+{"place": "Franconia", "n": 3, "lat": 49.8, "lng": 10.9, "match": "collision-fix", "path": ["World", "Europe", "Deutschland", "Franken"]}
 {"place": "Kinngait", "n": 3, "lat": 39.5, "lng": -98.35, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Nunavut", "Cape Dorset"]}
 {"place": "Northern France", "n": 3, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Northern France"]}
 {"place": "Ixtlán del Río", "n": 3, "lat": 21.039, "lng": -104.371, "match": "city", "path": ["World", "North and Central America", "Mexican Empire", "Nayarit", "Ixtlán del Río"]}
@@ -664,11 +664,11 @@
 {"place": "Tyrol", "n": 3, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Österreich", "Tirol"]}
 {"place": "Kentucky", "n": 3, "lat": 37.5, "lng": -85.3, "match": "alias", "path": ["World", "North and Central America", "United States", "Kentucky"]}
 {"place": "Rixheim", "n": 3, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Grand Est", "Rixheim"]}
-{"place": "Normandy", "n": 3, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Normandie"]}
+{"place": "Normandy", "n": 3, "lat": 49.0, "lng": 0.2, "match": "alias", "path": ["World", "Europe", "France", "Normandie"]}
 {"place": "Portland", "n": 3, "lat": 45.523, "lng": -122.676, "match": "city", "path": ["World", "North and Central America", "United States", "Oregon", "Multnomah", "Portland"]}
 {"place": "Aubusson", "n": 3, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Nouvelle-Aquitaine", "Aubusson"]}
 {"place": "Byzantium", "n": 3, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Achaemenid Empire", "Marmara", "İstanbul"]}
-{"place": "Burslem", "n": 3, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Staffordshire", "Burslem"]}
+{"place": "Burslem", "n": 3, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Staffordshire", "Burslem"]}
 {"place": "Asyut", "n": 3, "lat": 29.0, "lng": 45.0, "match": "path-region", "path": ["World", "Middle East", "Asyūţ"]}
 {"place": "May River", "n": 3, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Upper Sepik River", "May River"]}
 {"place": "Anti-Atlas", "n": 3, "lat": 2.0, "lng": 21.0, "match": "path-region", "path": ["World", "Africa", "Al Maghrib", "Anti-Atlas"]}
@@ -732,7 +732,7 @@
 {"place": "Kraków", "n": 2, "lat": 50.061, "lng": 19.937, "match": "city", "path": ["World", "Europe", "Eastern Europe", "Małopolskie", "Kraków"]}
 {"place": "Mekoryuk", "n": 2, "lat": 60.0, "lng": -166.3, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Alaska", "Bethel", "Nunivak Island", "Mekoryuk"]}
 {"place": "Mahakam", "n": 2, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Mahakam, Sungai"]}
-{"place": "Victoria", "n": 2, "lat": 22.288, "lng": 114.144, "match": "city", "path": ["World", "Oceania", "Australia", "Victoria"]}
+{"place": "Victoria", "n": 2, "lat": -37.0, "lng": 144.5, "match": "collision-fix", "path": ["World", "Oceania", "Australia", "Victoria"]}
 {"place": "Los Gatos", "n": 2, "lat": 37.227, "lng": -121.975, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Santa Clara", "Los Gatos"]}
 {"place": "Sir Joseph Banks Group", "n": 2, "lat": -25.0, "lng": 134.0, "match": "path-alias", "path": ["World", "Oceania", "Australia", "South Australia", "Sir Joseph Banks Group"]}
 {"place": "Edgefield", "n": 2, "lat": 33.9, "lng": -80.9, "match": "path-alias", "path": ["World", "North and Central America", "United States", "South Carolina", "Edgefield"]}
@@ -762,7 +762,7 @@
 {"place": "Riobamba", "n": 2, "lat": -1.665, "lng": -78.659, "match": "city", "path": ["World", "South America", "Ecuador", "Sierra", "Riobamba"]}
 {"place": "Cozoyoapan", "n": 2, "lat": 19.43, "lng": -99.13, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Guerrero", "Cozoyoapan"]}
 {"place": "Tiquisate", "n": 2, "lat": 14.284, "lng": -91.361, "match": "city", "path": ["World", "North and Central America", "Mexican Empire", "Escuintla", "Tiquisate"]}
-{"place": "Lombardy", "n": 2, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Italia", "Lombardia"]}
+{"place": "Lombardy", "n": 2, "lat": 45.5, "lng": 9.7, "match": "alias", "path": ["World", "Europe", "Italia", "Lombardia"]}
 {"place": "Wyoming", "n": 2, "lat": 43.0, "lng": -107.5, "match": "alias", "path": ["World", "North and Central America", "United States", "Wyoming"]}
 {"place": "Sens", "n": 2, "lat": 48.197, "lng": 3.283, "match": "city", "path": ["World", "Europe", "France", "Bourgogne-Franche-Comté", "Sens"]}
 {"place": "Shaki", "n": 2, "lat": 8.668, "lng": 3.394, "match": "path-city", "path": ["World", "Africa", "Nigeria", "Oyo", "Saki"]}
@@ -831,7 +831,7 @@
 {"place": "Comalapa", "n": 2, "lat": 14.741, "lng": -90.888, "match": "city", "path": ["World", "North and Central America", "Mexican Empire", "Chimaltenango", "Comalapa"]}
 {"place": "Yunnan", "n": 2, "lat": 35.0, "lng": 115.0, "match": "path-region", "path": ["World", "Asia", "East Asia", "Yunnan"]}
 {"place": "Espinar", "n": 2, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Cuzco", "Espinar"]}
-{"place": "Yorkshire", "n": 2, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Yorkshire"]}
+{"place": "Yorkshire", "n": 2, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Yorkshire"]}
 {"place": "Suiyuan", "n": 2, "lat": 35.0, "lng": 115.0, "match": "path-region", "path": ["World", "Asia", "East Asia", "Suiyuan"]}
 {"place": "Tamaya", "n": 2, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Ucayali", "Tamaya"]}
 {"place": "Astarabad", "n": 2, "lat": 36.843, "lng": 54.444, "match": "path-city", "path": ["World", "Asia", "South Asia", "Golestān", "Gorgān"]}
@@ -895,7 +895,7 @@
 {"place": "Ladakh", "n": 2, "lat": 22.0, "lng": 78.0, "match": "path-region", "path": ["World", "Asia", "South Asia", "area disputed by India and Pakistan", "Ladākh"]}
 {"place": "Barcelona", "n": 2, "lat": 41.389, "lng": 2.159, "match": "city", "path": ["World", "Europe", "España", "Cataluña", "Barcelona"]}
 {"place": "Tiverton", "n": 2, "lat": 50.902, "lng": -3.492, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Devon", "Tiverton"]}
-{"place": "Berkshire", "n": 2, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Berkshire"]}
+{"place": "Berkshire", "n": 2, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Berkshire"]}
 {"place": "Faenza", "n": 2, "lat": 44.29, "lng": 11.879, "match": "city", "path": ["World", "Europe", "Italia", "Emilia-Romagna", "Ravenna", "Faenza"]}
 {"place": "Solo", "n": 2, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Bengawan Solo"]}
 {"place": "Holmul", "n": 2, "lat": 16.9, "lng": -89.9, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Petén", "Holmul"]}
@@ -946,7 +946,7 @@
 {"place": "Jouy-en-Josas", "n": 2, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Île-de-France", "Jouy-en-Josas"]}
 {"place": "South Carolina", "n": 2, "lat": 33.9, "lng": -80.9, "match": "alias", "path": ["World", "North and Central America", "United States", "South Carolina"]}
 {"place": "Pupis Village", "n": 2, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Papua", "Pupis Village"]}
-{"place": "Wales", "n": 2, "lat": 64.2, "lng": -152.0, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Alaska", "Nome", "Wales Indian Reservation"]}
+{"place": "Wales", "n": 2, "lat": 52.3, "lng": -3.8, "match": "alias", "path": ["World", "North and Central America", "United States", "Alaska", "Nome", "Wales Indian Reservation"]}
 {"place": "Sanger", "n": 2, "lat": 36.708, "lng": -119.556, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Fresno", "Sanger"]}
 {"place": "Chuuk Lagoon", "n": 2, "lat": 7.0, "lng": 150.0, "match": "path-region", "path": ["World", "Oceania", "Micronesia", "Chuuk", "Truk Lagoon"]}
 {"place": "North Dakota", "n": 2, "lat": 47.5, "lng": -100.3, "match": "alias", "path": ["World", "North and Central America", "United States", "North Dakota"]}
@@ -1006,7 +1006,7 @@
 {"place": "Siegburg", "n": 2, "lat": 50.8, "lng": 7.208, "match": "city", "path": ["World", "Europe", "Deutschland", "Nordrhein-Westfalen", "Siegburg"]}
 {"place": "Liege", "n": 2, "lat": 50.634, "lng": 5.567, "match": "path-city", "path": ["World", "Europe", "Luxembourg", "Wallonne, Région", "Liège", "Liège"]}
 {"place": "Savoonga", "n": 2, "lat": 64.2, "lng": -152.0, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Alaska", "Nome", "Saint Lawrence Island", "Savoonga"]}
-{"place": "Worcestershire", "n": 2, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Worcestershire"]}
+{"place": "Worcestershire", "n": 2, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Worcestershire"]}
 {"place": "Challhuahuacho", "n": 2, "lat": -12.05, "lng": -77.04, "match": "path-alias", "path": ["World", "South America", "Perú", "Apurimac", "Cotabambas", "Challhuahuacho"]}
 {"place": "Kandingai village", "n": 2, "lat": -4.2, "lng": 143.3, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Middle Sepik River", "Kandingai village"]}
 {"place": "Orleans", "n": 2, "lat": -28.359, "lng": -49.291, "match": "city", "path": ["World", "North and Central America", "United States", "Massachusetts", "Barnstable", "Orleans"]}
@@ -1048,7 +1048,7 @@
 {"place": "Akhmīm", "n": 1, "lat": 26.562, "lng": 31.746, "match": "city", "path": ["World", "Middle East", "Sūhāj", "Akhmīm"]}
 {"place": "Cuenca", "n": 1, "lat": -2.895, "lng": -78.996, "match": "city", "path": ["World", "South America", "Ecuador", "Sierra", "Cuenca"]}
 {"place": "Watertown", "n": 1, "lat": 42.371, "lng": -71.183, "match": "city", "path": ["World", "North and Central America", "United States", "Connecticut", "Litchfield", "Watertown"]}
-{"place": "Bedfordshire", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Bedfordshire"]}
+{"place": "Bedfordshire", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Bedfordshire"]}
 {"place": "Tanágra", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Ellás", "Stereá Elláda", "Voíótía", "Tanágra"]}
 {"place": "Maluku Islands", "n": 1, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Maluku"]}
 {"place": "Kembang", "n": 1, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Jawa Tengah", "Kembang"]}
@@ -1120,7 +1120,7 @@
 {"place": "Highlands", "n": 1, "lat": -9.477, "lng": 147.151, "match": "path-country", "path": ["World", "Oceania", "Papua New Guinea", "Highlands"]}
 {"place": "Kuliangua village", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Sepik Plains", "Kuliangua village"]}
 {"place": "Boitalu (Bwetalu) village", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Milne Bay", "Kiriwina Island", "Boitalu (Bwetalu) village"]}
-{"place": "Mortlake", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Greater London", "Richmond upon Thames", "Mortlake"]}
+{"place": "Mortlake", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Greater London", "Richmond upon Thames", "Mortlake"]}
 {"place": "Ulla Ulla National Reserve", "n": 1, "lat": -16.5, "lng": -68.15, "match": "path-city", "path": ["World", "South America", "Bolivia", "La Paz", "Ulla Ulla National Reserve"]}
 {"place": "Besikama", "n": 1, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Besikama"]}
 {"place": "Iqaluit", "n": 1, "lat": 39.5, "lng": -98.35, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Nunavut", "Iqaluit"]}
@@ -1168,7 +1168,7 @@
 {"place": "San Luis Acatlán", "n": 1, "lat": 19.43, "lng": -99.13, "match": "path-alias", "path": ["World", "North and Central America", "Mexican Empire", "Guerrero", "San Luis Acatlán"]}
 {"place": "Brighton", "n": 1, "lat": 50.828, "lng": -0.139, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Brighton and Hove", "Brighton"]}
 {"place": "Gördes", "n": 1, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Achaemenid Empire", "Aegean Region", "Gördes"]}
-{"place": "East Sussex", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "East Sussex"]}
+{"place": "East Sussex", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "East Sussex"]}
 {"place": "Sacramento", "n": 1, "lat": 38.582, "lng": -121.494, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Sacramento", "Sacramento"]}
 {"place": "Netherlands, The", "n": 1, "lat": 29.974, "lng": -93.992, "match": "path-city", "path": ["World", "Europe", "Nederland"]}
 {"place": "County Cork", "n": 1, "lat": 51.898, "lng": -8.471, "match": "path-city", "path": ["World", "Europe", "British Isles", "Ireland", "Cork"]}
@@ -1227,7 +1227,7 @@
 {"place": "Plateau State", "n": 1, "lat": 6.454, "lng": 3.395, "match": "path-country", "path": ["World", "Africa", "Nigeria", "Plateau"]}
 {"place": "Cornish", "n": 1, "lat": 43.7, "lng": -71.6, "match": "path-alias", "path": ["World", "North and Central America", "United States", "New Hampshire", "Sullivan", "Cornish"]}
 {"place": "Jakapis villlage", "n": 1, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Papua", "Asmat Regency", "Northwest Asmat", "Yerep River", "Jakapis villlage"]}
-{"place": "Glamis", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Angus", "Glamis"]}
+{"place": "Glamis", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Angus", "Glamis"]}
 {"place": "Alexandria", "n": 1, "lat": 31.202, "lng": 29.916, "match": "city", "path": ["World", "Middle East", "Al Iskandarīyah", "Al Iskandarīyah"]}
 {"place": "Teec Nos Pos", "n": 1, "lat": 34.3, "lng": -111.7, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Arizona", "Apache", "Teec Nos Pos"]}
 {"place": "Kwango", "n": 1, "lat": 2.0, "lng": 21.0, "match": "path-region", "path": ["World", "Africa", "Congo, République Démocratique du", "Kwango"]}
@@ -1243,7 +1243,7 @@
 {"place": "Nahoromere (Naheromere) village", "n": 1, "lat": -22.0, "lng": 140.0, "match": "path-region", "path": ["World", "Oceania", "Fly River", "Nahoromere (Naheromere) village"]}
 {"place": "Schrezheim", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Deutschland", "Baden-Württemberg", "Schrezheim"]}
 {"place": "Eighteenth Arrondissement", "n": 1, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Île-de-France", "Dix-huitième Arrondissement"]}
-{"place": "Derbyshire", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Derbyshire"]}
+{"place": "Derbyshire", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Derbyshire"]}
 {"place": "Urama Island", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Gulf", "Papua, Gulf of", "Urama Island"]}
 {"place": "Central Europe", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Central Europe"]}
 {"place": "Nebilyer Valley", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Western Highlands", "Nebilyer Valley"]}
@@ -1324,7 +1324,7 @@
 {"place": "Darapap village", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Coastal Region", "Darapap village"]}
 {"place": "World", "n": 1, "lat": 20.0, "lng": 0.0, "match": "region", "path": ["World"]}
 {"place": "Lamari River area", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Eastern Highlands", "Lamari"]}
-{"place": "Honiton", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Devon", "Honiton"]}
+{"place": "Honiton", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Devon", "Honiton"]}
 {"place": "Liangshan", "n": 1, "lat": 35.0, "lng": 115.0, "match": "path-region", "path": ["World", "Asia", "East Asia", "Yunnan", "Liangshan"]}
 {"place": "Kobrin", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Brestskaya Voblasts'", "Kobrin"]}
 {"place": "Kailua", "n": 1, "lat": 21.402, "lng": -157.741, "match": "city", "path": ["World", "Oceania", "Hawaiian Islands", "Honolulu", "Kailua"]}
@@ -1438,7 +1438,7 @@
 {"place": "Knox county", "n": 1, "lat": 40.3, "lng": -82.8, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Ohio", "Knox"]}
 {"place": "First Mesa", "n": 1, "lat": 34.3, "lng": -111.7, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Arizona", "Navajo", "First Mesa"]}
 {"place": "Chester", "n": 1, "lat": 53.191, "lng": -2.892, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Cheshire"]}
-{"place": "Scandinavia", "n": 1, "lat": 63.0, "lng": 15.0, "match": "region", "path": ["World", "Europe", "Scandinavia"]}
+{"place": "Scandinavia", "n": 1, "lat": 63.0, "lng": 15.0, "match": "alias", "path": ["World", "Europe", "Scandinavia"]}
 {"place": "La Mixteca", "n": 1, "lat": 17.06, "lng": -96.725, "match": "path-city", "path": ["World", "North and Central America", "Mexican Empire", "Oaxaca", "La Mixteca"]}
 {"place": "Lelehundi village", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "Milne Bay", "East Cape", "Lelehundi village"]}
 {"place": "Singarin village", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Lower Sepik river", "Singarin village"]}
@@ -1529,7 +1529,7 @@
 {"place": "Tutuila", "n": 1, "lat": -22.0, "lng": 140.0, "match": "path-region", "path": ["World", "Oceania", "Samoa Islands", "Tutuila"]}
 {"place": "Ṣaḥneh", "n": 1, "lat": 22.0, "lng": 78.0, "match": "path-region", "path": ["World", "Asia", "South Asia", "Kermānshāh", "Ṣaḥneh"]}
 {"place": "Karkar Island", "n": 1, "lat": -5.222, "lng": 145.787, "match": "path-city", "path": ["World", "Malay Archipelago", "Madang", "Karkar Island"]}
-{"place": "Rhineland", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Deutschland", "Rheinland"]}
+{"place": "Rhineland", "n": 1, "lat": 50.5, "lng": 7.0, "match": "alias", "path": ["World", "Europe", "Deutschland", "Rheinland"]}
 {"place": "Malaysia", "n": 1, "lat": 3.141, "lng": 101.687, "match": "country", "path": ["World", "Asia", "Malaysia"]}
 {"place": "Waldoboro", "n": 1, "lat": 40.8, "lng": -96.667, "match": "path-city", "path": ["World", "North and Central America", "United States", "Maine", "Lincoln", "Waldoboro"]}
 {"place": "Dijon", "n": 1, "lat": 47.317, "lng": 5.017, "match": "city", "path": ["World", "Europe", "France", "Bourgogne-Franche-Comté", "Dijon"]}
@@ -1563,7 +1563,7 @@
 {"place": "Bekwai", "n": 1, "lat": 6.452, "lng": -1.579, "match": "city", "path": ["World", "Africa", "Ghana", "Ashanti", "Bekwai"]}
 {"place": "Mimbres Valley", "n": 1, "lat": 34.4, "lng": -106.1, "match": "path-alias", "path": ["World", "North and Central America", "United States", "New Mexico", "Grant", "Mimbres"]}
 {"place": "Chuuk State", "n": 1, "lat": 7.0, "lng": 150.0, "match": "path-region", "path": ["World", "Oceania", "Micronesia", "Chuuk"]}
-{"place": "East Riding of Yorkshire", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "East Riding of Yorkshire"]}
+{"place": "East Riding of Yorkshire", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "East Riding of Yorkshire"]}
 {"place": "Petaluma", "n": 1, "lat": 38.232, "lng": -122.637, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Sonoma", "Petaluma"]}
 {"place": "Sabbathday Lake", "n": 1, "lat": 41.967, "lng": -71.433, "match": "path-city", "path": ["World", "North and Central America", "United States", "Maine", "Cumberland", "Shaker Village"]}
 {"place": "Valencia", "n": 1, "lat": 10.162, "lng": -68.0, "match": "city", "path": ["World", "Europe", "España", "Comunidad Valenciana", "Valencia"]}
@@ -1598,7 +1598,7 @@
 {"place": "Grand Rapids", "n": 1, "lat": 42.963, "lng": -85.668, "match": "city", "path": ["World", "North and Central America", "United States", "Michigan", "Ontonagon", "Grand Rapids"]}
 {"place": "Provincetown", "n": 1, "lat": 41.7, "lng": -70.299, "match": "path-city", "path": ["World", "North and Central America", "United States", "Massachusetts", "Barnstable", "Provincetown"]}
 {"place": "West Willington", "n": 1, "lat": 41.6, "lng": -72.7, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Connecticut", "Tolland", "West Willington"]}
-{"place": "London Basin", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "London Basin"]}
+{"place": "London Basin", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "London Basin"]}
 {"place": "Pasadena", "n": 1, "lat": 29.691, "lng": -95.209, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Los Angeles", "Pasadena"]}
 {"place": "Zeeland", "n": 1, "lat": 45.411, "lng": -75.698, "match": "path-city", "path": ["World", "North and Central America", "United States", "Michigan", "Ottawa", "Zeeland"]}
 {"place": "Central Africa", "n": 1, "lat": 2.0, "lng": 20.0, "match": "region", "path": ["World", "Africa", "Central Africa"]}
@@ -1614,7 +1614,7 @@
 {"place": "Kayuagung", "n": 1, "lat": 5.0, "lng": 110.0, "match": "path-region", "path": ["World", "Asia", "Southeast Asia", "Sumatera", "Kayuagung"]}
 {"place": "Tasmania", "n": 1, "lat": -25.0, "lng": 134.0, "match": "path-alias", "path": ["World", "Oceania", "Australia", "Tasmania"]}
 {"place": "North and Central America", "n": 1, "lat": null, "lng": null, "match": null, "path": ["World", "North and Central America"]}
-{"place": "Westphalia", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Deutschland", "Nordrhein-Westfalen", "Westfalen"]}
+{"place": "Westphalia", "n": 1, "lat": 51.8, "lng": 8.0, "match": "alias", "path": ["World", "Europe", "Deutschland", "Nordrhein-Westfalen", "Westfalen"]}
 {"place": "Port-au-Prince", "n": 1, "lat": 18.543, "lng": -72.339, "match": "city", "path": ["World", "West Indies", "Ouest", "Port-au-Prince"]}
 {"place": "Río Orinoco", "n": 1, "lat": -15.0, "lng": -60.0, "match": "path-region", "path": ["World", "South America", "Orinoco, Río"]}
 {"place": "San Martín Itunyoso", "n": 1, "lat": 17.06, "lng": -96.725, "match": "path-city", "path": ["World", "North and Central America", "Mexican Empire", "Oaxaca", "San Martín Itunyoso"]}
@@ -1688,7 +1688,7 @@
 {"place": "Lubenec", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Eastern Europe", "Ústecký Kraj", "Lubenec"]}
 {"place": "Gelveri", "n": 1, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Achaemenid Empire", "Central Anatolia", "Güzelyurt"]}
 {"place": "Friesland", "n": 1, "lat": 49.61, "lng": 6.133, "match": "path-country", "path": ["World", "Europe", "Luxembourg", "Friesland"]}
-{"place": "Sussex", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "East Sussex", "Sussex"]}
+{"place": "Sussex", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "East Sussex", "Sussex"]}
 {"place": "Cundinamarca", "n": 1, "lat": 4.61, "lng": -74.082, "match": "path-country", "path": ["World", "South America", "Colombia", "Cundinamarca"]}
 {"place": "Autun", "n": 1, "lat": 46.951, "lng": 4.299, "match": "city", "path": ["World", "Europe", "France", "Bourgogne-Franche-Comté", "Autun"]}
 {"place": "Houck", "n": 1, "lat": 34.3, "lng": -111.7, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Arizona", "Apache", "Houck"]}
@@ -1736,7 +1736,7 @@
 {"place": "Stourbridge", "n": 1, "lat": 52.456, "lng": -2.143, "match": "city", "path": ["World", "Europe", "Northern Europe", "Great Britain", "West Midlands", "Dudley", "Stourbridge"]}
 {"place": "Inaramba village", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Lower Sepik river", "Yuat River", "Inaramba village"]}
 {"place": "Mandalay", "n": 1, "lat": 21.975, "lng": 96.084, "match": "city", "path": ["World", "Asia", "Southeast Asia", "Mandalay", "Mandalay"]}
-{"place": "Provence", "n": 1, "lat": 48.853, "lng": 2.349, "match": "path-country", "path": ["World", "Europe", "France", "Provence"]}
+{"place": "Provence", "n": 1, "lat": 43.9, "lng": 6.0, "match": "alias", "path": ["World", "Europe", "France", "Provence"]}
 {"place": "Lâdik", "n": 1, "lat": 34.0, "lng": 100.0, "match": "path-region", "path": ["World", "Asia", "Achaemenid Empire", "Central Anatolia", "Halıcı"]}
 {"place": "Blackwater River region", "n": 1, "lat": -4.2, "lng": 143.3, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Middle Sepik River", "Blackwater River"]}
 {"place": "Liping", "n": 1, "lat": 26.231, "lng": 109.131, "match": "city", "path": ["World", "Asia", "East Asia", "Guangxi", "Liping"]}
@@ -1753,7 +1753,7 @@
 {"place": "Northeastern United States", "n": 1, "lat": 39.5, "lng": -98.35, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Northeastern United States"]}
 {"place": "Isparta", "n": 1, "lat": 37.764, "lng": 30.552, "match": "city", "path": ["World", "Asia", "Achaemenid Empire", "Isparta"]}
 {"place": "Burundi", "n": 1, "lat": -3.382, "lng": 29.361, "match": "country", "path": ["World", "Africa", "Burundi"]}
-{"place": "Devonshire", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Devon"]}
+{"place": "Devonshire", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Devon"]}
 {"place": "Cuba", "n": 1, "lat": 23.133, "lng": -82.383, "match": "country", "path": ["World", "North and Central America", "Cuba", "Cuba"]}
 {"place": "San Cristobal", "n": 1, "lat": 22.717, "lng": -83.056, "match": "city", "path": ["World", "Oceania", "Solomon Islands", "Makira and Ulawa", "San Cristobal"]}
 {"place": "Tiburon", "n": 1, "lat": 37.2, "lng": -119.5, "match": "path-alias", "path": ["World", "North and Central America", "United States", "California", "Marin", "Tiburon"]}
@@ -1773,7 +1773,7 @@
 {"place": "Sichomovi", "n": 1, "lat": 34.3, "lng": -111.7, "match": "path-alias", "path": ["World", "North and Central America", "United States", "Arizona", "Navajo", "Sichomovi"]}
 {"place": "Damaturu", "n": 1, "lat": 11.747, "lng": 11.961, "match": "city", "path": ["World", "Africa", "Nigeria", "Yobe", "Damaturu"]}
 {"place": "Upper April River", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "April", "Upper April River"]}
-{"place": "Midlands", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Midlands"]}
+{"place": "Midlands", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Midlands"]}
 {"place": "Kasai", "n": 1, "lat": 34.926, "lng": 134.845, "match": "city", "path": ["World", "Africa", "Kasaï"]}
 {"place": "Napa", "n": 1, "lat": 38.297, "lng": -122.286, "match": "city", "path": ["World", "North and Central America", "United States", "California", "Napa"]}
 {"place": "Vancouver Island", "n": 1, "lat": 53.7, "lng": -125.0, "match": "path-alias", "path": ["World", "North and Central America", "United States", "British Columbia", "Vancouver Island"]}
@@ -1852,7 +1852,7 @@
 {"place": "Wogeo Island", "n": 1, "lat": 0.0, "lng": 118.0, "match": "path-alias", "path": ["World", "Malay Archipelago", "East Sepik", "Schouten Islands", "Wogeo Island"]}
 {"place": "Denizli", "n": 1, "lat": 37.774, "lng": 29.087, "match": "city", "path": ["World", "Asia", "Achaemenid Empire", "Aegean Region", "Denizli"]}
 {"place": "Acre", "n": 1, "lat": 32.928, "lng": 35.076, "match": "city", "path": ["World", "Middle East", "HaẔafon", "ʻAkko"]}
-{"place": "Coalbrookdale", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Shropshire", "Coalbrookdale"]}
+{"place": "Coalbrookdale", "n": 1, "lat": 54.0, "lng": -2.5, "match": "path-alias", "path": ["World", "Europe", "Northern Europe", "Great Britain", "Shropshire", "Coalbrookdale"]}
 {"place": "Fayum", "n": 1, "lat": 29.0, "lng": 45.0, "match": "path-region", "path": ["World", "Middle East", "Al Fayyūm"]}
 {"place": "Tanagra", "n": 1, "lat": 54.0, "lng": 15.0, "match": "path-region", "path": ["World", "Europe", "Ellás", "Stereá Elláda", "Voíótía", "Tanágra"]}
 {"place": "Rochester", "n": 1, "lat": 43.155, "lng": -77.616, "match": "city", "path": ["World", "North and Central America", "United States", "New York", "Monroe", "Rochester"]}
