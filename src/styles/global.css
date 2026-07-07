@@ -5,7 +5,7 @@
    - Signifier (serif display): licensed woff2 copied to /public/fonts/signifier.
    - Akzidenz-Grotesk Next Pro (grotesk): Adobe Typekit kit tpb7nan, loaded via
      <link> in Layout.astro (same licence as the live site).
-   Console uses IBM Plex Mono (Google) — not a FAMSF face, just the mono voice.
+   Console uses IBM Plex Mono (Google), not a FAMSF face, just the mono voice.
 ---------------------------------------------------------------------------- */
 @font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-thin.woff2"); font-style: normal; font-weight: 100; font-display: swap; }
 @font-face { font-family: "Signifier"; src: url("/fonts/signifier/signifier-thin-italic.woff2"); font-style: italic; font-weight: 100; font-display: swap; }

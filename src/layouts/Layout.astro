@@ -2,8 +2,11 @@
 import "../styles/global.css";
 interface Props {
   title?: string;
+  /** Hide the global back-to-index nav (e.g. on the index page itself). */
+  hideNav?: boolean;
 }
-const { title = "FAMSF Collection — Hero console prototype" } = Astro.props;
+const { title = "FAMSF Collection: hero console prototype", hideNav = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <!doctype html>
@@ -24,6 +27,19 @@ const { title = "FAMSF Collection — Hero console prototype" } = Astro.props;
     />
   </head>
   <body class="font-grotesk text-ink antialiased bg-white">
+    <!-- Global prototype nav: always a route back to the demo index. Fixed and
+         translucent so it reads over both the dark hero pages and the white
+         content pages. Prototype chrome, not part of any single surface.
+         Hidden on the index itself (nowhere to go back to). -->
+    {!hideNav && (
+    <a
+      href={`${base}/`}
+      class="group fixed left-4 top-4 z-50 inline-flex items-center gap-2 rounded-full border border-white/15 bg-band/90 px-4 py-2 font-mono text-xs uppercase tracking-[0.18em] text-white no-underline shadow-sm backdrop-blur-md transition hover:bg-band focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+    >
+      <span aria-hidden="true" class="text-base leading-none">\</span>
+      <span>All prototypes</span>
+    </a>
+    )}
     <slot />
   </body>
 </html>

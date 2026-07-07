@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<Layout title="FAMSF Collection — place of creation map">
+<Layout title="FAMSF Collection: place of creation map">
   <main class="min-h-screen bg-map-page text-ink">
     <div class="mx-auto max-w-[1360px] px-6 py-16 md:px-10 md:py-24">
       <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-ink/60">
@@ -116,7 +116,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <div id="density-scale" class="h-3 w-full rounded-full"></div>
             <div class="mt-1.5 flex justify-between font-mono text-[11px] text-ink/50">
               <span>1</span>
-              <span id="density-max">—</span>
+              <span id="density-max">-</span>
             </div>
             <!-- Clicked-hexagon breakdown (sits directly under the scale so it's
                  visible without scrolling once a cell is chosen) -->
@@ -143,7 +143,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   <script define:vars={{ base }}>
     /**
      * World map of every place of creation. Equirectangular projection,
-     * hand-drawn graticule (no tile server / external map lib — GH Pages
+     * hand-drawn graticule (no tile server / external map lib, GH Pages
      * static-only constraint), dot radius ~ sqrt(n), colour blends toward
      * yellow as n grows. Legend rows and dots share hover/focus highlight.
      */
@@ -159,7 +159,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     const MIN_R = 2;
     const MAX_R = 40;
 
-    // Design tokens (from global.css) — no colour literals in this script.
+    // Design tokens (from global.css), no colour literals in this script.
     const rootStyle = getComputedStyle(document.documentElement);
     const token = (name) => rootStyle.getPropertyValue(name).trim();
     const MAP = {
@@ -274,7 +274,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     }
 
     // Partially counter-scale markers: fully constant screen size (÷zoom) makes
-    // them tiny when zoomed in, so let them grow with zoom^0.45 — bigger as you
+    // them tiny when zoomed in, so let them grow with zoom^0.45, bigger as you
     // zoom in, but not so much they balloon back to overlapping blobs.
     function rescaleDots() {
       if (!baseDotsGroup) return;
@@ -453,7 +453,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         );
         circle.classList.add("map-dot");
 
-        const label = `${p.place} — ${p.n.toLocaleString()} object${p.n === 1 ? "" : "s"}`;
+        const label = `${p.place}: ${p.n.toLocaleString()} object${p.n === 1 ? "" : "s"}`;
 
         function onEnter() {
           const panelRect = panel.getBoundingClientRect();
@@ -738,7 +738,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         `${mapped.length.toLocaleString()} of ${places.length.toLocaleString()} places mapped ` +
         `(${pctPlaces}% of places, ${pctObjects}% of ${totalObjects.toLocaleString()} objects). ` +
         `${topName} and ${secondName} alone account for ${topPct + secondPct}% of mapped objects` +
-        ` (${topName} ${topPct}%, ${secondName} ${secondPct}%) — the collection reads as heavily ` +
+        ` (${topName} ${topPct}%, ${secondName} ${secondPct}%). The collection reads as heavily ` +
         `Euro/American, with everywhere else thinner and more scattered. ` +
         `${unmapped.toLocaleString()} place${unmapped === 1 ? "" : "s"} had no resolvable coordinates and are omitted from the map.`;
     }

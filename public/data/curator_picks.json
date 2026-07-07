@@ -1,0 +1,107 @@
+{
+  "note": "PROTOTYPE SAMPLE DATA. Curator names are placeholders; the 'why' blurbs are illustrative copy, not real curator statements. Artworks are real FAMSF works; only the six with an iiif.famsf.org thumb have a live image, the rest fall back to a placeholder tile.",
+  "stories": [
+    {
+      "id": "deyoung-curator-picks-legion",
+      "curator": "A. Curator",
+      "role": "Curator of American Art",
+      "home_museum": "de Young",
+      "pick_museum": "Legion of Honor",
+      "title": "Five to cross the park for",
+      "intro": "I spend my days with American painting at the de Young, so my afternoons off are for the Legion, the European rooms that first made me want this job. Here are five I'd send anyone across Golden Gate Park to see.",
+      "picks": [
+        {
+          "title": "Water Lilies",
+          "artist": "Claude Monet",
+          "date": "ca. 1914–1917",
+          "classification": "Painting",
+          "thumb": "https://iiif.famsf.org/iiif/3/MS_97614_20250828-01_Crop/thumb-400.webp",
+          "why": "Stand close enough and the pond dissolves into pure paint. Monet late, half-blind, still chasing light on water."
+        },
+        {
+          "title": "Sailboats on the Seine at Petit-Gennevilliers",
+          "artist": "Claude Monet",
+          "date": "1874",
+          "classification": "Painting",
+          "thumb": "https://iiif.famsf.org/iiif/3/MS_28078_20250711-08/thumb-400.webp",
+          "why": "The same painter forty years earlier: sharp, quick, in love with a Sunday on the river. Hang the two in your head side by side."
+        },
+        {
+          "title": "The Thinker",
+          "artist": "Auguste Rodin",
+          "date": "modeled 1880s",
+          "classification": "Sculpture",
+          "thumb": null,
+          "why": "It greets you in the Court of Honor before you've paid. Everyone knows the silhouette; almost no one has stood under the real bronze."
+        },
+        {
+          "title": "The Tribute Money",
+          "artist": "Peter Paul Rubens",
+          "date": "ca. 1612",
+          "classification": "Painting",
+          "thumb": null,
+          "why": "A crowd scene that teaches you how a Baroque master moves your eye (hand to face to coin to Christ) without you noticing."
+        },
+        {
+          "title": "Portrait bust",
+          "artist": "Jean-Antoine Houdon",
+          "date": "18th century",
+          "classification": "Sculpture",
+          "thumb": null,
+          "why": "Marble that breathes. Curators argue about a lot; nobody argues that Houdon could carve a living face."
+        }
+      ]
+    },
+    {
+      "id": "legion-curator-picks-deyoung",
+      "curator": "B. Curator",
+      "role": "Curator of European Painting",
+      "home_museum": "Legion of Honor",
+      "pick_museum": "de Young",
+      "title": "What I go to the de Young for",
+      "intro": "My galleries are all gilt frames and old varnish, which I love. But when I need reminding what art does now, I go to the de Young. Five works that keep pulling me back across the park.",
+      "picks": [
+        {
+          "title": "Untitled (Two Figures)",
+          "artist": "Willem de Kooning",
+          "date": "ca. 1947",
+          "classification": "Drawing",
+          "thumb": "https://iiif.famsf.org/iiif/3/A076624_V1_crop/thumb-400.webp",
+          "why": "A drawing that can't sit still. Everything I tell students about line and pressure is right here in one sheet."
+        },
+        {
+          "title": "Bust of Martin Luther King, Jr.",
+          "artist": "Elizabeth Catlett",
+          "date": "ca. 1984",
+          "classification": "Sculpture",
+          "thumb": "https://iiif.famsf.org/iiif/3/MS_308677_20241024-03_Crop-2/thumb-400.webp",
+          "why": "Catlett gives him weight and calm at once. A portrait that asks you to slow down and meet a gaze."
+        },
+        {
+          "title": "The Mill Room",
+          "artist": "George Ault",
+          "date": "1923",
+          "classification": "Painting",
+          "thumb": "https://iiif.famsf.org/iiif/3/A330005_V2_crop/thumb-400.webp",
+          "why": "American precisionism at its quietest. Machinery rendered as still and clean as a cathedral."
+        },
+        {
+          "title": "Untitled (Lafayette Park, San Francisco)",
+          "artist": "Arnold Genthe",
+          "date": "1906",
+          "classification": "Photograph",
+          "thumb": "https://iiif.famsf.org/iiif/3/MS_7396_20150414-02/thumb-400.webp",
+          "why": "The city the week it burned. A San Francisco museum should own its own morning-after, and we do."
+        },
+        {
+          "title": "Standard Station",
+          "artist": "Edward Ruscha",
+          "date": "1966",
+          "classification": "Print",
+          "thumb": null,
+          "why": "The whole American road flattened into a logo and a diagonal. It's also, secretly, the image behind this site's front door."
+        }
+      ]
+    }
+  ]
+}

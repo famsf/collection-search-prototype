@@ -1,6 +1,6 @@
 # collection-search-prototype
 
-Astro prototype for the FAMSF collection website hero — a search "console" where
+Astro prototype for the FAMSF collection website hero: a search "console" where
 the FAMSF brand forward-slash doubles as the prompt. The field self-types
 collection terms (`/art` → `/sculpture` → `/rodin` …), deleting each a character
 at a time, and hands control to the visitor on first interaction.
@@ -11,9 +11,9 @@ node `82:1028`.
 
 ## Stack
 
-- **Astro** — static output
-- **Tailwind CSS 4** — via `@tailwindcss/vite`; tokens in `src/styles/global.css`
-- **Node** — >= 22.12
+- **Astro**: static output
+- **Tailwind CSS 4**: via `@tailwindcss/vite`; tokens in `src/styles/global.css`
+- **Node**: >= 22.12
 
 ## Commands
 

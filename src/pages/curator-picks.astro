@@ -1,0 +1,190 @@
+---
+/**
+ * Curator picks. Andy's idea: get each curator to name five works and say why,
+ * as short editorial stories. The FAMSF twist is cross-museum: a de Young
+ * curator picks Legion of Honor works and vice versa, so the two-museum
+ * identity becomes the hook. Each story is tagged with its curator's home
+ * museum hue (de Young teal / Legion purple).
+ *
+ * Follows the repo prototype pattern (see timeline/map): fetch the baked JSON
+ * from /public/data at runtime and build the DOM, rather than importing at
+ * build time. Prototype data is sample copy over real works; only the handful
+ * with an iiif.famsf.org thumb show a live image.
+ */
+import Layout from "../layouts/Layout.astro";
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
+---
+
+<Layout title="FAMSF Collection: curator picks">
+  <main class="mx-auto max-w-[1100px] px-6 py-16 md:px-10 md:py-24">
+    <header class="mb-16 max-w-[68ch]">
+      <p class="font-mono text-xs uppercase tracking-[0.28em] text-neutral-500">
+        Fine Arts Museums of San Francisco
+      </p>
+      <h1
+        class="mt-3 font-grotesk text-[clamp(2.5rem,6vw,4rem)] font-medium leading-[1.05] tracking-[-0.015em]"
+      >
+        Curator picks
+      </h1>
+      <p class="mt-4 text-lg leading-relaxed text-neutral-600">
+        Five works, chosen and introduced by the people who know the collection
+        best. The FAMSF twist: each curator picks from the <em>other</em> museum
+        across the park, a de Young curator on the Legion of Honor, and back again.
+      </p>
+      <p class="mt-3 font-mono text-xs uppercase tracking-[0.18em] text-neutral-400">
+        Prototype. Sample copy, real works
+      </p>
+    </header>
+
+    <div id="stories" class="flex flex-col gap-24"></div>
+
+    {/* Safelist the brand tone classes built dynamically in the script below,
+        so Tailwind's source scan emits them. */}
+    <span
+      hidden
+      class="text-legion text-deyoung bg-legion bg-deyoung border-legion border-deyoung"
+    ></span>
+  </main>
+
+  <script define:vars={{ base }}>
+    /**
+     * Fetch the curator stories and render each as: a museum-tagged header
+     * (home museum picking from the other), an intro, then five numbered picks
+     * with an image (or "no image yet" tile) beside the curator's "why".
+     */
+    const root = document.getElementById("stories");
+
+    // Museum -> brand tone. de Young = teal, Legion of Honor = purple.
+    const tone = (m) =>
+      m === "Legion of Honor"
+        ? { text: "text-legion", bg: "bg-legion", border: "border-legion" }
+        : { text: "text-deyoung", bg: "bg-deyoung", border: "border-deyoung" };
+
+    const el = (tag, cls, html) => {
+      const n = document.createElement(tag);
+      if (cls) n.className = cls;
+      if (html != null) n.innerHTML = html;
+      return n;
+    };
+    // Escape user/data text before it goes near innerHTML.
+    const esc = (s) =>
+      String(s).replace(
+        /[&<>"']/g,
+        (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c],
+      );
+
+    function renderPick(p, i, pick) {
+      const li = el(
+        "li",
+        "grid grid-cols-1 gap-6 sm:grid-cols-[minmax(0,220px)_1fr] sm:gap-8",
+      );
+
+      const media = el("div", "relative");
+      // Contain, never crop: the whole work sits on a light mat with a 16px
+      // min inset (p-4), object-contain so portrait/landscape/small objects all
+      // fit whole inside the fixed 3:4 tile.
+      if (p.thumb) {
+        const mat = el(
+          "div",
+          "flex aspect-[3/4] w-full items-center justify-center rounded-lg bg-neutral-100 p-4",
+        );
+        const img = el("img", "max-h-full max-w-full object-contain shadow-sm");
+        img.src = p.thumb;
+        img.alt = `${p.title} by ${p.artist}`;
+        img.loading = "lazy";
+        mat.appendChild(img);
+        media.appendChild(mat);
+      } else {
+        media.appendChild(
+          el(
+            "div",
+            "flex aspect-[3/4] w-full items-center justify-center rounded-lg bg-neutral-100 p-4 text-center",
+            '<span class="font-mono text-xs uppercase tracking-[0.14em] text-neutral-400">No image yet</span>',
+          ),
+        );
+      }
+      media.appendChild(
+        el(
+          "span",
+          `absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full font-mono text-sm font-medium text-white ${pick.bg}`,
+          String(i + 1),
+        ),
+      );
+
+      const body = el("div", "flex flex-col justify-center");
+      body.appendChild(
+        el("h3", "font-grotesk text-2xl font-medium leading-tight tracking-[-0.01em]", esc(p.title)),
+      );
+      body.appendChild(
+        el(
+          "p",
+          "mt-1 text-neutral-500",
+          `${esc(p.artist)} · ${esc(p.date)} · ${esc(p.classification)}`,
+        ),
+      );
+      body.appendChild(
+        el(
+          "p",
+          "mt-4 max-w-[52ch] font-serif text-xl font-light italic leading-relaxed text-neutral-800",
+          `&ldquo;${esc(p.why)}&rdquo;`,
+        ),
+      );
+
+      li.appendChild(media);
+      li.appendChild(body);
+      return li;
+    }
+
+    function renderStory(story) {
+      const home = tone(story.home_museum);
+      const pick = tone(story.pick_museum);
+      const article = el("article");
+
+      const head = el("div", `mb-8 border-t-2 pt-6 ${home.border}`);
+      head.appendChild(
+        el(
+          "p",
+          "flex flex-wrap items-center gap-x-2 gap-y-1 font-mono text-xs uppercase tracking-[0.18em]",
+          `<span class="${home.text}">${esc(story.home_museum)}</span>` +
+            `<span class="text-neutral-400">picks from</span>` +
+            `<span class="${pick.text}">${esc(story.pick_museum)}</span>`,
+        ),
+      );
+      head.appendChild(
+        el(
+          "h2",
+          "mt-4 font-serif text-[clamp(1.9rem,4vw,3rem)] font-light leading-[1.1] tracking-[-0.01em]",
+          esc(story.title),
+        ),
+      );
+      head.appendChild(
+        el(
+          "p",
+          "mt-3 font-mono text-sm text-neutral-500",
+          `${esc(story.curator)} · ${esc(story.role)}, ${esc(story.home_museum)}`,
+        ),
+      );
+      head.appendChild(
+        el("p", "mt-5 max-w-[62ch] text-lg leading-relaxed text-neutral-700", esc(story.intro)),
+      );
+      article.appendChild(head);
+
+      const ol = el("ol", "mt-10 flex list-none flex-col gap-10 p-0");
+      story.picks.forEach((p, i) => ol.appendChild(renderPick(p, i, pick)));
+      article.appendChild(ol);
+      return article;
+    }
+
+    fetch(`${base}/data/curator_picks.json`)
+      .then((r) => r.json())
+      .then((data) => {
+        for (const story of data.stories) root.appendChild(renderStory(story));
+      })
+      .catch(() => {
+        root.appendChild(
+          el("p", "text-neutral-500", "Could not load curator picks."),
+        );
+      });
+  </script>
+</Layout>

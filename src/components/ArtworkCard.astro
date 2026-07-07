@@ -1,0 +1,40 @@
+---
+/**
+ * Artwork card, contain-not-crop. The whole work sits on a light mat with a
+ * 16px min inset (p-4) and object-contain, so portrait, landscape, and small
+ * objects all show whole inside a fixed 3:4 tile. Shared across the hero pages
+ * and any grid that shows collection works. `thumb` null renders a "no image
+ * yet" mat of the same footprint.
+ */
+interface Props {
+  title: string;
+  artist?: string;
+  date?: string;
+  thumb?: string | null;
+}
+const { title, artist, date, thumb } = Astro.props;
+const meta = [artist, date].filter(Boolean).join(" · ");
+---
+
+<figure class="m-0">
+  <div class="flex aspect-[3/4] w-full items-center justify-center rounded-lg bg-neutral-100 p-4">
+    {
+      thumb ? (
+        <img
+          src={thumb}
+          alt={`${title}${artist ? ` by ${artist}` : ""}`}
+          loading="lazy"
+          class="max-h-full max-w-full object-contain shadow-sm"
+        />
+      ) : (
+        <span class="font-mono text-xs uppercase tracking-[0.14em] text-neutral-400">
+          No image yet
+        </span>
+      )
+    }
+  </div>
+  <figcaption class="mt-2">
+    <p class="font-grotesk text-sm font-medium leading-snug">{title}</p>
+    {meta && <p class="mt-0.5 font-mono text-xs text-neutral-500">{meta}</p>}
+  </figcaption>
+</figure>

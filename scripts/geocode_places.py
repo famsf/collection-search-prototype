@@ -1,6 +1,6 @@
 """Geocode the aggregated place-of-creation list against an offline gazetteer.
 
-Input:  scripts/places_raw.json   (place, type, n, path[])  — 1,907 rows
+Input:  scripts/places_raw.json   (place, type, n, path[]), 1,907 rows
 Output: public/data/places.ndjson (one JSON object per line, streamable)
 
 Matching cascade per place name:
@@ -96,7 +96,7 @@ def build_lookups():
 
 # US states + major subnational regions: the gazetteer has no admin-1 units, so
 # a bare state name would otherwise fall through to the US centroid (or match a
-# tiny same-named town — e.g. "California" landing on the US east coast).
+# tiny same-named town, e.g. "California" landing on the US east coast).
 US_STATES = {
     "alabama": (32.8, -86.8), "alaska": (64.2, -152.0), "arizona": (34.3, -111.7),
     "arkansas": (34.8, -92.4), "california": (37.2, -119.5), "colorado": (39.0, -105.5),
@@ -203,7 +203,7 @@ ALIASES = {
 
 
 # Terms the FAMSF hierarchy uses as REGION groupings that collide with real
-# country names — don't treat them as the expected country. "Luxembourg" here
+# country names, don't treat them as the expected country. "Luxembourg" here
 # groups the Low Countries (Belgium/Netherlands cities sit under it); "Georgia"
 # could mean the US state or the country, so leave it to the city/state logic.
 AMBIGUOUS_PATH_COUNTRIES = {"luxembourg", "georgia"}
@@ -212,7 +212,7 @@ AMBIGUOUS_PATH_COUNTRIES = {"luxembourg", "georgia"}
 def expected_country_iso(path, countries):
     """The ISO of the country named in the hierarchy path, if any.
 
-    Prefer the SHALLOWEST country in the path (closest to World) — the top-level
+    Prefer the SHALLOWEST country in the path (closest to World): the top-level
     country is the reliable one; a deeper term that happens to share a country
     name (e.g. a "Luxembourg" province) must not win. Region groupings that
     collide with country names are skipped.
@@ -254,7 +254,7 @@ def geocode_one(
         lat, lng = REGION_CENTROIDS[name]
         return lat, lng, "region"
 
-    # 3) city — prefer a same-named city INSIDE the country the path names, so
+    # 3) city: prefer a same-named city INSIDE the country the path names, so
     #    "Salem, US" doesn't resolve to Salem, India, etc.
     if exp_iso and (n, exp_iso) in cities_by_country:
         lat, lng, _ = cities_by_country[(n, exp_iso)]
@@ -262,7 +262,7 @@ def geocode_one(
     if n in cities:
         # Reject a global city match that sits in a DIFFERENT country than the
         # path names (e.g. path says US but the only "Ipswich" in the gazetteer
-        # is in England) — fall through to the state/country centroid instead.
+        # is in England), fall through to the state/country centroid instead.
         if not (exp_iso and city_iso.get(n) and city_iso[n] != exp_iso):
             lat, lng, _ = cities[n]
             return lat, lng, "city"
@@ -300,7 +300,7 @@ def geocode_one(
 
 
 # Known synonymous place names → one canonical label. Only true synonyms of the
-# SAME place (not "New Mexico" vs "Mexico" — those are distinct and left alone).
+# SAME place (not "New Mexico" vs "Mexico", those are distinct and left alone).
 CANONICAL = {
     "united states of america": "United States",
     "america": "United States",

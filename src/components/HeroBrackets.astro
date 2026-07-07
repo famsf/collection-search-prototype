@@ -1,7 +1,7 @@
 ---
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 /**
- * Hero v2 — the FAMSF mark leans backward, so the query sits inside a pair of
+ * Hero v2: the FAMSF mark leans backward, so the query sits inside a pair of
  * backslashes: `\ query \`. The left bracket is fixed; the word types out
  * beside it and the right bracket glides to follow the word's width on a lush
  * spring ease. Brand teal→purple wash introduces museum colour; the caret is
@@ -49,7 +49,15 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       >
         <label for="q" class="sr-only">Search the collection</label>
 
-        <div class="bracket-field">
+        <!-- Rounded-full frosted pill, proportioned after the /hero console bar
+             (the input affordance the client picked). The \ query \ bracket
+             cluster + gliding right bracket live inside it; submit pinned right.
+             cursor-text + focus-within ring make the whole bar read as one
+             clickable field. -->
+        <div
+          id="field-surface"
+          class="bracket-field group relative flex cursor-text items-center gap-3 rounded-full border border-white/30 bg-white/[0.08] py-3 pl-7 pr-3 backdrop-blur-sm transition-colors focus-within:border-white/70 focus-within:bg-white/[0.12] md:pl-9"
+        >
           <!-- The \ query \ cluster expands to the right; the submit button is
                pinned to the far edge so it never shifts with the animation. -->
           <span class="bracket-field__group">
@@ -59,6 +67,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
                  so the right bracket can follow the exact word width. -->
             <span class="bracket-field__slot">
               <span id="mirror" aria-hidden="true" class="bracket-field__mirror"></span>
+              <!-- No resting placeholder: it must not flash behind the
+                   auto-typing animation's delete/gap phases (matches /hero).
+                   takeOver() sets one once the visitor takes control. -->
               <input
                 id="q"
                 type="text"
@@ -71,10 +82,16 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <span aria-hidden="true" class="bracket bracket--right">\</span>
           </span>
 
-          <button type="submit" aria-label="Search the collection" class="bracket-field__go">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-              <path d="M16.4375 16.4434L20.9938 20.9997" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="round" />
+          <!-- Dark stadium submit, matching the /hero console button:
+               near-black brand tone, white glyph, snug to the right edge. -->
+          <button
+            type="submit"
+            aria-label="Search the collection"
+            class="inline-flex h-14 shrink-0 items-center justify-center rounded-full bg-band px-7 text-white transition hover:bg-neutral-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M16.4375 16.4434L20.9938 20.9997" stroke="currentColor" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round" />
             </svg>
           </button>
         </div>
@@ -124,25 +141,34 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     }
   }
 
-  .bracket-field {
-    display: flex;
-    align-items: center;
-    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+  /* The pill surface itself (border, fill, backdrop-blur, cursor, hover,
+     focus-within ring) is the Tailwind utility set on #field-surface, matching
+     the /hero console bar. The focus-within ring is nudged to brand yellow so
+     it stays on-brand. */
+  #field-surface:focus-within {
+    border-color: var(--color-yellow);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--color-yellow) 45%, transparent);
   }
-  /* The animating cluster; the submit button sits outside it and is pinned. */
+  /* The animating word cluster; flex-1 so it fills the bar and the submit
+     button stays pinned to the right edge as the word grows. */
   .bracket-field__group {
     display: flex;
+    flex: 1 1 auto;
     align-items: center;
-    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    /* Roomy gap so the word floats between the brackets, not crammed against
+       them. */
+    gap: clamp(0.75rem, 2vw, 1.75rem);
     min-width: 0;
   }
 
-  /* The backslashes are the brand mark. Oversized grotesk, brand-tinted. */
+  /* The backslashes are the brand mark, but sized to bracket the word rather
+     than tower over it: ~1.35x the input text, so they read as a matched pair
+     around the query instead of overlapping it. */
   .bracket {
     font-family: var(--font-grotesk);
     font-weight: 500;
-    font-size: clamp(3rem, 8vw, 6rem);
-    line-height: 0.8;
+    font-size: clamp(1.85rem, 4.6vw, 3rem);
+    line-height: 1;
     user-select: none;
     color: color-mix(in oklab, var(--color-cerulean) 55%, white);
     text-shadow: 0 0 24px color-mix(in oklab, var(--color-cerulean) 40%, transparent);
@@ -194,28 +220,6 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     color: rgb(255 255 255 / 0.55);
   }
 
-  .bracket-field__go {
-    margin-left: auto; /* pinned to the right edge; never moves with the word */
-    display: inline-flex;
-    height: 3.25rem;
-    align-items: center;
-    justify-content: center;
-    border-radius: 999px;
-    padding-inline: 1.5rem;
-    color: #fff;
-    background: color-mix(in oklab, var(--color-legion) 70%, black);
-    transition:
-      background 240ms ease,
-      transform 240ms ease;
-  }
-  .bracket-field__go:hover {
-    background: var(--color-legion);
-  }
-  .bracket-field__go:focus-visible {
-    outline: 2px solid #fff;
-    outline-offset: 2px;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .hero__wash {
       animation: none;
@@ -231,6 +235,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   const mirror = document.getElementById("mirror")!;
   const slot = mirror.parentElement as HTMLElement;
   const form = document.getElementById("console") as HTMLFormElement;
+  const surface = document.getElementById("field-surface") as HTMLElement;
 
   // Real collection entry points (from the extract), no leading slash.
   const TERMS = [
@@ -250,8 +255,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
   // Size the slot to the current text so the right bracket follows the word.
+  // When the input is empty, fall back to the placeholder width so the right
+  // bracket sits after the "type to search…" hint instead of clipping it.
   function resize() {
-    mirror.textContent = input.value || " ";
+    mirror.textContent = input.value || input.placeholder || " ";
     // +2px buffer so the caret + last glyph always have room while the width
     // eases; the input never scrolls its start out of view.
     const w = mirror.getBoundingClientRect().width + 2;
@@ -318,6 +325,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
   input.addEventListener("pointerdown", takeOver);
   input.addEventListener("keydown", takeOver);
   input.addEventListener("input", resize);
+
+  // The input is only as wide as the typed word, but the whole frosted
+  // surface should feel clickable; forward clicks anywhere on it.
+  surface.addEventListener("pointerdown", (e) => {
+    if (e.target === input) return;
+    takeOver();
+  });
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();

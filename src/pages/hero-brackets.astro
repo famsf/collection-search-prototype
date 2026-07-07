@@ -1,9 +1,11 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HeroBrackets from "../components/HeroBrackets.astro";
+import ArtworkCard from "../components/ArtworkCard.astro";
+import { highlights } from "../data/highlights";
 ---
 
-<Layout title="FAMSF Collection — console hero (brackets)">
+<Layout title="FAMSF Collection: console hero (brackets)">
   <HeroBrackets />
 
   <main class="mx-auto max-w-[1360px] px-6 py-16 md:px-10">
@@ -14,10 +16,7 @@ import HeroBrackets from "../components/HeroBrackets.astro";
       Curator-led entry points that cut across collection areas and centuries.
     </p>
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-      <div class="aspect-[3/4] rounded-lg bg-neutral-100"></div>
-      <div class="aspect-[3/4] rounded-lg bg-neutral-100"></div>
-      <div class="aspect-[3/4] rounded-lg bg-neutral-100"></div>
-      <div class="aspect-[3/4] rounded-lg bg-neutral-100"></div>
+      {highlights.map((h) => <ArtworkCard {...h} />)}
     </div>
   </main>
 </Layout>

@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
-<Layout title="FAMSF Collection — 5,000 years timeline">
+<Layout title="FAMSF Collection: 5,000 years timeline">
   <main class="min-h-screen bg-band text-white">
     <div class="mx-auto max-w-[1360px] px-6 py-16 md:px-10 md:py-24">
       <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-white/70">
@@ -146,11 +146,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         tile.style.background = tileGradient(work);
 
         if (work.thumb) {
+          // Contain, never crop: 16px min inset (inset-4), object-contain so the
+          // whole work shows on the gradient mat.
           const img = document.createElement("img");
           img.src = work.thumb;
           img.alt = "";
           img.loading = "lazy";
-          img.className = "absolute inset-0 h-full w-full object-cover";
+          img.className = "absolute inset-4 h-[calc(100%-2rem)] w-[calc(100%-2rem)] object-contain";
           tile.appendChild(img);
         }
 

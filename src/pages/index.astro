@@ -1,6 +1,6 @@
 ---
 /**
- * Prototype index — a directory of the demo surfaces in this build. Not a
+ * Prototype index: a directory of the demo surfaces in this build. Not a
  * production page: a jumping-off point for design review. Modelled on the
  * wyeth-frontend index.
  */
@@ -18,7 +18,7 @@ const routes = [
   },
   {
     href: `${base}/hero-brackets`,
-    title: "Console hero — backslash brackets",
+    title: "Console hero: backslash brackets",
     blurb:
       "Hero v2 from colleague feedback: the FAMSF mark leans backward, so two backslashes bracket the query and the right one glides out as the word grows. Brand teal→purple wash, lush motion.",
     node: "concept",
@@ -34,13 +34,20 @@ const routes = [
     href: `${base}/map`,
     title: "Place-of-creation world map",
     blurb:
-      "Every place of creation in the collection plotted at once (1,907 places, ~31K objects) — an experiment to see whether the full data reads or overwhelms.",
+      "Every place of creation in the collection plotted at once (1,907 places, ~31K objects), an experiment to see whether the full data reads or overwhelms.",
+    node: "concept",
+  },
+  {
+    href: `${base}/curator-picks`,
+    title: "Curator picks: five works, cross-museum",
+    blurb:
+      "Andy's idea: each curator names five works and says why, as short editorial stories. The FAMSF twist is a de Young curator picking the Legion of Honor and vice versa.",
     node: "concept",
   },
 ];
 ---
 
-<Layout title="FAMSF Collection — prototype index">
+<Layout title="FAMSF Collection: prototype index" hideNav={true}>
   <main class="mx-auto max-w-[1000px] px-6 py-20 md:px-10 md:py-24">
     <header class="mb-16">
       <p class="font-mono text-xs uppercase tracking-[0.28em] text-neutral-500">
