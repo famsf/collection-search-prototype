@@ -15,9 +15,30 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         Every place of creation, at once.
       </h1>
       <p class="mb-10 max-w-[65ch] text-white/70">
-        One dot per place in the collection, sized by how many works come from
-        there. No pre-filtering — this is the full dataset, dense spots and all.
+        Every place of creation in the collection, no pre-filtering. Switch
+        between <strong class="font-medium text-white">Points</strong> (one dot
+        per place, sized by works) and
+        <strong class="font-medium text-white">Density</strong> (works pooled
+        into hexagons on a log colour scale).
       </p>
+
+      <!-- View mode: individual points vs binned density -->
+      <div class="mb-4 inline-flex rounded-full border border-white/15 p-1 font-mono text-xs">
+        <button
+          type="button"
+          id="mode-points"
+          aria-pressed="true"
+          class="rounded-full px-4 py-1.5 text-white/70 transition-colors aria-pressed:bg-white aria-pressed:text-band"
+          >Points</button
+        >
+        <button
+          type="button"
+          id="mode-density"
+          aria-pressed="false"
+          class="rounded-full px-4 py-1.5 text-white/70 transition-colors aria-pressed:bg-white aria-pressed:text-band"
+          >Density</button
+        >
+      </div>
 
       <div class="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_320px]">
         <!-- Map panel -->
@@ -77,13 +98,32 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         </div>
 
         <!-- Legend / top places list -->
-        <aside aria-labelledby="legend-h">
-          <h2 id="legend-h" class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">
-            Top 15 places
-          </h2>
-          <ol id="legend-list" class="m-0 flex list-none flex-col gap-1 p-0">
-            <!-- rows injected at runtime -->
-          </ol>
+        <aside>
+          <div id="points-legend">
+            <h2 class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">
+              Top 15 places
+            </h2>
+            <ol id="legend-list" class="m-0 flex list-none flex-col gap-1 p-0">
+              <!-- rows injected at runtime -->
+            </ol>
+          </div>
+
+          <!-- Density-mode legend: log colour scale (populated at runtime) -->
+          <div id="density-legend" hidden>
+            <h2 class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">
+              Objects per hexagon
+            </h2>
+            <div id="density-scale" class="h-3 w-full rounded-full"></div>
+            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-white/50">
+              <span>1</span>
+              <span id="density-max">—</span>
+            </div>
+            <p class="mt-4 max-w-[40ch] text-[13px] leading-relaxed text-white/60">
+              Each hexagon pools the works from every place that falls inside it,
+              coloured on a log scale so sparse regions stay visible next to
+              Europe and the US. Hover a cell for its count.
+            </p>
+          </div>
         </aside>
       </div>
     </div>
@@ -421,6 +461,119 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       });
       svg.appendChild(dotsGroup);
       baseDotsGroup = dotsGroup;
+
+      // --- Density (hexbin) layer --------------------------------------------
+      // Bin the points into hexagons and colour each by log(total objects) so
+      // the 1→2,934 skew doesn't wash everything but France/US to one hue.
+      // Hexes live in world (viewBox) units, so they scale with zoom for free.
+      const HEX_R = 16; // world units; ~ bin size at full extent
+      const hexGroup = document.createElementNS(SVG_NS, "g");
+      hexGroup.setAttribute("data-layer", "hex");
+      hexGroup.style.display = "none";
+
+      function hexKey(cx, cy) {
+        return `${cx.toFixed(1)},${cy.toFixed(1)}`;
+      }
+      // Pointy-top hex lattice: rows offset by half a column.
+      const hexW = Math.sqrt(3) * HEX_R;
+      const hexVert = 1.5 * HEX_R;
+      const bins = new Map();
+      for (const p of mapped) {
+        const { x, y } = project(p.lat, p.lng);
+        const row = Math.round(y / hexVert);
+        const off = (row % 2) * (hexW / 2);
+        const col = Math.round((x - off) / hexW);
+        const cx = col * hexW + off;
+        const cy = row * hexVert;
+        const k = hexKey(cx, cy);
+        let b = bins.get(k);
+        if (!b) {
+          b = { cx, cy, n: 0, places: 0, top: null };
+          bins.set(k, b);
+        }
+        b.n += p.n;
+        b.places += 1;
+        if (!b.top || p.n > b.top.n) b.top = p;
+      }
+      const hexMax = Math.max(...Array.from(bins.values()).map((b) => b.n));
+      const logMax = Math.log(hexMax + 1);
+
+      function hexPath(cx, cy, r) {
+        let d = "";
+        for (let i = 0; i < 6; i++) {
+          const a = (Math.PI / 180) * (60 * i - 90); // pointy-top
+          const px = cx + r * Math.cos(a);
+          const py = cy + r * Math.sin(a);
+          d += (i === 0 ? "M" : "L") + px.toFixed(2) + "," + py.toFixed(2);
+        }
+        return d + "Z";
+      }
+
+      for (const b of bins.values()) {
+        const t = Math.log(b.n + 1) / logMax; // log-scaled colour
+        const hex = document.createElementNS(SVG_NS, "path");
+        hex.setAttribute("d", hexPath(b.cx, b.cy, HEX_R * 0.95));
+        hex.setAttribute("fill", colorFor(t));
+        hex.setAttribute("fill-opacity", "0.82");
+        hex.setAttribute("stroke", "rgba(10,10,10,0.6)");
+        hex.setAttribute("stroke-width", "0.5");
+        hex.setAttribute("vector-effect", "non-scaling-stroke");
+        hex.setAttribute("tabindex", "0");
+        hex.setAttribute("role", "button");
+        const lbl = `${b.n.toLocaleString()} object${b.n === 1 ? "" : "s"} from ${b.places} place${b.places === 1 ? "" : "s"} (e.g. ${b.top.place})`;
+        hex.setAttribute("aria-label", lbl);
+        function hEnter() {
+          const panelRect = panel.getBoundingClientRect();
+          const svgRect = svg.getBoundingClientRect();
+          const px = ((b.cx - vb.x) / vb.w) * svgRect.width + (svgRect.left - panelRect.left);
+          const py = ((b.cy - vb.y) / vb.h) * svgRect.height + (svgRect.top - panelRect.top);
+          showTooltip(px, py, lbl);
+          hex.setAttribute("stroke", "#fff");
+          hex.setAttribute("stroke-width", "1.5");
+        }
+        function hLeave() {
+          hideTooltip();
+          hex.setAttribute("stroke", "rgba(10,10,10,0.6)");
+          hex.setAttribute("stroke-width", "0.5");
+        }
+        hex.addEventListener("mouseenter", hEnter);
+        hex.addEventListener("mouseleave", hLeave);
+        hex.addEventListener("focus", hEnter);
+        hex.addEventListener("blur", hLeave);
+        hexGroup.appendChild(hex);
+      }
+      svg.appendChild(hexGroup);
+
+      // Density legend: paint the log colour ramp + show the max.
+      const scaleEl = document.getElementById("density-scale");
+      if (scaleEl) {
+        const stops = [];
+        for (let i = 0; i <= 6; i++) {
+          const t = i / 6;
+          stops.push(`${colorFor(t)} ${Math.round(t * 100)}%`);
+        }
+        scaleEl.style.background = `linear-gradient(90deg, ${stops.join(", ")})`;
+      }
+      const maxEl = document.getElementById("density-max");
+      if (maxEl) maxEl.textContent = hexMax.toLocaleString();
+
+      // Mode toggle: swap the dot layer for the hexbin layer.
+      const modePoints = document.getElementById("mode-points");
+      const modeDensity = document.getElementById("mode-density");
+      const densityLegend = document.getElementById("density-legend");
+      const pointsLegend = document.getElementById("points-legend");
+      function setMode(mode) {
+        const density = mode === "density";
+        dotsGroup.style.display = density ? "none" : "";
+        hexGroup.style.display = density ? "" : "none";
+        modePoints.setAttribute("aria-pressed", String(!density));
+        modeDensity.setAttribute("aria-pressed", String(density));
+        if (densityLegend) densityLegend.hidden = !density;
+        if (pointsLegend) pointsLegend.hidden = density;
+        hideTooltip();
+      }
+      modePoints.addEventListener("click", () => setMode("points"));
+      modeDensity.addEventListener("click", () => setMode("density"));
 
       // Legend: top 15 by n, cross-highlights the matching dot
       const top15 = mapped
