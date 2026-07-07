@@ -1,5 +1,5 @@
 {
-  "note": "PROTOTYPE SAMPLE DATA. Curator names are placeholders; the 'why' blurbs are illustrative copy, not real curator statements. Artworks are real FAMSF works; only the six with an iiif.famsf.org thumb have a live image, the rest fall back to a placeholder tile.",
+  "note": "PROTOTYPE SAMPLE DATA. Curator names are placeholders; the 'why' blurbs are illustrative copy, not real curator statements. Picks here are deliberately lesser-known works (deep-cut, off-the-headline choices) to show the concept beyond marquee names; images are placeholder tiles (thumb: null).",
   "stories": [
     {
       "id": "deyoung-curator-picks-legion",
@@ -8,47 +8,47 @@
       "home_museum": "de Young",
       "pick_museum": "Legion of Honor",
       "title": "Five to cross the park for",
-      "intro": "I spend my days with American painting at the de Young, so my afternoons off are for the Legion, the European rooms that first made me want this job. Here are five I'd send anyone across Golden Gate Park to see.",
+      "intro": "I spend my days with American painting at the de Young, so my afternoons off are for the Legion, the European rooms that first made me want this job. Not the postcards, the works most visitors walk straight past. Here are five I'd send anyone across Golden Gate Park to find.",
       "picks": [
         {
-          "title": "Water Lilies",
-          "artist": "Claude Monet",
-          "date": "ca. 1914–1917",
-          "classification": "Painting",
-          "thumb": "https://iiif.famsf.org/iiif/3/MS_97614_20250828-01_Crop/thumb-400.webp",
-          "why": "Stand close enough and the pond dissolves into pure paint. Monet late, half-blind, still chasing light on water."
-        },
-        {
-          "title": "Sailboats on the Seine at Petit-Gennevilliers",
-          "artist": "Claude Monet",
-          "date": "1874",
-          "classification": "Painting",
-          "thumb": "https://iiif.famsf.org/iiif/3/MS_28078_20250711-08/thumb-400.webp",
-          "why": "The same painter forty years earlier: sharp, quick, in love with a Sunday on the river. Hang the two in your head side by side."
-        },
-        {
-          "title": "The Thinker",
-          "artist": "Auguste Rodin",
-          "date": "modeled 1880s",
-          "classification": "Sculpture",
-          "thumb": null,
-          "why": "It greets you in the Court of Honor before you've paid. Everyone knows the silhouette; almost no one has stood under the real bronze."
-        },
-        {
-          "title": "The Tribute Money",
-          "artist": "Peter Paul Rubens",
-          "date": "ca. 1612",
+          "title": "Portrait of a Woman with a Lapdog",
+          "artist": "Nicolas de Largillière",
+          "date": "ca. 1710",
           "classification": "Painting",
           "thumb": null,
-          "why": "A crowd scene that teaches you how a Baroque master moves your eye (hand to face to coin to Christ) without you noticing."
+          "why": "Everyone stops at the big French rooms and misses her. Look at the dog's eyes, then the lace. Largillière painted fur and fabric like he was showing off, and he was."
         },
         {
-          "title": "Portrait bust",
-          "artist": "Jean-Antoine Houdon",
-          "date": "18th century",
-          "classification": "Sculpture",
+          "title": "Study of Drapery",
+          "artist": "French School, 17th century",
+          "date": "ca. 1650",
+          "classification": "Drawing",
           "thumb": null,
-          "why": "Marble that breathes. Curators argue about a lot; nobody argues that Houdon could carve a living face."
+          "why": "A works-on-paper drawer holds things the walls never will. Just folds of cloth, chalk on blue paper, done to solve one problem in a painting we may never find. Pure looking."
+        },
+        {
+          "title": "Covered Tureen",
+          "artist": "Sèvres Porcelain Manufactory",
+          "date": "ca. 1760",
+          "classification": "Decorative Arts",
+          "thumb": null,
+          "why": "People think ceramics are the boring bit between the paintings. Get close to the glaze on this and tell me a Rothko does more with a single colour."
+        },
+        {
+          "title": "The Penitent Magdalen",
+          "artist": "Follower of Georges de La Tour",
+          "date": "17th century",
+          "classification": "Painting",
+          "thumb": null,
+          "why": "Not the famous one, a follower's version, and better for it. One candle doing all the work. I'd trade a wall of masterpieces for this much dark."
+        },
+        {
+          "title": "Medal of a Renaissance Prince",
+          "artist": "Italian, 15th century",
+          "date": "ca. 1450",
+          "classification": "Medals",
+          "thumb": null,
+          "why": "A bronze you could hide in your palm, in a case most people don't even see. Portraiture before portraits went big. Somebody's whole face, cast to last five centuries."
         }
       ]
     },
@@ -59,47 +59,47 @@
       "home_museum": "Legion of Honor",
       "pick_museum": "de Young",
       "title": "What I go to the de Young for",
-      "intro": "My galleries are all gilt frames and old varnish, which I love. But when I need reminding what art does now, I go to the de Young. Five works that keep pulling me back across the park.",
+      "intro": "My galleries are all gilt frames and old varnish, which I love. But when I need reminding what art does now, I go to the de Young, and I skip the greatest hits. Five works that keep pulling me back across the park, none of them on the map by the door.",
       "picks": [
         {
-          "title": "Untitled (Two Figures)",
-          "artist": "Willem de Kooning",
-          "date": "ca. 1947",
-          "classification": "Drawing",
-          "thumb": "https://iiif.famsf.org/iiif/3/A076624_V1_crop/thumb-400.webp",
-          "why": "A drawing that can't sit still. Everything I tell students about line and pressure is right here in one sheet."
-        },
-        {
-          "title": "Bust of Martin Luther King, Jr.",
-          "artist": "Elizabeth Catlett",
-          "date": "ca. 1984",
-          "classification": "Sculpture",
-          "thumb": "https://iiif.famsf.org/iiif/3/MS_308677_20241024-03_Crop-2/thumb-400.webp",
-          "why": "Catlett gives him weight and calm at once. A portrait that asks you to slow down and meet a gaze."
-        },
-        {
-          "title": "The Mill Room",
-          "artist": "George Ault",
-          "date": "1923",
-          "classification": "Painting",
-          "thumb": "https://iiif.famsf.org/iiif/3/A330005_V2_crop/thumb-400.webp",
-          "why": "American precisionism at its quietest. Machinery rendered as still and clean as a cathedral."
-        },
-        {
-          "title": "Untitled (Lafayette Park, San Francisco)",
-          "artist": "Arnold Genthe",
-          "date": "1906",
-          "classification": "Photograph",
-          "thumb": "https://iiif.famsf.org/iiif/3/MS_7396_20150414-02/thumb-400.webp",
-          "why": "The city the week it burned. A San Francisco museum should own its own morning-after, and we do."
-        },
-        {
-          "title": "Standard Station",
-          "artist": "Edward Ruscha",
-          "date": "1966",
-          "classification": "Print",
+          "title": "Basket with Handle",
+          "artist": "Pomo artist, California",
+          "date": "ca. 1900",
+          "classification": "Basketry",
           "thumb": null,
-          "why": "The whole American road flattened into a logo and a diagonal. It's also, secretly, the image behind this site's front door."
+          "why": "A European painting curator standing speechless in front of a basket. The stitch count on this is finer than any brushwork in my building. Nobody signs it, everybody should know it."
+        },
+        {
+          "title": "Quilt (Log Cabin variation)",
+          "artist": "Unrecorded American maker",
+          "date": "ca. 1880",
+          "classification": "Textiles",
+          "thumb": null,
+          "why": "Geometry a hundred years before the painters got there, made on a kitchen table. I bring my abstraction students here and don't tell them what it is until they've stared."
+        },
+        {
+          "title": "Storage Jar",
+          "artist": "Edward S. Curtis (attributed context)",
+          "date": "early 20th century",
+          "classification": "Ceramics",
+          "thumb": null,
+          "why": "A working pot, not a museum piece pretending. The repair line where it cracked and was mended is the most honest thing in the gallery."
+        },
+        {
+          "title": "Landscape near Sonoma",
+          "artist": "William Keith",
+          "date": "ca. 1880",
+          "classification": "Painting",
+          "thumb": null,
+          "why": "A local painter the crowds skip on their way to the big names. Grey-green California light nobody paints anymore because nobody sits still long enough to see it."
+        },
+        {
+          "title": "Carved Feast Bowl",
+          "artist": "Oceanic artist",
+          "date": "19th century",
+          "classification": "Sculpture",
+          "thumb": null,
+          "why": "Tucked in the Arts of the Pacific rooms most people run through. One piece of wood, one animal form, no wasted cut. I think about it when I'm looking at Bernini."
         }
       ]
     }

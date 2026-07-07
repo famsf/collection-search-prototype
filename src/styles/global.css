@@ -3,6 +3,10 @@
 /* ----------------------------------------------------------------------------
    FAMSF real webfonts (from ~/git/famsf_laravel):
    - Signifier (serif display): licensed woff2 copied to /public/fonts/signifier.
+     url()s are bare /fonts/…; Astro rewrites them to include `base` at build
+     time. The dev server does NOT rewrite (astro#14585), so `astro dev` logs a
+     harmless "must also include your base" ERROR for these fonts. Do not add the
+     base literally here, that double-prefixes the built site and 404s.
    - Akzidenz-Grotesk Next Pro (grotesk): Adobe Typekit kit tpb7nan, loaded via
      <link> in Layout.astro (same licence as the live site).
    Console uses IBM Plex Mono (Google), not a FAMSF face, just the mono voice.

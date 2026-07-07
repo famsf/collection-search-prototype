@@ -8,8 +8,8 @@
  *
  * Follows the repo prototype pattern (see timeline/map): fetch the baked JSON
  * from /public/data at runtime and build the DOM, rather than importing at
- * build time. Prototype data is sample copy over real works; only the handful
- * with an iiif.famsf.org thumb show a live image.
+ * build time. Prototype data is sample copy over deliberately lesser-known
+ * works; images are placeholder tiles (thumb: null throughout).
  */
 import Layout from "../layouts/Layout.astro";
 
@@ -33,7 +33,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         across the park, a de Young curator on the Legion of Honor, and back again.
       </p>
       <p class="mt-3 font-mono text-xs uppercase tracking-[0.18em] text-neutral-400">
-        Prototype. Sample copy, real works
+        Prototype. Sample copy, lesser-known works, placeholder images
       </p>
     </header>
 
