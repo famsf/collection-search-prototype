@@ -299,9 +299,56 @@ def geocode_one(
     return None, None, None
 
 
+# Known synonymous place names → one canonical label. Only true synonyms of the
+# SAME place (not "New Mexico" vs "Mexico" — those are distinct and left alone).
+CANONICAL = {
+    "united states of america": "United States",
+    "america": "United States",
+    "u.s.a.": "United States",
+    "usa": "United States",
+    "méxico": "Mexico",
+    "perú": "Peru",
+    "great britain": "United Kingdom",
+}
+
+
+def dedupe_rows(rows):
+    """Merge synonymous / case-variant place rows, summing object counts.
+
+    Two rows merge when their canonical name matches (case-insensitively). The
+    kept row kepts the highest-count variant's display name + path.
+    """
+    merged = {}
+    for r in rows:
+        name = r["place"]
+        canon = CANONICAL.get(name.strip().lower(), name)
+        key = canon.strip().lower()
+        m = merged.get(key)
+        if m is None:
+            merged[key] = {
+                "place": canon,
+                "n": r["n"],
+                "path": r.get("path"),
+                "_best": r["n"],
+            }
+        else:
+            m["n"] += r["n"]
+            # keep the display name + path from the largest contributor
+            if r["n"] > m["_best"]:
+                m["_best"] = r["n"]
+                # prefer an explicit canonical label if one applies
+                m["place"] = CANONICAL.get(name.strip().lower(), name)
+                m["path"] = r.get("path")
+    out = [{k: v for k, v in m.items() if k != "_best"} for m in merged.values()]
+    out.sort(key=lambda x: -x["n"])
+    return out
+
+
 def main():
     rows = json.loads(RAW.read_text())
-    print(f"loaded {len(rows)} places", flush=True)
+    before = len(rows)
+    rows = dedupe_rows(rows)
+    print(f"loaded {before} places, {len(rows)} after de-duping synonyms", flush=True)
 
     _, countries, cities, country_centroid, cities_by_country, city_iso = build_lookups()
     print(

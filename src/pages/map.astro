@@ -4,9 +4,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout title="FAMSF Collection — place of creation map">
-  <main class="min-h-screen bg-band text-white">
+  <main class="min-h-screen bg-map-page text-ink">
     <div class="mx-auto max-w-[1360px] px-6 py-16 md:px-10 md:py-24">
-      <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-white/70">
+      <p class="mb-6 font-mono text-xs uppercase tracking-[0.28em] text-ink/60">
         Fine Arts Museums of San Francisco
       </p>
       <h1
@@ -14,28 +14,28 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       >
         Every place of creation, at once.
       </h1>
-      <p class="mb-10 max-w-[65ch] text-white/70">
+      <p class="mb-10 max-w-[65ch] text-ink/70">
         Every place of creation in the collection, no pre-filtering. Switch
-        between <strong class="font-medium text-white">Points</strong> (one dot
+        between <strong class="font-medium text-ink">Points</strong> (one dot
         per place, sized by works) and
-        <strong class="font-medium text-white">Density</strong> (works pooled
+        <strong class="font-medium text-ink">Density</strong> (works pooled
         into hexagons on a log colour scale).
       </p>
 
       <!-- View mode: individual points vs binned density -->
-      <div class="mb-4 inline-flex rounded-full border border-white/15 p-1 font-mono text-xs">
+      <div class="mb-4 inline-flex rounded-full border border-ink/15 p-1 font-mono text-xs">
         <button
           type="button"
           id="mode-points"
           aria-pressed="true"
-          class="rounded-full px-4 py-1.5 text-white/70 transition-colors aria-pressed:bg-white aria-pressed:text-band"
+          class="rounded-full px-4 py-1.5 text-ink/60 transition-colors aria-pressed:bg-ink aria-pressed:text-white"
           >Points</button
         >
         <button
           type="button"
           id="mode-density"
           aria-pressed="false"
-          class="rounded-full px-4 py-1.5 text-white/70 transition-colors aria-pressed:bg-white aria-pressed:text-band"
+          class="rounded-full px-4 py-1.5 text-ink/60 transition-colors aria-pressed:bg-ink aria-pressed:text-white"
           >Density</button
         >
       </div>
@@ -45,7 +45,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <div class="relative">
           <div
             id="map-panel"
-            class="relative w-full overflow-hidden rounded-xl border border-white/10 bg-[#0a0a0a]"
+            class="relative w-full overflow-hidden rounded-xl border border-ink/10 bg-map-surface"
             style="aspect-ratio: 2 / 1;"
           >
             <svg
@@ -62,7 +62,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
             <div
               id="tooltip"
               role="status"
-              class="pointer-events-none absolute z-10 hidden -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-md bg-white px-2.5 py-1.5 font-mono text-xs text-band shadow-lg"
+              class="pointer-events-none absolute z-10 hidden -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-md bg-ink px-2.5 py-1.5 font-mono text-xs text-white shadow-lg"
             >
             </div>
 
@@ -72,27 +72,27 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
                 type="button"
                 id="zoom-in"
                 aria-label="Zoom in"
-                class="flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#0a0a0a]/80 font-mono text-base leading-none text-white/80 backdrop-blur transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean"
+                class="flex h-8 w-8 items-center justify-center rounded-md border border-ink/15 bg-white/80 font-mono text-base leading-none text-ink/80 backdrop-blur transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deyoung"
                 >+</button
               >
               <button
                 type="button"
                 id="zoom-out"
                 aria-label="Zoom out"
-                class="flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#0a0a0a]/80 font-mono text-base leading-none text-white/80 backdrop-blur transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean"
+                class="flex h-8 w-8 items-center justify-center rounded-md border border-ink/15 bg-white/80 font-mono text-base leading-none text-ink/80 backdrop-blur transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deyoung"
                 >&minus;</button
               >
               <button
                 type="button"
                 id="zoom-reset"
                 aria-label="Reset view"
-                class="flex h-8 w-8 items-center justify-center rounded-md border border-white/15 bg-[#0a0a0a]/80 font-mono text-[10px] uppercase leading-none tracking-wide text-white/80 backdrop-blur transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean"
+                class="flex h-8 w-8 items-center justify-center rounded-md border border-ink/15 bg-white/80 font-mono text-[10px] uppercase leading-none tracking-wide text-ink/80 backdrop-blur transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deyoung"
                 >Reset</button
               >
             </div>
           </div>
 
-          <p id="caption" class="mt-4 max-w-[70ch] text-sm leading-relaxed text-white/70" aria-live="polite">
+          <p id="caption" class="mt-4 max-w-[70ch] text-sm leading-relaxed text-ink/70" aria-live="polite">
             Loading…
           </p>
         </div>
@@ -100,7 +100,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <!-- Legend / top places list -->
         <aside>
           <div id="points-legend">
-            <h2 class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">
+            <h2 class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-ink/60">
               Top 15 places
             </h2>
             <ol id="legend-list" class="m-0 flex list-none flex-col gap-1 p-0">
@@ -110,18 +110,29 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
           <!-- Density-mode legend: log colour scale (populated at runtime) -->
           <div id="density-legend" hidden>
-            <h2 class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-white/60">
+            <h2 class="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-ink/60">
               Objects per hexagon
             </h2>
             <div id="density-scale" class="h-3 w-full rounded-full"></div>
-            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-white/50">
+            <div class="mt-1.5 flex justify-between font-mono text-[11px] text-ink/50">
               <span>1</span>
               <span id="density-max">—</span>
             </div>
-            <p class="mt-4 max-w-[40ch] text-[13px] leading-relaxed text-white/60">
+            <!-- Clicked-hexagon breakdown (sits directly under the scale so it's
+                 visible without scrolling once a cell is chosen) -->
+            <div id="hex-breakdown" class="mt-5" hidden>
+              <h3 id="hex-breakdown-head" class="mb-2 font-mono text-xs uppercase tracking-[0.2em] text-ink/60"></h3>
+              <ol
+                id="hex-breakdown-list"
+                class="m-0 flex max-h-[420px] list-none flex-col gap-0.5 overflow-y-auto p-0 pr-1"
+              ></ol>
+            </div>
+
+            <p class="mt-5 max-w-[40ch] text-[13px] leading-relaxed text-ink/60">
               Each hexagon pools the works from every place that falls inside it,
               coloured on a log scale so sparse regions stay visible next to
-              Europe and the US. Hover a cell for its count.
+              Europe and the US. Hover for the count; click a cell for the
+              breakdown.
             </p>
           </div>
         </aside>
@@ -147,6 +158,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
     const HEIGHT = 500;
     const MIN_R = 2;
     const MAX_R = 40;
+
+    // Design tokens (from global.css) — no colour literals in this script.
+    const rootStyle = getComputedStyle(document.documentElement);
+    const token = (name) => rootStyle.getPropertyValue(name).trim();
+    const MAP = {
+      surface: token("--color-map-surface"),
+      landFill: token("--map-land-fill"),
+      landStroke: token("--map-land-stroke"),
+      graticule: token("--map-graticule"),
+      graticuleAxis: token("--map-graticule-axis"),
+      markerStroke: token("--map-marker-stroke"),
+      hexStroke: token("--map-hex-stroke"),
+      hexFillOpacity: token("--map-hex-fill-opacity"),
+    };
 
     // --- Zoom / pan state ---------------------------------------------
     // viewBox is [x, y, w, h] in world units (0..1000 / 0..500).
@@ -263,7 +288,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         const effectiveR = (baseR / shrink) * boost;
         circle.setAttribute("r", String(effectiveR));
         if (isHighlighted) {
-          circle.setAttribute("stroke", "#fff");
+          circle.setAttribute("stroke", MAP.markerStroke);
           circle.setAttribute("stroke-width", String(2 / shrink));
         }
       }
@@ -277,20 +302,20 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 
     function drawGraticule() {
       const g = document.createElementNS(SVG_NS, "g");
-      g.setAttribute("stroke", "rgba(255,255,255,0.08)");
+      g.setAttribute("stroke", MAP.graticule);
       g.setAttribute("stroke-width", "1");
 
-      // Background panel
+      // Background panel (light)
       const bg = document.createElementNS(SVG_NS, "rect");
       bg.setAttribute("x", "0");
       bg.setAttribute("y", "0");
       bg.setAttribute("width", String(WIDTH));
       bg.setAttribute("height", String(HEIGHT));
-      bg.setAttribute("fill", "#0a0a0a");
+      bg.setAttribute("fill", MAP.surface);
       bg.setAttribute("stroke", "none");
       svg.appendChild(bg);
 
-      // Equator + prime meridian slightly brighter
+      // Equator + prime meridian slightly darker
       for (let lng = -180; lng <= 180; lng += 30) {
         const { x } = project(0, lng);
         const line = document.createElementNS(SVG_NS, "line");
@@ -298,7 +323,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         line.setAttribute("y1", "0");
         line.setAttribute("x2", String(x));
         line.setAttribute("y2", String(HEIGHT));
-        if (lng === 0) line.setAttribute("stroke", "rgba(255,255,255,0.16)");
+        if (lng === 0) line.setAttribute("stroke", MAP.graticuleAxis);
         g.appendChild(line);
       }
       for (let lat = -90; lat <= 90; lat += 30) {
@@ -308,7 +333,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         line.setAttribute("y1", String(y));
         line.setAttribute("x2", String(WIDTH));
         line.setAttribute("y2", String(y));
-        if (lat === 0) line.setAttribute("stroke", "rgba(255,255,255,0.16)");
+        if (lat === 0) line.setAttribute("stroke", MAP.graticuleAxis);
         g.appendChild(line);
       }
       svg.appendChild(g);
@@ -322,8 +347,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         const land = await res.json();
         const path = document.createElementNS(SVG_NS, "path");
         path.setAttribute("d", land.d);
-        path.setAttribute("fill", "rgba(255,255,255,0.06)");
-        path.setAttribute("stroke", "rgba(255,255,255,0.22)");
+        path.setAttribute("fill", MAP.landFill);
+        path.setAttribute("stroke", MAP.landStroke);
         path.setAttribute("stroke-width", "0.6");
         path.setAttribute("vector-effect", "non-scaling-stroke");
         path.setAttribute("pointer-events", "none");
@@ -439,7 +464,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
           const py = ((y - vb.y) / vb.h) * svgRect.height + (svgRect.top - panelRect.top);
           showTooltip(px, py, label);
           const zoomFactor = WIDTH / vb.w;
-          circle.setAttribute("stroke", "#fff");
+          circle.setAttribute("stroke", MAP.markerStroke);
           circle.setAttribute("stroke-width", String(1.5 / zoomFactor));
           circle.setAttribute("fill-opacity", "0.9");
           circle.setAttribute("data-highlighted", "1");
@@ -488,13 +513,13 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         const k = hexKey(cx, cy);
         let b = bins.get(k);
         if (!b) {
-          b = { cx, cy, n: 0, places: 0, top: null };
+          b = { cx, cy, n: 0, list: [] };
           bins.set(k, b);
         }
         b.n += p.n;
-        b.places += 1;
-        if (!b.top || p.n > b.top.n) b.top = p;
+        b.list.push(p);
       }
+      for (const b of bins.values()) b.list.sort((a, z) => z.n - a.n);
       const hexMax = Math.max(...Array.from(bins.values()).map((b) => b.n));
       const logMax = Math.log(hexMax + 1);
 
@@ -509,37 +534,89 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         return d + "Z";
       }
 
+      // Render a clicked hexagon's full place breakdown into the side panel.
+      const breakdownEl = document.getElementById("hex-breakdown");
+      const breakdownHead = document.getElementById("hex-breakdown-head");
+      const breakdownList = document.getElementById("hex-breakdown-list");
+      let selectedHex = null; // the currently-selected <path>, to un-mark it
+      function showBreakdown(hexEl, b, header) {
+        if (!breakdownEl) return;
+        if (selectedHex && selectedHex !== hexEl) {
+          selectedHex.removeAttribute("data-selected");
+          selectedHex.setAttribute("stroke", MAP.hexStroke);
+          selectedHex.setAttribute("stroke-width", "0.5");
+        }
+        selectedHex = hexEl;
+        hexEl.setAttribute("data-selected", "1");
+        hexEl.setAttribute("stroke", MAP.markerStroke);
+        hexEl.setAttribute("stroke-width", "1.5");
+        breakdownHead.textContent = header;
+        breakdownList.innerHTML = "";
+        for (const p of b.list) {
+          const li = document.createElement("li");
+          li.className =
+            "flex items-center justify-between gap-3 rounded px-2 py-1 font-mono text-[13px] text-ink/80 odd:bg-ink/[0.04]";
+          li.innerHTML = `<span class="truncate">${p.place}</span><span class="shrink-0 tabular-nums text-ink/50">${p.n.toLocaleString()}</span>`;
+          breakdownList.appendChild(li);
+        }
+        breakdownEl.hidden = false;
+      }
+      // Deselect: hide the breakdown, restore the plain density legend.
+      function clearBreakdown() {
+        if (selectedHex) {
+          selectedHex.removeAttribute("data-selected");
+          selectedHex.setAttribute("stroke", MAP.hexStroke);
+          selectedHex.setAttribute("stroke-width", "0.5");
+          selectedHex = null;
+        }
+        if (breakdownEl) breakdownEl.hidden = true;
+      }
+      // Click on empty map (not a hex) clears the selection.
+      svg.addEventListener("click", (e) => {
+        if (!(e.target instanceof Element) || !e.target.closest('[data-layer="hex"] path')) {
+          clearBreakdown();
+        }
+      });
+      // Escape clears it too.
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") clearBreakdown();
+      });
+
       for (const b of bins.values()) {
         const t = Math.log(b.n + 1) / logMax; // log-scaled colour
         const hex = document.createElementNS(SVG_NS, "path");
         hex.setAttribute("d", hexPath(b.cx, b.cy, HEX_R * 0.95));
         hex.setAttribute("fill", colorFor(t));
-        hex.setAttribute("fill-opacity", "0.82");
-        hex.setAttribute("stroke", "rgba(10,10,10,0.6)");
+        hex.setAttribute("fill-opacity", MAP.hexFillOpacity);
+        hex.setAttribute("stroke", MAP.hexStroke);
         hex.setAttribute("stroke-width", "0.5");
         hex.setAttribute("vector-effect", "non-scaling-stroke");
         hex.setAttribute("tabindex", "0");
         hex.setAttribute("role", "button");
-        const lbl = `${b.n.toLocaleString()} object${b.n === 1 ? "" : "s"} from ${b.places} place${b.places === 1 ? "" : "s"} (e.g. ${b.top.place})`;
-        hex.setAttribute("aria-label", lbl);
+        const nPlaces = b.list.length;
+        const header = `${b.n.toLocaleString()} object${b.n === 1 ? "" : "s"} from ${nPlaces} place${nPlaces === 1 ? "" : "s"}`;
+        hex.setAttribute("aria-label", `${header}. Click for breakdown.`);
         function hEnter() {
           const panelRect = panel.getBoundingClientRect();
           const svgRect = svg.getBoundingClientRect();
           const px = ((b.cx - vb.x) / vb.w) * svgRect.width + (svgRect.left - panelRect.left);
           const py = ((b.cy - vb.y) / vb.h) * svgRect.height + (svgRect.top - panelRect.top);
-          showTooltip(px, py, lbl);
-          hex.setAttribute("stroke", "#fff");
+          showTooltip(px, py, header);
+          hex.setAttribute("stroke", MAP.markerStroke);
           hex.setAttribute("stroke-width", "1.5");
         }
         function hLeave() {
           hideTooltip();
-          hex.setAttribute("stroke", "rgba(10,10,10,0.6)");
+          if (hex.getAttribute("data-selected") === "1") return; // keep selection outline
+          hex.setAttribute("stroke", MAP.hexStroke);
           hex.setAttribute("stroke-width", "0.5");
         }
         hex.addEventListener("mouseenter", hEnter);
         hex.addEventListener("mouseleave", hLeave);
         hex.addEventListener("focus", hEnter);
         hex.addEventListener("blur", hLeave);
+        // Click → show the full place breakdown in the side panel.
+        hex.addEventListener("click", () => showBreakdown(hex, b, header));
         hexGroup.appendChild(hex);
       }
       svg.appendChild(hexGroup);
@@ -562,7 +639,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       const modeDensity = document.getElementById("mode-density");
       const densityLegend = document.getElementById("density-legend");
       const pointsLegend = document.getElementById("points-legend");
-      function setMode(mode) {
+      function setMode(mode, updateHash = true) {
         const density = mode === "density";
         dotsGroup.style.display = density ? "none" : "";
         hexGroup.style.display = density ? "" : "none";
@@ -570,10 +647,21 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         modeDensity.setAttribute("aria-pressed", String(density));
         if (densityLegend) densityLegend.hidden = !density;
         if (pointsLegend) pointsLegend.hidden = density;
+        clearBreakdown(); // drop any hex selection when switching modes
         hideTooltip();
+        // Reflect the mode in the URL hash (#points / #density) for deep-linking.
+        if (updateHash) {
+          const hash = density ? "#density" : "#points";
+          if (location.hash !== hash) history.replaceState(null, "", hash);
+        }
       }
       modePoints.addEventListener("click", () => setMode("points"));
       modeDensity.addEventListener("click", () => setMode("density"));
+
+      // Restore mode from the URL hash on load, and follow back/forward + edits.
+      const modeFromHash = () => (location.hash === "#density" ? "density" : "points");
+      setMode(modeFromHash(), false);
+      window.addEventListener("hashchange", () => setMode(modeFromHash(), false));
 
       // Legend: top 15 by n, cross-highlights the matching dot
       const top15 = mapped
@@ -586,8 +674,8 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className =
-          "flex w-full items-center justify-between gap-3 rounded-md px-2.5 py-1.5 text-left font-mono text-[13px] text-white/80 transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cerulean motion-reduce:transition-none";
-        btn.innerHTML = `<span class="truncate">${p.place}</span><span class="shrink-0 tabular-nums text-white/50">${p.n.toLocaleString()}</span>`;
+          "flex w-full items-center justify-between gap-3 rounded-md px-2.5 py-1.5 text-left font-mono text-[13px] text-ink/80 transition-colors hover:bg-ink/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-deyoung motion-reduce:transition-none";
+        btn.innerHTML = `<span class="truncate">${p.place}</span><span class="shrink-0 tabular-nums text-ink/50">${p.n.toLocaleString()}</span>`;
 
         const circle = circleById.get(p.index);
 
@@ -661,33 +749,51 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       let lastX = 0;
       let lastY = 0;
 
+      // Only start a real pan (and capture the pointer) once the pointer has
+      // actually moved past a small threshold. A plain tap therefore never
+      // captures, so its click still reaches the hex/dot underneath.
+      let pointerDown = false;
+      let captured = false;
+      let downId = 0;
+      const DRAG_THRESHOLD = 4; // px
+
       svg.addEventListener("pointerdown", (e) => {
-        // Ignore multi-touch (leave room for pinch-to-zoom / avoid pan fighting it).
         if (e.pointerType === "touch" && e.isPrimary === false) return;
-        dragging = true;
+        pointerDown = true;
+        dragging = false;
+        captured = false;
+        downId = e.pointerId;
         lastX = e.clientX;
         lastY = e.clientY;
-        svg.setPointerCapture(e.pointerId);
-        svg.classList.remove("cursor-grab");
-        svg.classList.add("cursor-grabbing");
       });
       svg.addEventListener("pointermove", (e) => {
-        if (!dragging) return;
+        if (!pointerDown) return;
         const dx = e.clientX - lastX;
         const dy = e.clientY - lastY;
+        if (!dragging && Math.abs(dx) + Math.abs(dy) < DRAG_THRESHOLD) return;
+        if (!captured) {
+          captured = true;
+          dragging = true;
+          svg.setPointerCapture(downId);
+          svg.classList.remove("cursor-grab");
+          svg.classList.add("cursor-grabbing");
+        }
         lastX = e.clientX;
         lastY = e.clientY;
         panBy(dx, dy);
       });
       function endDrag(e) {
-        if (!dragging) return;
+        pointerDown = false;
         dragging = false;
         svg.classList.remove("cursor-grabbing");
         svg.classList.add("cursor-grab");
-        try {
-          svg.releasePointerCapture(e.pointerId);
-        } catch {
-          /* no-op: pointer capture may already be released */
+        if (captured) {
+          try {
+            svg.releasePointerCapture(e.pointerId);
+          } catch {
+            /* no-op: pointer capture may already be released */
+          }
+          captured = false;
         }
       }
       svg.addEventListener("pointerup", endDrag);

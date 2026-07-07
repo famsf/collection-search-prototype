@@ -28,6 +28,19 @@
   --color-amethyst: #6653a6;  /* amethyst-50, brighter purple */
   --color-yellow: #f0cb09;    /* brand yellow accent */
 
+  /* Map (light mode) tokens, referenced by the SVG-drawing JS via var(--map-*)
+     so no colour literals live in the script. Derived from --color-ink so the
+     whole map tracks the base ink token (change ink once, map follows). */
+  --color-map-surface: color-mix(in srgb, var(--color-ink) 8%, white); /* ocean / panel */
+  --color-map-page: color-mix(in srgb, var(--color-ink) 4%, white); /* page behind map */
+  --map-land-fill: color-mix(in srgb, var(--color-ink) 7%, transparent);
+  --map-land-stroke: color-mix(in srgb, var(--color-ink) 30%, transparent);
+  --map-graticule: color-mix(in srgb, var(--color-ink) 8%, transparent);
+  --map-graticule-axis: color-mix(in srgb, var(--color-ink) 16%, transparent);
+  --map-marker-stroke: var(--color-ink); /* dot/hex highlight outline */
+  --map-hex-stroke: color-mix(in srgb, var(--color-ink) 35%, transparent); /* hex edges */
+  --map-hex-fill-opacity: 0.62; /* hexes semi-transparent so land shows through */
+
   --font-grotesk: "akzidenz-grotesk-next-pro", "Helvetica Neue", Arial, sans-serif;
   --font-serif: "Signifier", Georgia, "Times New Roman", serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
