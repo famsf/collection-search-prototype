@@ -65,14 +65,22 @@ def build_lookups():
         # stand-in via the cities index below. Store name -> iso for a second pass.
         countries[c["name"].lower()] = c["iso"]
 
-    # cities: name -> (lat, lng) keeping the largest-population match
+    # cities: name -> (lat, lng, pop) keeping the largest-population match, AND
+    # a country-scoped index (name, iso) -> (lat, lng, pop) so a city can be
+    # disambiguated within the country its hierarchy path names (e.g. "Salem"
+    # in the US vs in India).
     cities = {}
-    citycoords_by_iso_capital = {}
+    cities_by_country = {}
+    city_iso = {}  # name -> countrycode of the global best (largest-pop) match
     for c in gc.get_cities().values():
         key = c["name"].lower()
         lat, lng, pop = c["latitude"], c["longitude"], c.get("population", 0)
         if key not in cities or pop > cities[key][2]:
             cities[key] = (lat, lng, pop)
+            city_iso[key] = c["countrycode"]
+        ck = (key, c["countrycode"])
+        if ck not in cities_by_country or pop > cities_by_country[ck][2]:
+            cities_by_country[ck] = (lat, lng, pop)
 
     # country centroid ~ its most populous city
     country_centroid = {}
@@ -83,7 +91,7 @@ def build_lookups():
         if cur is None or pop > cur[2]:
             country_centroid[iso] = (c["latitude"], c["longitude"], pop)
 
-    return gc, countries, cities, country_centroid
+    return gc, countries, cities, country_centroid, cities_by_country, city_iso
 
 
 # US states + major subnational regions: the gazetteer has no admin-1 units, so
@@ -194,9 +202,37 @@ ALIASES = {
 }
 
 
-def geocode_one(name, path, countries, cities, country_centroid):
+# Terms the FAMSF hierarchy uses as REGION groupings that collide with real
+# country names — don't treat them as the expected country. "Luxembourg" here
+# groups the Low Countries (Belgium/Netherlands cities sit under it); "Georgia"
+# could mean the US state or the country, so leave it to the city/state logic.
+AMBIGUOUS_PATH_COUNTRIES = {"luxembourg", "georgia"}
+
+
+def expected_country_iso(path, countries):
+    """The ISO of the country named in the hierarchy path, if any.
+
+    Prefer the SHALLOWEST country in the path (closest to World) — the top-level
+    country is the reliable one; a deeper term that happens to share a country
+    name (e.g. a "Luxembourg" province) must not win. Region groupings that
+    collide with country names are skipped.
+    """
+    for term in path or []:  # shallow -> deep
+        t = term.strip().lower()
+        if t in AMBIGUOUS_PATH_COUNTRIES:
+            continue
+        iso = countries.get(t)
+        if iso:
+            return iso
+    return None
+
+
+def geocode_one(
+    name, path, countries, cities, country_centroid, cities_by_country, city_iso
+):
     """Return (lat, lng, match_level) or (None, None, None)."""
     n = name.strip().lower()
+    exp_iso = expected_country_iso(path, countries)
 
     if n in COLLISIONS:
         lat, lng = COLLISIONS[n]
@@ -218,10 +254,18 @@ def geocode_one(name, path, countries, cities, country_centroid):
         lat, lng = REGION_CENTROIDS[name]
         return lat, lng, "region"
 
-    # 3) city
+    # 3) city — prefer a same-named city INSIDE the country the path names, so
+    #    "Salem, US" doesn't resolve to Salem, India, etc.
+    if exp_iso and (n, exp_iso) in cities_by_country:
+        lat, lng, _ = cities_by_country[(n, exp_iso)]
+        return lat, lng, "city-in-country"
     if n in cities:
-        lat, lng, _ = cities[n]
-        return lat, lng, "city"
+        # Reject a global city match that sits in a DIFFERENT country than the
+        # path names (e.g. path says US but the only "Ipswich" in the gazetteer
+        # is in England) — fall through to the state/country centroid instead.
+        if not (exp_iso and city_iso.get(n) and city_iso[n] != exp_iso):
+            lat, lng, _ = cities[n]
+            return lat, lng, "city"
 
     # 4) walk the hierarchy path upward (skip the leaf == name itself and "World")
     for term in reversed(path or []):
@@ -238,9 +282,19 @@ def geocode_one(name, path, countries, cities, country_centroid):
             cc = country_centroid.get(countries[t])
             if cc:
                 return cc[0], cc[1], "path-country"
-        if t in cities:
+        if exp_iso and (t, exp_iso) in cities_by_country:
+            lat, lng, _ = cities_by_country[(t, exp_iso)]
+            return lat, lng, "path-city-in-country"
+        if t in cities and not (
+            exp_iso and city_iso.get(t) and city_iso[t] != exp_iso
+        ):
             lat, lng, _ = cities[t]
             return lat, lng, "path-city"
+
+    # 5) last resort: if the path names a country, use its centroid
+    if exp_iso and country_centroid.get(exp_iso):
+        cc = country_centroid[exp_iso]
+        return cc[0], cc[1], "path-country-fallback"
 
     return None, None, None
 
@@ -249,7 +303,7 @@ def main():
     rows = json.loads(RAW.read_text())
     print(f"loaded {len(rows)} places", flush=True)
 
-    _, countries, cities, country_centroid = build_lookups()
+    _, countries, cities, country_centroid, cities_by_country, city_iso = build_lookups()
     print(
         f"gazetteer: {len(countries)} countries, {len(cities)} cities", flush=True
     )
@@ -261,7 +315,13 @@ def main():
     with OUT.open("w") as f:
         for i, r in enumerate(rows):
             lat, lng, level = geocode_one(
-                r["place"], r.get("path"), countries, cities, country_centroid
+                r["place"],
+                r.get("path"),
+                countries,
+                cities,
+                country_centroid,
+                cities_by_country,
+                city_iso,
             )
             total_objs += r["n"]
             if lat is not None:
