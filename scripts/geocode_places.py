@@ -344,6 +344,29 @@ def dedupe_rows(rows):
     return out
 
 
+# Continent / broad-region names (path depth 1 under World, or macro regions).
+CONTINENTS = {
+    "world", "africa", "europe", "asia", "north america", "south america",
+    "north and central america", "central america", "oceania", "antarctica",
+    "the americas",
+}
+
+
+def classify_tier(name, path, level, countries):
+    """Bucket a place into continent / country / region / city for the grouped
+    breakdown. Uses the gazetteer + the hierarchy path depth."""
+    n = name.strip().lower()
+    if n in CONTINENTS:
+        return "continent"
+    if n in countries or level in ("country", "path-country", "path-country-fallback"):
+        return "country"
+    # City-level matches (own name resolved to a city in the gazetteer).
+    if level in ("city", "city-in-country", "path-city", "path-city-in-country"):
+        return "city"
+    # Otherwise a sub-national region/state/province (aliases, path-region, etc.)
+    return "region"
+
+
 def main():
     rows = json.loads(RAW.read_text())
     before = len(rows)
@@ -380,6 +403,7 @@ def main():
                 "lat": round(lat, 3) if lat is not None else None,
                 "lng": round(lng, 3) if lng is not None else None,
                 "match": level,
+                "tier": classify_tier(r["place"], r.get("path"), level, countries),
                 "path": r.get("path"),
             }
             f.write(json.dumps(rec, ensure_ascii=False) + "\n")

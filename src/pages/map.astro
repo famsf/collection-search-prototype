@@ -552,12 +552,29 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         hexEl.setAttribute("stroke-width", "1.5");
         breakdownHead.textContent = header;
         breakdownList.innerHTML = "";
-        for (const p of b.list) {
-          const li = document.createElement("li");
-          li.className =
-            "flex items-center justify-between gap-3 rounded px-2 py-1 font-mono text-[13px] text-ink/80 odd:bg-ink/[0.04]";
-          li.innerHTML = `<span class="truncate">${p.place}</span><span class="shrink-0 tabular-nums text-ink/50">${p.n.toLocaleString()}</span>`;
-          breakdownList.appendChild(li);
+        // Group places by tier so a country doesn't sit flat next to its own
+        // states/cities. Sections render in coarse→fine order.
+        const TIERS = [
+          ["continent", "Continents & regions"],
+          ["country", "Countries"],
+          ["region", "States & regions"],
+          ["city", "Cities"],
+        ];
+        for (const [tier, label] of TIERS) {
+          const items = b.list.filter((p) => (p.tier || "region") === tier);
+          if (!items.length) continue;
+          const head = document.createElement("li");
+          head.className =
+            "mt-2 mb-0.5 px-2 font-mono text-[10px] uppercase tracking-[0.18em] text-ink/45 first:mt-0";
+          head.textContent = label;
+          breakdownList.appendChild(head);
+          for (const p of items) {
+            const li = document.createElement("li");
+            li.className =
+              "flex items-center justify-between gap-3 rounded px-2 py-1 font-mono text-[13px] text-ink/80";
+            li.innerHTML = `<span class="truncate">${p.place}</span><span class="shrink-0 tabular-nums text-ink/50">${p.n.toLocaleString()}</span>`;
+            breakdownList.appendChild(li);
+          }
         }
         breakdownEl.hidden = false;
       }
